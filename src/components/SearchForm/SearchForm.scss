@@ -1,0 +1,39 @@
+@import "src/styles/colors";
+
+.search-form {
+  color: $white;
+
+  &-label {
+    font-size: 40px;
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+
+  input {
+    height: 57px;
+    margin-right: 10px;
+    font-size: 20px;
+    background: $black;
+    color: $white;
+
+    &:focus {
+      background: $black;
+      color: $white;
+    }
+
+    &::placeholder {
+      color: $light-gray;
+    }
+  }
+
+  button {
+    background: $red;
+    text-transform: uppercase;
+    padding: 0 50px;
+    font-size: 20px;
+
+    &:hover {
+      background: $red;
+    }
+  }
+}

@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
+import Counter from './components/Counter/Counter';
+import GenreSelect from './components/GenreSelect/GenreSelect';
+import SearchForm from './components/SearchForm/SearchForm';
 import './App.scss';
 
 function App() {
+  const genres = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
+
+  const handleSearch = (text: string) => {
+    console.log('searching for item...', text);
+  }
+
+  const handleGenreSelect = (genre: string) => {
+    console.log('genre selected', genre);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-header container mb-2 d-flex flex-column">
+        <div className="App-search-container p-5">
+          <SearchForm onSearch={handleSearch}/>
+        </div>
+      </div>
+      <div className="App-body container">
+        <GenreSelect genres={genres} initialSelectedGenre={genres[1]} onSelect={handleGenreSelect}/>
+        <div className="m-3 mt-5">
+          <Counter initialValue={1}/>
+        </div>
+      </div>
     </div>
   );
 }
