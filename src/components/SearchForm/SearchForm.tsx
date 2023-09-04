@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
 import './SearchForm.scss';
 
-interface Props {
+interface SearchFormProps {
   initialQuery?: string;
   onSearch: (text: string) => void;
 }
 
-function SearchForm({initialQuery = '', onSearch}: Props) {
+function SearchForm({initialQuery = '', onSearch}: SearchFormProps) {
   const [query, setQuery] = useState(initialQuery);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
