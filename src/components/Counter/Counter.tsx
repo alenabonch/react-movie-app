@@ -30,9 +30,9 @@ class Counter extends React.Component<CounterProps, CounterState> {
 
   render() {
     return React.createElement('div', null,
-        React.createElement('p', null, `Count: ${this.state.count}`),
-        React.createElement('button', {onClick: this.handleDecrement}, "Decrement"),
-        React.createElement('button', {onClick: this.handleIncrement}, "Increment")
+        React.createElement('h3', null, `Count: ${this.state.count}`),
+        React.createElement('button', {onClick: this.handleDecrement, className: 'btn btn-outline-danger'}, "Decrement"),
+        React.createElement('button', {onClick: this.handleIncrement, className: 'btn btn-outline-danger m-2'}, "Increment")
     );
   }
 }
