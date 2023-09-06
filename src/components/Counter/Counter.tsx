@@ -29,11 +29,13 @@ class Counter extends React.Component<CounterProps, CounterState> {
   }
 
   render() {
-    return React.createElement('div', null,
-        React.createElement('h3', null, `Count: ${this.state.count}`),
-        React.createElement('button', {onClick: this.handleDecrement, className: 'btn btn-outline-danger'}, "Decrement"),
-        React.createElement('button', {onClick: this.handleIncrement, className: 'btn btn-outline-danger m-2'}, "Increment")
-    );
+    return (
+        <div>
+          <h3>Count: <span data-testid="counter">{this.state.count}</span></h3>
+          <button onClick={this.handleDecrement} className="btn btn-outline-danger">Decrement</button>
+          <button onClick={this.handleIncrement} className="btn btn-outline-danger m-2">Increment</button>
+        </div>
+    )
   }
 }
 

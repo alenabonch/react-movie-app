@@ -21,7 +21,8 @@ function GenreSelect({genres, initialSelectedGenre, onSelect}: GenreSelectProps)
           <button
               key={genre}
               onClick={() => handleGenreSelect(genre)}
-              className={genre === selectedGenre ? 'active' : ''}>
+              className={genre === selectedGenre ? 'active' : ''}
+              data-testid="genre-button">
             {genre}
           </button>
       ))}

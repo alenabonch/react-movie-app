@@ -23,7 +23,7 @@ function App() {
         </div>
       </div>
       <div className="App-body container">
-        <GenreSelect genres={genres} initialSelectedGenre={genres[1]} onSelect={handleGenreSelect}/>
+        <GenreSelect genres={genres} initialSelectedGenre={genres[0]} onSelect={handleGenreSelect}/>
         <div className="m-3 mt-5">
           <Counter initialValue={1}/>
         </div>
