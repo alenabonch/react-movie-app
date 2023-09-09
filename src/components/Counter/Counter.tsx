@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../Button/Button';
 
 interface CounterProps {
   initialValue: number;
@@ -32,8 +33,8 @@ class Counter extends React.Component<CounterProps, CounterState> {
     return (
         <div>
           <h3>Count: <span data-testid="counter">{this.state.count}</span></h3>
-          <button onClick={this.handleDecrement} className="btn btn-outline-danger">Decrement</button>
-          <button onClick={this.handleIncrement} className="btn btn-outline-danger m-2">Increment</button>
+          <Button onClick={this.handleDecrement} primary={false} label="Decrement" size="small"></Button>
+          <Button onClick={this.handleIncrement} primary={false} label="Increment" size="small" classes={['m-2']}></Button>
         </div>
     )
   }

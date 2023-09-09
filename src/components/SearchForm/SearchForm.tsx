@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import './SearchForm.scss';
+import { Button } from '../Button/Button';
 
 interface SearchFormProps {
   initialQuery?: string;
@@ -37,7 +38,12 @@ function SearchForm({initialQuery = '', onSearch}: SearchFormProps) {
             onKeyDown={handleKeyDown}
             placeholder="What do you want to watch?"
         />
-        <button onClick={handleSearchClick} className="btn btn-primary">Search</button>
+        <Button
+            label="Search"
+            onClick={handleSearchClick}
+            primary
+            size="large"
+        />
       </div>
     </div>
   );

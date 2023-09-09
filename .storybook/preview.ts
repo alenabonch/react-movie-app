@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/react";
+import 'bootstrap/dist/css/bootstrap.css';
 import '../src/index.scss';
 
 const preview: Preview = {
@@ -9,6 +10,9 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/,
       },
+    },
+    backgrounds: {
+      default: 'dark',
     },
   },
 };
