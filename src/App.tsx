@@ -3,6 +3,7 @@ import GenreSelect from './components/GenreSelect/GenreSelect';
 import MovieTile, { MovieInfo } from './components/MovieTile/MovieTile';
 import SearchForm from './components/SearchForm/SearchForm';
 import './App.scss';
+import SortControl from './components/SortControl/SortControl';
 
 function App() {
   const genres = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
@@ -20,19 +21,26 @@ function App() {
     console.log('genre selected', genre);
   }
 
+  const handleSortChange = (sort: string) => {
+    console.log('sort changed', sort);
+  }
+
   const handleTileClick = (id: string) => {
     console.log('movie clicked', id);
   }
 
   return (
-    <div className="App">
+    <div className="App p-5">
       <div className="App-header container mb-2 d-flex flex-column">
         <div className="App-search-container p-5">
           <SearchForm onSearch={handleSearch}/>
         </div>
       </div>
       <div className="App-body container px-5">
-        <GenreSelect genres={genres} initialSelectedGenre={genres[0]} onSelect={handleGenreSelect}/>
+        <div className="d-flex justify-content-between">
+          <GenreSelect genres={genres} initialSelectedGenre={genres[0]} onSelect={handleGenreSelect}/>
+          <SortControl initialSort="title" onSortChange={handleSortChange}/>
+        </div>
         <MovieTile movieInfo={movies[0]} onClick={handleTileClick}></MovieTile>
       </div>
     </div>

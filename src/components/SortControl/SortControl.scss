@@ -1,0 +1,18 @@
+@import "src/styles/colors";
+
+.sort-control {
+  color: $white;
+
+  &__label {
+    opacity: 0.6;
+    margin-right: 35px;
+    text-transform: uppercase;
+  }
+
+  &__select {
+    background-color: transparent;
+    color: white;
+    border: none;
+    padding: 5px;
+  }
+}

@@ -42,7 +42,7 @@ function SearchForm({initialQuery = '', onSearch}: SearchFormProps) {
             label="Search"
             onClick={handleSearchClick}
             primary
-            size="large"
+            size="medium"
         />
       </div>
     </div>
