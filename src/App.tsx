@@ -9,7 +9,7 @@ function App() {
   const genres = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
   const movies: MovieInfo[] = [
       {id: '1', name: 'Pulp Fiction', genres: ['Action', 'Adventure'], year: '2004', imageUrl: 'https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg'},
-      {id: '2', name: 'Bohemian Rhapsody', genres: ['Drama', 'Biography', 'Music'], year: '2003', imageUrl: 'https://foreveryoungadult.com/wp-content/uploads/2021/11/cover-bohemian-rhapsody.jpg'},
+      {id: '2', name: 'Bohemian Rhapsody', genres: ['Drama', 'Biography', 'Music'], year: '2003', imageUrl: 'https://m.media-amazon.com/images/I/71kuEWe9PYL._SY445_.jpg'},
       {id: '3', name: 'Inception', genres: ['Action', 'Adventure'], year: '2003', imageUrl: 'https://m.media-amazon.com/images/I/61xzvfJiNkL._AC_.jpg'}
   ];
 
@@ -49,7 +49,11 @@ function App() {
           <GenreSelect genres={genres} initialSelectedGenre={genres[0]} onSelect={handleGenreSelect}/>
           <SortControl initialSort="title" onSortChange={handleSortChange}/>
         </div>
-        <MovieTile movieInfo={movies[0]} onClick={handleTileClick} onEdit={handleEditClick} onDelete={handleDeleteClick}></MovieTile>
+        <div className="d-flex justify-content-between flex-wrap py-3">
+          <MovieTile movieInfo={movies[0]} onClick={handleTileClick} onEdit={handleEditClick} onDelete={handleDeleteClick}></MovieTile>
+          <MovieTile movieInfo={movies[1]} onClick={handleTileClick} onEdit={handleEditClick} onDelete={handleDeleteClick}></MovieTile>
+          <MovieTile movieInfo={movies[2]} onClick={handleTileClick} onEdit={handleEditClick} onDelete={handleDeleteClick}></MovieTile>
+        </div>
       </div>
     </div>
   );
