@@ -29,6 +29,14 @@ function App() {
     console.log('movie clicked', id);
   }
 
+  const handleEditClick = (id: string) => {
+    console.log('Edit movie clicked', id);
+  }
+
+  const handleDeleteClick = (id: string) => {
+    console.log('Delete movie clicked', id);
+  }
+
   return (
     <div className="App p-5">
       <div className="App-header container mb-2 d-flex flex-column">
@@ -41,7 +49,7 @@ function App() {
           <GenreSelect genres={genres} initialSelectedGenre={genres[0]} onSelect={handleGenreSelect}/>
           <SortControl initialSort="title" onSortChange={handleSortChange}/>
         </div>
-        <MovieTile movieInfo={movies[0]} onClick={handleTileClick}></MovieTile>
+        <MovieTile movieInfo={movies[0]} onClick={handleTileClick} onEdit={handleEditClick} onDelete={handleDeleteClick}></MovieTile>
       </div>
     </div>
   );

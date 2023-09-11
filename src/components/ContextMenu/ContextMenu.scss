@@ -1,0 +1,32 @@
+@import "src/styles/colors";
+
+.context-menu {
+  &__button {
+    font-size: 20px;
+    color: $white;
+    width: 40px;
+    height: 40px;
+    background-color: $dark-gray;
+    border-radius: 50%;
+    border: none;
+    opacity: 0.85;
+  }
+
+  &__menu {
+    top: 42px;
+    right: 0;
+  }
+
+  &__option {
+    min-width: 160px;
+    width: 100%;
+    color: $white;
+    background: $dark-gray;
+    padding: 8px 40px;
+    border: none;
+
+    &:hover, &:focus {
+      border: 1px solid $light-gray;
+    }
+  }
+}

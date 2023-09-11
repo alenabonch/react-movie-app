@@ -6,9 +6,11 @@ import MovieTile from './MovieTile';
 describe(MovieTile, () => {
   const movieInfo = {id: '1', name: 'Pulp Fiction', genres: ['Action', 'Adventure'], year: '2004', imageUrl: 'https://image.jpg'};
   const onClick = jest.fn();
+  const onEdit = jest.fn();
+  const onDelete = jest.fn();
 
   it('should render movie tile with provided info', () => {
-    render(<MovieTile movieInfo={movieInfo} onClick={onClick}/>);
+    render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
     expect(screen.getByRole('img')).toHaveAttribute('src', movieInfo.imageUrl);
     expect(screen.getByText('Pulp Fiction')).toBeInTheDocument();
     expect(screen.getByText('Action, Adventure')).toBeInTheDocument();
@@ -16,7 +18,7 @@ describe(MovieTile, () => {
   });
 
   it('should call onSelect prop with movie id', () => {
-    render(<MovieTile movieInfo={movieInfo} onClick={onClick}/>);
+    render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
     userEvent.click(screen.getByTestId('movie-tile'));
     expect(onClick).toHaveBeenCalledWith(movieInfo.id);
   });
