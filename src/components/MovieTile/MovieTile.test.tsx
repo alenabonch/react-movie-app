@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import MovieTile from './MovieTile';
 
 describe(MovieTile, () => {
@@ -21,5 +22,27 @@ describe(MovieTile, () => {
     render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
     userEvent.click(screen.getByTestId('movie-tile'));
     expect(onClick).toHaveBeenCalledWith(movieInfo.id);
+  });
+
+  it('should call onEdit prop with movie id', () => {
+    render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
+    act(() => {
+      screen.getByLabelText('Options', {selector: 'button'}).click();
+    });
+    act(() => {
+      screen.getByText('Edit').click();
+    });
+    expect(onEdit).toHaveBeenCalledWith(movieInfo.id);
+  });
+
+  it('should call onDelete prop with movie id', () => {
+    render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
+    act(() => {
+      screen.getByLabelText('Options', {selector: 'button'}).click();
+    });
+    act(() => {
+      screen.getByText('Delete').click();
+    });
+    expect(onDelete).toHaveBeenCalledWith(movieInfo.id);
   });
 });
