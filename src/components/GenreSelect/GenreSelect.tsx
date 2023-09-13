@@ -16,11 +16,11 @@ function GenreSelect({genres, initialSelectedGenre, onSelect}: GenreSelectProps)
   }
 
   return (
-    <div className="genre-select m-3">
+    <div className="genre-select py-2">
       {genres.map((genre) => (
           <button
               key={genre}
-              onClick={() => handleGenreSelect(genre)}
+              onClick={handleGenreSelect.bind(null, genre)}
               className={genre === selectedGenre ? 'active' : ''}
               data-testid="genre-button">
             {genre}
