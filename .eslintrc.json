@@ -1,6 +1,7 @@
 {
   "extends": [
+    "react-app",
     "plugin:cypress/recommended",
-    "react-app"
+    "plugin:storybook/recommended"
   ]
 }
