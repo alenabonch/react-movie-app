@@ -20,7 +20,7 @@ function GenreSelect({genres, initialSelectedGenre, onSelect}: GenreSelectProps)
       {genres.map((genre) => (
           <button
               key={genre}
-              onClick={() => handleGenreSelect(genre)}
+              onClick={handleGenreSelect.bind(null, genre)}
               className={genre === selectedGenre ? 'active' : ''}
               data-testid="genre-button">
             {genre}

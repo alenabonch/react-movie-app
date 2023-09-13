@@ -5,7 +5,7 @@ interface ButtonProps {
   primary?: boolean;
   size?: 'small' | 'medium' | 'large';
   label: string;
-  classes?: string[];
+  className?: string;
   backgroundColor?: string;
   onClick?: () => void;
 }
@@ -13,7 +13,7 @@ interface ButtonProps {
 export const Button = ({
   primary = false,
   size = 'medium',
-  classes = [],
+  className = '',
   backgroundColor,
   label,
   ...props
@@ -22,7 +22,7 @@ export const Button = ({
   return (
     <button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode, ...classes].join(' ')}
+      className={['storybook-button', `storybook-button--${size}`, mode, className].join(' ')}
       {...props}
       style={{ backgroundColor }}
     >

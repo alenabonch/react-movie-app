@@ -14,7 +14,7 @@ function ContextMenu({options, onSelect}: ContextMenuProps) {
     setMenuOpened(!menuOpened);
   }
 
-  const handleOptionSelect = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, option: string) => {
+  const handleOptionSelect = (option: string, event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
     setMenuOpened(!menuOpened);
     onSelect(option);
@@ -22,7 +22,7 @@ function ContextMenu({options, onSelect}: ContextMenuProps) {
 
   return (
       <div className="position-relative">
-        <button aria-label="Options" className="context-menu__button" onClick={(event) => handleToggleMenuVisibility(event)}>
+        <button aria-label="Options" className="context-menu__button" onClick={handleToggleMenuVisibility}>
           <i className="fa-solid fa-ellipsis-vertical"></i>
         </button>
         {menuOpened &&
@@ -30,7 +30,7 @@ function ContextMenu({options, onSelect}: ContextMenuProps) {
               {options.map((option) => (
                   <button key={option}
                       className="context-menu__option"
-                      onClick={(event) => handleOptionSelect(event, option)}>
+                      onClick={handleOptionSelect.bind(null, option)}>
                     {option}
                   </button>
               ))}

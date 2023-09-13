@@ -47,7 +47,7 @@ function MovieTile({movieInfo, onClick, onEdit, onDelete}: MovieTileProps) {
         {movieInfo.genres.join(', ')}
       </div>
       <div className="movie-tile__menu position-absolute">
-        <ContextMenu options={menuOptions} onSelect={handleMenuOptionClick}></ContextMenu>
+        <ContextMenu options={menuOptions} onSelect={handleMenuOptionClick}/>
       </div>
     </div>
   );

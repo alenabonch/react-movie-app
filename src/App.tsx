@@ -50,9 +50,13 @@ function App() {
           <SortControl initialSort="title" onSortChange={handleSortChange}/>
         </div>
         <div className="d-flex justify-content-between flex-wrap py-3">
-          <MovieTile movieInfo={movies[0]} onClick={handleTileClick} onEdit={handleEditClick} onDelete={handleDeleteClick}></MovieTile>
-          <MovieTile movieInfo={movies[1]} onClick={handleTileClick} onEdit={handleEditClick} onDelete={handleDeleteClick}></MovieTile>
-          <MovieTile movieInfo={movies[2]} onClick={handleTileClick} onEdit={handleEditClick} onDelete={handleDeleteClick}></MovieTile>
+          {movies.map((movie) => (
+                <MovieTile movieInfo={movie}
+                           key={movie.id}
+                           onClick={handleTileClick}
+                           onEdit={handleEditClick}
+                           onDelete={handleDeleteClick}/>
+          ))}
         </div>
       </div>
     </div>
