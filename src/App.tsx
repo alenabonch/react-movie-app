@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from './components/Button/Button';
+import Dialog from './components/Dialog/Dialog';
 import GenreSelect from './components/GenreSelect/GenreSelect';
 import MovieTile, { MovieInfo } from './components/MovieTile/MovieTile';
 import SearchForm from './components/SearchForm/SearchForm';
@@ -6,6 +8,7 @@ import './App.scss';
 import SortControl from './components/SortControl/SortControl';
 
 function App() {
+  const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false);
   const genres = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
   const movies: MovieInfo[] = [
       {id: '1', name: 'Pulp Fiction', genres: ['Action', 'Adventure'], year: '2004', imageUrl: 'https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg'},
@@ -37,9 +40,19 @@ function App() {
     console.log('Delete movie clicked', id);
   }
 
+  const handleAddMovieModalOpenChange = (open: boolean) => {
+    setIsAddMovieModalOpen(open);
+  }
+
   return (
     <div className="App p-5">
       <div className="App-header container mb-2 d-flex flex-column">
+        <div className="d-flex justify-content-end pt-4">
+          <Button label="+ Add Movie" onClick={handleAddMovieModalOpenChange.bind(null, true)} size="small" className="mx-4"/>
+          <Dialog title="Add Movie" open={isAddMovieModalOpen} onClose={handleAddMovieModalOpenChange.bind(null, false)}>
+            Some Content
+          </Dialog>
+        </div>
         <div className="App-search-container p-5">
           <SearchForm onSearch={handleSearch}/>
         </div>
