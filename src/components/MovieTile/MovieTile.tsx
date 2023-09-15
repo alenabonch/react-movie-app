@@ -1,35 +1,28 @@
 import React, { useState } from 'react';
-import './MovieTile.scss';
+import { Movie } from '../../models/Movie';
 import { Button } from '../Button/Button';
 import ContextMenu from '../ContextMenu/ContextMenu';
 import Dialog from '../Dialog/Dialog';
-
-export interface MovieInfo {
-  id: string;
-  name: string;
-  year: string;
-  imageUrl: string;
-  genres: string[];
-}
+import './MovieTile.scss';
 
 interface MovieTileProps {
-  movieInfo: MovieInfo;
-  onClick: (id: string) => void;
-  onEdit: (id: string) => void;
+  movie: Movie;
+  onClick: (movie: Movie) => void;
+  onEdit: (movie: Movie) => void;
   onDelete: (id: string) => void;
 }
 
-function MovieTile({movieInfo, onClick, onEdit, onDelete}: MovieTileProps) {
+function MovieTile({movie, onClick, onEdit, onDelete}: MovieTileProps) {
   const [openDeleteMovieDialog, setOpenDeleteMovieDialog] = useState(false);
   const menuOptions = ['Edit', 'Delete'];
   const handleTileClick = () => {
-    onClick(movieInfo.id);
+    onClick(movie);
   }
 
   const handleMenuOptionClick = (option: string) => {
     switch (option) {
       case 'Edit': {
-        onEdit(movieInfo.id);
+        onEdit(movie);
         break;
       }
       case 'Delete': {
@@ -40,19 +33,19 @@ function MovieTile({movieInfo, onClick, onEdit, onDelete}: MovieTileProps) {
   }
 
   const handleDeleteConfirmedClick = () => {
-    onDelete(movieInfo.id);
+    onDelete(movie.id);
     setOpenDeleteMovieDialog(false);
   }
 
   return (
     <div className="movie-tile position-relative" onClick={handleTileClick} data-testid="movie-tile">
-      <img className="movie-tile__image" src={movieInfo.imageUrl} alt=""/>
+      <img className="movie-tile__image" src={movie.imageUrl} alt=""/>
       <div className="d-flex justify-content-between align-items-center">
-        <h3 className="movie-tile__name text-truncate">{movieInfo.name}</h3>
-        <span className="movie-tile__year">{movieInfo.year}</span>
+        <h3 className="movie-tile__title text-truncate">{movie.title}</h3>
+        <span className="movie-tile__date">{movie.releaseDate}</span>
       </div>
       <div className="movie-tile__genres text-truncate">
-        {movieInfo.genres.join(', ')}
+        {movie.genres.join(', ')}
       </div>
       <div className="movie-tile__menu position-absolute">
         <ContextMenu options={menuOptions} onSelect={handleMenuOptionClick}/>

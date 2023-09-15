@@ -20,7 +20,7 @@ describe(SortControl, () => {
   it('should call sort change callback on select change', () => {
     render(<SortControl initialSort={initialSort} onSortChange={onSortChange}/>);
     const selectElement = screen.getByLabelText('Sort By');
-    userEvent.selectOptions(selectElement, 'year');
-    expect(onSortChange).toHaveBeenCalledWith('year');
+    userEvent.selectOptions(selectElement, 'releaseDate');
+    expect(onSortChange).toHaveBeenCalledWith('releaseDate');
   });
 });

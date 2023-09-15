@@ -2,16 +2,26 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
+import { Movie } from '../../models/Movie';
 import MovieTile from './MovieTile';
 
 describe(MovieTile, () => {
-  const movieInfo = {id: '1', name: 'Pulp Fiction', genres: ['Action', 'Adventure'], year: '2004', imageUrl: 'https://image.jpg'};
+  const movieInfo: Movie = {
+    id: '1',
+    title: 'Pulp Fiction',
+    genres: ['Action', 'Adventure'],
+    releaseDate: '2004',
+    imageUrl: 'https://image.jpg',
+    rating: 8.9,
+    duration: '2h 34m',
+    description: 'Good movie',
+  };
   const onClick = jest.fn();
   const onEdit = jest.fn();
   const onDelete = jest.fn();
 
   it('should render movie tile with provided info', () => {
-    render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
+    render(<MovieTile movie={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
     expect(screen.getByRole('img')).toHaveAttribute('src', movieInfo.imageUrl);
     expect(screen.getByText('Pulp Fiction')).toBeInTheDocument();
     expect(screen.getByText('Action, Adventure')).toBeInTheDocument();
@@ -19,24 +29,24 @@ describe(MovieTile, () => {
   });
 
   it('should call onSelect prop with movie id', () => {
-    render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
+    render(<MovieTile movie={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
     userEvent.click(screen.getByTestId('movie-tile'));
-    expect(onClick).toHaveBeenCalledWith(movieInfo.id);
+    expect(onClick).toHaveBeenCalledWith(movieInfo);
   });
 
   it('should call onEdit prop with movie id', () => {
-    render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
+    render(<MovieTile movie={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
     act(() => {
       screen.getByLabelText('Options', {selector: 'button'}).click();
     });
     act(() => {
       screen.getByText('Edit').click();
     });
-    expect(onEdit).toHaveBeenCalledWith(movieInfo.id);
+    expect(onEdit).toHaveBeenCalledWith(movieInfo);
   });
 
   it('should open Delete Movie dialog on delete option click and call onDelete prop on Confirm', () => {
-    render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
+    render(<MovieTile movie={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
     act(() => {
       screen.getByLabelText('Options', {selector: 'button'}).click();
     });

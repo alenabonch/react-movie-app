@@ -11,7 +11,7 @@
     margin-right: 40px;
   }
 
-  &__name {
+  &__title {
     font-size: 40px;
     font-weight: 300;
     letter-spacing: 1px;
@@ -36,7 +36,7 @@
     opacity: 0.5;
   }
 
-  &__year, &__duration {
+  &__date, &__duration {
     font-size: 24px;
     color: $red;
     font-weight: 300;

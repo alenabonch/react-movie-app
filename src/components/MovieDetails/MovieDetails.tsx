@@ -1,32 +1,26 @@
 import React from 'react';
+import { Movie } from '../../models/Movie';
 import './MovieDetails.scss';
-import { MovieInfo } from '../MovieTile/MovieTile';
-
-export interface MovieDetails extends MovieInfo {
-  rating: number;
-  duration: string;
-  description: string;
-}
 
 interface MovieDetailsProps {
-  movieDetails: MovieDetails;
+  movie: Movie;
 }
 
-function MovieDetails({movieDetails}: MovieDetailsProps) {
+function MovieDetails({movie}: MovieDetailsProps) {
   return (
     <div className="movie-details d-flex">
-      <img className="movie-details__image" src={movieDetails.imageUrl} alt=""/>
+      <img className="movie-details__image" src={movie.imageUrl} alt=""/>
       <div>
         <div className="d-flex">
-          <h3 className="movie-details__name">{movieDetails.name}</h3>
-          <div className="movie-details__rating">{movieDetails.rating}</div>
+          <h3 className="movie-details__title">{movie.title}</h3>
+          <div className="movie-details__rating">{movie.rating}</div>
         </div>
-        <div className="movie-details__genres">{movieDetails.genres.join(', ')}</div>
+        <div className="movie-details__genres">{movie.genres.join(', ')}</div>
         <div className="my-2">
-          <span className="movie-details__year">{movieDetails.year}</span>
-          <span className="movie-details__duration">{movieDetails.duration}</span>
+          <span className="movie-details__date">{movie.releaseDate}</span>
+          <span className="movie-details__duration">{movie.duration}</span>
         </div>
-        <div className="movie-details__description">{movieDetails.description}</div>
+        <div className="movie-details__description">{movie.description}</div>
       </div>
     </div>
   );
