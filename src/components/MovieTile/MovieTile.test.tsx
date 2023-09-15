@@ -35,13 +35,20 @@ describe(MovieTile, () => {
     expect(onEdit).toHaveBeenCalledWith(movieInfo.id);
   });
 
-  it('should call onDelete prop with movie id', () => {
+  it('should open Delete Movie dialog on delete option click and call onDelete prop on Confirm', () => {
     render(<MovieTile movieInfo={movieInfo} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
     act(() => {
       screen.getByLabelText('Options', {selector: 'button'}).click();
     });
     act(() => {
       screen.getByText('Delete').click();
+    });
+    expect(screen.getByText('Delete Movie')).toBeInTheDocument();
+    expect(screen.getByText('Are you sure you want to delete this movie?')).toBeInTheDocument();
+    const confirmButton = (screen.getByRole('button', {name: 'Confirm'}));
+    expect(confirmButton).toBeInTheDocument();
+    act(() => {
+      confirmButton.click();
     });
     expect(onDelete).toHaveBeenCalledWith(movieInfo.id);
   });

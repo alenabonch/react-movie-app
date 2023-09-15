@@ -11,11 +11,17 @@ export interface DialogProps {
 }
 
 function Dialog({children, title, open, onClose}: DialogProps) {
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    onClose();
+  }
+
   if (!open) return null;
+
   return (
       <Portal>
         <FocusTrap>
-          <div className="dialog" tabIndex={-1} role="dialog" onClick={onClose} data-testid="dialog-overlay">
+          <div className="dialog" tabIndex={-1} role="dialog" onClick={handleBackdropClick} data-testid="dialog-overlay">
             <div className="dialog__content" onClick={e => e.stopPropagation()} data-testid="dialog-content">
               <div className="dialog__header">
                 <h3 className="dialog__title">{title}</h3>

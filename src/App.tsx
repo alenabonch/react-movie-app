@@ -8,7 +8,7 @@ import './App.scss';
 import SortControl from './components/SortControl/SortControl';
 
 function App() {
-  const [isAddMovieModalOpen, setIsAddMovieModalOpen] = useState(false);
+  const [isAddMovieDialogOpen, setIsAddMovieDialogOpen] = useState(false);
   const genres = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
   const movies: MovieInfo[] = [
       {id: '1', name: 'Pulp Fiction', genres: ['Action', 'Adventure'], year: '2004', imageUrl: 'https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg'},
@@ -41,7 +41,7 @@ function App() {
   }
 
   const handleAddMovieModalOpenChange = (open: boolean) => {
-    setIsAddMovieModalOpen(open);
+    setIsAddMovieDialogOpen(open);
   }
 
   return (
@@ -49,7 +49,7 @@ function App() {
       <div className="App-header container mb-2 d-flex flex-column">
         <div className="d-flex justify-content-end pt-4">
           <Button label="+ Add Movie" onClick={handleAddMovieModalOpenChange.bind(null, true)} size="small" className="mx-4"/>
-          <Dialog title="Add Movie" open={isAddMovieModalOpen} onClose={handleAddMovieModalOpenChange.bind(null, false)}>
+          <Dialog title="Add Movie" open={isAddMovieDialogOpen} onClose={handleAddMovieModalOpenChange.bind(null, false)}>
             Some Content
           </Dialog>
         </div>

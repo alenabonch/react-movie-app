@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MovieTile.scss';
+import { Button } from '../Button/Button';
 import ContextMenu from '../ContextMenu/ContextMenu';
+import Dialog from '../Dialog/Dialog';
 
 export interface MovieInfo {
   id: string;
@@ -18,6 +20,7 @@ interface MovieTileProps {
 }
 
 function MovieTile({movieInfo, onClick, onEdit, onDelete}: MovieTileProps) {
+  const [openDeleteMovieDialog, setOpenDeleteMovieDialog] = useState(false);
   const menuOptions = ['Edit', 'Delete'];
   const handleTileClick = () => {
     onClick(movieInfo.id);
@@ -30,10 +33,15 @@ function MovieTile({movieInfo, onClick, onEdit, onDelete}: MovieTileProps) {
         break;
       }
       case 'Delete': {
-        onDelete(movieInfo.id);
+        setOpenDeleteMovieDialog(true);
         break;
       }
     }
+  }
+
+  const handleDeleteConfirmedClick = () => {
+    onDelete(movieInfo.id);
+    setOpenDeleteMovieDialog(false);
   }
 
   return (
@@ -49,6 +57,10 @@ function MovieTile({movieInfo, onClick, onEdit, onDelete}: MovieTileProps) {
       <div className="movie-tile__menu position-absolute">
         <ContextMenu options={menuOptions} onSelect={handleMenuOptionClick}/>
       </div>
+      <Dialog title="Delete Movie" open={openDeleteMovieDialog} onClose={setOpenDeleteMovieDialog.bind(null, false)}>
+        <p className="mb-4">Are you sure you want to delete this movie?</p>
+        <Button label="Confirm" primary onClick={handleDeleteConfirmedClick} className="float-end"></Button>
+      </Dialog>
     </div>
   );
 }
