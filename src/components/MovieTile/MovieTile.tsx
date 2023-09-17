@@ -41,8 +41,9 @@ function MovieTile({movie, genres, onClick, onEdit, onDelete}: MovieTileProps) {
     setOpenDeleteMovieDialog(false);
   }
 
-  const handleEditMovieSubmit = () => {
-    onEdit(movie);
+  const handleEditMovieSubmit = (movieForm: Movie) => {
+    onEdit(movieForm);
+    setOpenEditMovieDialog(false);
   }
 
   const handleEditMovieDialogOpenChange = (open: boolean) => {

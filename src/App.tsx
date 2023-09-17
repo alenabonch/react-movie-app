@@ -29,16 +29,16 @@ function App() {
     setSelectedMovie(movie);
   }
 
-  const handleEditClick = (movie: Movie) => {
-    console.log('Edit movie clicked', movie);
+  const handleAddMovieSubmit = (movie: Movie) => {
+    console.log('Add movie submitted', movie);
+  }
+
+  const handleEditMovieSubmitted = (movie: Movie) => {
+    console.log('Edit movie submitted', movie);
   }
 
   const handleDeleteClick = (id: string) => {
     console.log('Delete movie clicked', id);
-  }
-
-  const handleAddMovieFormSubmit = () => {
-    console.log('Add movie form submitted');
   }
 
   const handleSelectedMovieChange = (movie: Movie | null) => {
@@ -52,7 +52,7 @@ function App() {
                 selectedMovie={selectedMovie}
                 genres={genres}
                 onSelectedMovieReset={handleSelectedMovieChange.bind(null, null)}
-                onAddMovieSubmit={handleAddMovieFormSubmit}/>
+                onAddMovieSubmit={handleAddMovieSubmit}/>
       </div>
       <div className="App-body container px-5">
         <div className="d-flex justify-content-between">
@@ -65,11 +65,12 @@ function App() {
                            key={movie.id}
                            genres={genres}
                            onClick={handleTileClick}
-                           onEdit={handleEditClick}
+                           onEdit={handleEditMovieSubmitted}
                            onDelete={handleDeleteClick}/>
           ))}
         </div>
       </div>
+      <div className="logo d-flex justify-content-center mt-4"><strong>netflix</strong>roulette</div>
     </div>
   );
 }

@@ -1,12 +1,6 @@
 @import "src/styles/colors";
 
 .header {
-  &__logo {
-    color: $red;
-    font-weight: 300;
-    font-size: 20px;
-  }
-
   &__search-icon {
     color: $red;
     font-size: 30px;

@@ -11,7 +11,10 @@
     margin-bottom: 8px;
   }
 
-  input, select, textarea {
+  input, textarea {
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 4px;
     background: $dark-gray;
     color: $white;
     font-weight: 400;
@@ -28,7 +31,37 @@
     }
   }
 
+  .error-message {
+    color: $red;
+    font-size: 14px;
+  }
+
   input, select {
     height: 57px;
+  }
+
+  .multiSelectContainer {
+    .searchWrapper {
+      border: none;
+      padding: 0 8px;
+      background: $dark-gray;
+    }
+
+    input {
+      margin-top: 0;
+      width: 133px;
+    }
+
+    .optionListContainer {
+      background: $dark-gray;
+
+      .option:hover, .highlightOption {
+        background: $red;
+      }
+    }
+
+    .chip {
+      background: $red;
+    }
   }
 }

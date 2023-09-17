@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import { Multiselect } from 'multiselect-react-dropdown';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { Movie } from '../../models/Movie';
 import { Button } from '../Button/Button';
+import { ErrorMessage } from "@hookform/error-message"
 import './MovieForm.scss'
 
-const emptyMovie = {
+const emptyMovie: Movie = {
   id: '',
   title: '',
   releaseDate: '',
   posterUrl: '',
   genres: [],
-  rating: '',
-  duration: '',
+  rating: 0,
+  duration: 0,
   overview: ''
-}
+};
 
 interface MovieFormProps {
   movie: Movie | null;
@@ -21,77 +24,86 @@ interface MovieFormProps {
 }
 
 function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
-  const [movieForm, setMovieForm] = useState(movie || emptyMovie);
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: {errors},
+  } = useForm<Movie>({
+    defaultValues: movie ?? emptyMovie
+  });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setMovieForm({
-      ...movieForm,
-      [event.target.name]: event.target.value
-    })
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    const data = Object.fromEntries(new FormData(event.target as any));
-    console.log(data)
-    event.preventDefault();
-    onSubmit(data as any);
-  }
-
-  const handleReset = () => {
-    setMovieForm(movie || emptyMovie);
+  const onFormSubmit = (data: Movie) => {
+    onSubmit(data);
   }
 
   return (
-    <form className="movie-form" onSubmit={handleSubmit}>
-      <div className="row mb-3">
-        <div className="col-7">
-          <label htmlFor="title">Title</label>
-          <input value={movieForm.title} className="form-control" type="text" id="title" name="title" onChange={handleChange}/>
-        </div>
-        <div className="col">
-          <label htmlFor="releaseDate">Release Date</label>
-          <input value={movieForm.releaseDate} className="form-control" type="text" id="releaseDate" name="releaseDate" placeholder="yyyy.mm.dd" onChange={handleChange}/>
-        </div>
-      </div>
+      <form className="movie-form" onSubmit={handleSubmit(onFormSubmit)}>
+        <div className="row mb-3">
+          <div className="col-8">
+            <label htmlFor="title">Title</label>
+            <input {...register("title", {required: "Title is required"})} id="title"/>
+            <ErrorMessage errors={errors} name="title" render={({ message }) => <p className="error-message">{message}</p>}/>
+          </div>
 
-      <div className="row mb-3">
-        <div className="col-7">
-          <label htmlFor="posterUrl">Movie Url</label>
-          <input value={movieForm.posterUrl} className="form-control" type="text" id="posterUrl" name="posterUrl" placeholder="https://" onChange={handleChange}/>
+          <div className="col">
+            <label htmlFor="releaseDate">Release Date</label>
+            <input {...register("releaseDate")} id="releaseDate" placeholder="YYYY-MM-DD"/>
+          </div>
         </div>
-        <div className="col">
-          <label htmlFor="rating">Rating</label>
-          <input value={movieForm.rating} className="form-control" type="text" id="rating" name="rating" placeholder="7.8" onChange={handleChange}/>
-        </div>
-      </div>
 
-      <div className="row mb-3">
-        <div className="col-7">
-          <label htmlFor="genres">Genre</label>
-          <select value={movieForm.genres} className="form-select" id="genres" name="genres" onChange={handleChange}>
-            <option value="" disabled>Select Genre</option>
-            {genres.map((genre) => (
-                <option value={genre} key={genre}>{genre}</option>
-            ))}
-          </select>
-        </div>
-        <div className="col">
-          <label htmlFor="duration">Runtime</label>
-          <input value={movieForm.duration} className="form-control" type="text" id="duration" name="duration" placeholder="minutes"  onChange={handleChange}/>
-        </div>
-      </div>
+        <div className="row mb-3">
+          <div className="col-8">
+            <label htmlFor="posterUrl">Movie Url</label>
+            <input {...register("posterUrl")} id="posterUrl" placeholder="https://"/>
+          </div>
 
-      <div className="row mb-4">
-        <div className="col">
-          <label htmlFor="overview">Overview</label>
-          <textarea value={movieForm.overview} className="form-control" id="overview" name="overview" rows={4} placeholder="Movie Description" onChange={handleChange}/>
+          <div className="col">
+            <label htmlFor="rating">Rating</label>
+            <input {...register("rating")} id="rating" type="number" min={0} max={10} step=".1"/>
+          </div>
         </div>
-      </div>
-      <div className="d-flex justify-content-end">
-        <Button label="Reset" className="mx-2" onClick={handleReset}></Button>
-        <Button primary label="Submit" type="submit"></Button>
-      </div>
-    </form>
+
+        <div className="row mb-3">
+          <div className="col-8">
+            <label htmlFor="genres_input">Genre</label>
+            <Controller
+                control={control}
+                name="genres"
+                render={({field: {onChange, value}}) => (
+                    <Multiselect
+                        id="genres"
+                        options={genres}
+                        isObject={false}
+                        placeholder="Select Genre"
+                        onSelect={onChange}
+                        onRemove={onChange}
+                        selectedValues={value}
+                        closeOnSelect={false}
+                    />
+                )}
+            />
+          </div>
+
+          <div className="col">
+            <label htmlFor="duration">Duration</label>
+            <input {...register("duration")} id="duration" type="number" min={0} placeholder="minutes"/>
+          </div>
+        </div>
+
+        <div className="row mb-4">
+          <div className="col">
+            <label htmlFor="overview">Overview</label>
+            <textarea {...register("overview")} id="overview" rows={4} placeholder="Movie Description"/>
+          </div>
+        </div>
+
+        <div className="d-flex justify-content-end">
+          <Button label="Reset" className="mx-2" onClick={() => reset(movie ?? emptyMovie)}></Button>
+          <Button primary label="Submit" type="submit"></Button>
+        </div>
+      </form>
   );
 }
 

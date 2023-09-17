@@ -11,7 +11,7 @@ describe(MovieDetails, () => {
     releaseDate: '2004',
     posterUrl: 'https://image.jpg',
     rating: 8.9,
-    duration: '2h 34m',
+    duration: 154,
     overview: 'Good movie',
   };
 

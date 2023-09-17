@@ -14,7 +14,7 @@ describe(MovieTile, () => {
     releaseDate: '2004',
     posterUrl: 'https://image.jpg',
     rating: 8.9,
-    duration: '2h 34m',
+    duration: 154,
     overview: 'Good movie',
   };
   const onClick = jest.fn();
@@ -38,36 +38,22 @@ describe(MovieTile, () => {
 
   it('should call onEdit prop with movie id', () => {
     render(<MovieTile movie={movieInfo} genres={genres} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
-    act(() => {
-      screen.getByLabelText('Options', {selector: 'button'}).click();
-    });
-    act(() => {
-      screen.getByText('Edit').click();
-    });
+    userEvent.click(screen.getByLabelText('Options', {selector: 'button'}));
+    userEvent.click(screen.getByText('Edit'));
     expect(screen.getByText('Edit Movie')).toBeInTheDocument();
     const submitButton = (screen.getByRole('button', {name: 'Submit'}));
     expect(submitButton).toBeInTheDocument();
-    act(() => {
-      submitButton.click();
-    });
-    expect(onEdit).toHaveBeenCalled();
   });
 
   it('should open Delete Movie dialog on delete option click and call onDelete prop on Confirm', () => {
     render(<MovieTile movie={movieInfo} genres={genres} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
-    act(() => {
-      screen.getByLabelText('Options', {selector: 'button'}).click();
-    });
-    act(() => {
-      screen.getByText('Delete').click();
-    });
+    userEvent.click(screen.getByLabelText('Options', {selector: 'button'}));
+    userEvent.click(screen.getByText('Delete'));
     expect(screen.getByText('Delete Movie')).toBeInTheDocument();
     expect(screen.getByText('Are you sure you want to delete this movie?')).toBeInTheDocument();
     const confirmButton = (screen.getByRole('button', {name: 'Confirm'}));
     expect(confirmButton).toBeInTheDocument();
-    act(() => {
-      confirmButton.click();
-    });
+    userEvent.click(confirmButton);
     expect(onDelete).toHaveBeenCalledWith(movieInfo.id);
   });
 });

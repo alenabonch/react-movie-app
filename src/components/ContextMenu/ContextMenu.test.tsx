@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import ContextMenu from './ContextMenu';
@@ -17,21 +18,15 @@ describe(ContextMenu, () => {
 
   it('should render context menu options on Options button click',  () => {
     render(<ContextMenu options={options} onSelect={onSelect}/>);
-    act(() => {
-      screen.getByLabelText('Options', {selector: 'button'}).click();
-    });
+    userEvent.click(screen.getByLabelText('Options', {selector: 'button'}));
     expect(screen.getByText('Edit')).toBeInTheDocument();
     expect(screen.getByText('Delete')).toBeInTheDocument();
   });
 
   it('should allow user to select an option and trigger onSelect callback', () => {
     render(<ContextMenu options={options} onSelect={onSelect}/>);
-    act(() => {
-      screen.getByLabelText('Options', {selector: 'button'}).click();
-    });
-    act(() => {
-      screen.getByText('Delete').click();
-    });
+    userEvent.click(screen.getByLabelText('Options', {selector: 'button'}));
+    userEvent.click(screen.getByText('Delete'));
     expect(onSelect).toHaveBeenCalledWith('Delete');
   });
 });

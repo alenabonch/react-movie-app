@@ -11,14 +11,14 @@ describe('GenreSelect', () => {
   it('displays first genre highlighted', () => {
     cy.getByTestId('genre-button')
     .first()
-    .should('have.text', 'All')
+    .should('have.text', 'Drama')
     .should('have.class', 'active')
   })
 
   it('can highlight selected genre', () => {
     cy.getByTestId('genre-button')
     .last()
-    .should('have.text', 'Crime')
+    .should('have.text', 'Romance')
     .should('not.have.class', 'active')
     .click()
     .should('have.class', 'active')

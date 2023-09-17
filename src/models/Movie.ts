@@ -5,6 +5,6 @@ export interface Movie {
   posterUrl: string;
   genres: string[];
   rating: number;
-  duration: string;
+  duration: number;
   overview: string;
 }
