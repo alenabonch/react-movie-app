@@ -1,0 +1,34 @@
+@import "src/styles/colors";
+
+.movie-form {
+  width: 70vw;
+  max-width: 976px;
+
+  label {
+    color: $red;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  input, select, textarea {
+    background: $dark-gray;
+    color: $white;
+    font-weight: 400;
+    font-size: 20px;
+    border: none;
+
+    &:hover, &:focus {
+      background: $dark-gray;
+      color: $white;
+    }
+
+    &::placeholder {
+      color: $light-gray;
+    }
+  }
+
+  input, select {
+    height: 57px;
+  }
+}
