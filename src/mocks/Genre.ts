@@ -3,5 +3,4 @@ export const genresMock = [
   'Comedy',
   'Horror',
   'Crime',
-  'Romance'
 ];

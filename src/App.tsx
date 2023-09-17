@@ -11,7 +11,7 @@ import { Movie } from './models/Movie';
 function App() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const movies = [movieMock, movieMock2, movieMock3];
-  const genres = genresMock;
+  const genres = ['All', ...genresMock];
 
   const handleSearch = (text: string) => {
     console.log('searching for item...', text);
