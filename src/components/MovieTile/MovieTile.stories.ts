@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { genresMock } from '../../mocks/Genre';
 import { movieMock } from '../../mocks/Movie';
 
 import MovieTile from './MovieTile';
@@ -17,11 +18,13 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     movie: movieMock,
+    genres: genresMock,
   }
 };
 
 export const LongNames: Story = {
   args: {
+    genres: genresMock,
     movie: {
       ...movieMock,
       title: 'Pulp Fiction Pulp Fiction Pulp Fiction',

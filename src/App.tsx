@@ -4,13 +4,14 @@ import GenreSelect from './components/GenreSelect/GenreSelect';
 import Header from './components/Header/Header';
 import MovieTile from './components/MovieTile/MovieTile';
 import SortControl from './components/SortControl/SortControl';
+import { genresMock } from './mocks/Genre';
 import { movieMock, movieMock2, movieMock3 } from './mocks/Movie';
 import { Movie } from './models/Movie';
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  const genres = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
-  const movies: Movie[] = [movieMock, movieMock2, movieMock3];
+  const movies = [movieMock, movieMock2, movieMock3];
+  const genres = genresMock;
 
   const handleSearch = (text: string) => {
     console.log('searching for item...', text);
@@ -49,6 +50,7 @@ function App() {
       <div className="App-header container mb-2 d-flex flex-column px-5 py-4">
         <Header onSearch={handleSearch}
                 selectedMovie={selectedMovie}
+                genres={genres}
                 onSelectedMovieReset={handleSelectedMovieChange.bind(null, null)}
                 onAddMovieSubmit={handleAddMovieFormSubmit}/>
       </div>
@@ -61,6 +63,7 @@ function App() {
           {movies.map((movie) => (
                 <MovieTile movie={movie}
                            key={movie.id}
+                           genres={genres}
                            onClick={handleTileClick}
                            onEdit={handleEditClick}
                            onDelete={handleDeleteClick}/>

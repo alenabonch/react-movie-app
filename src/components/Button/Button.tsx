@@ -5,6 +5,7 @@ interface ButtonProps {
   primary?: boolean;
   size?: 'small' | 'medium' | 'large';
   label: string;
+  type?: 'button' | 'submit' | 'reset' | undefined;
   className?: string;
   backgroundColor?: string;
   onClick?: () => void;
@@ -16,12 +17,13 @@ export const Button = ({
   className = '',
   backgroundColor,
   label,
+  type = 'button',
   ...props
 }: ButtonProps) => {
   const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
   return (
     <button
-      type="button"
+      type={type}
       className={['storybook-button', `storybook-button--${size}`, mode, className].join(' ')}
       {...props}
       style={{ backgroundColor }}

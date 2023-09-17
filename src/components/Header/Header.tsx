@@ -8,21 +8,22 @@ import SearchForm from '../SearchForm/SearchForm';
 import './Header.scss'
 
 interface HeaderProps {
+  genres: string[];
   selectedMovie: Movie | null;
   onSelectedMovieReset: () => void;
   onSearch: (text: string) => void;
   onAddMovieSubmit: (movie: Movie) => void;
 }
 
-function Header({selectedMovie, onSearch, onSelectedMovieReset, onAddMovieSubmit}: HeaderProps) {
-  const [isAddMovieDialogOpen, setIsAddMovieDialogOpen] = useState(false);
+function Header({selectedMovie, genres, onSearch, onSelectedMovieReset, onAddMovieSubmit}: HeaderProps) {
+  const [openAddMovieDialog, setOpenAddMovieDialog] = useState(false);
 
   const handleSelectedMovieChange = () => {
     onSelectedMovieReset();
   }
 
-  const handleAddMovieModalOpenChange = (open: boolean) => {
-    setIsAddMovieDialogOpen(open);
+  const handleAddMovieDialogOpenChange = (open: boolean) => {
+    setOpenAddMovieDialog(open);
   }
 
   return (
@@ -31,22 +32,16 @@ function Header({selectedMovie, onSearch, onSelectedMovieReset, onAddMovieSubmit
           <div className="header__logo">netflixroulette</div>
           {selectedMovie
               ? <button aria-label="Return to Search" className="header__search-icon" onClick={handleSelectedMovieChange}><i className="fa-solid fa-magnifying-glass"></i></button>
-              : <Button label="+ Add Movie" onClick={handleAddMovieModalOpenChange.bind(null, true)} size="small" className="mx-4"/>
+              : <Button label="+ Add Movie" onClick={handleAddMovieDialogOpenChange.bind(null, true)} size="small" className="mx-4"/>
           }
         </div>
         { selectedMovie
             ? <MovieDetails movie={selectedMovie}/>
-            : <>
-              <div className="d-flex justify-content-end pt-4">
-                <Dialog title="Add Movie" open={isAddMovieDialogOpen} onClose={handleAddMovieModalOpenChange.bind(null, false)}>
-                  <MovieForm onSubmit={onAddMovieSubmit}/>
-                </Dialog>
-              </div>
-              <div className="App-search-container p-5">
-                <SearchForm onSearch={onSearch}/>
-              </div>
-            </>
+            : <SearchForm onSearch={onSearch}/>
         }
+        <Dialog title="Add Movie" open={openAddMovieDialog} onClose={handleAddMovieDialogOpenChange.bind(null, false)}>
+          <MovieForm movie={null} genres={genres} onSubmit={onAddMovieSubmit}/>
+        </Dialog>
       </div>
   );
 }

@@ -9,7 +9,7 @@ interface MovieDetailsProps {
 function MovieDetails({movie}: MovieDetailsProps) {
   return (
     <div className="movie-details d-flex">
-      <img className="movie-details__image" src={movie.imageUrl} alt=""/>
+      <img className="movie-details__image" src={movie.posterUrl} alt=""/>
       <div>
         <div className="d-flex">
           <h3 className="movie-details__title">{movie.title}</h3>
@@ -20,7 +20,7 @@ function MovieDetails({movie}: MovieDetailsProps) {
           <span className="movie-details__date">{movie.releaseDate}</span>
           <span className="movie-details__duration">{movie.duration}</span>
         </div>
-        <div className="movie-details__description">{movie.description}</div>
+        <div className="movie-details__overview">{movie.overview}</div>
       </div>
     </div>
   );

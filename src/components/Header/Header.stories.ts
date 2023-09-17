@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { genresMock } from '../../mocks/Genre';
 import { movieMock } from '../../mocks/Movie';
 import Header from './Header';
 
@@ -16,12 +17,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Initial: Story = {
   args: {
+    genres: genresMock,
     selectedMovie: null,
   },
 };
 
 export const MovieSelected: Story = {
   args: {
+    genres: genresMock,
     selectedMovie: movieMock,
   },
 };

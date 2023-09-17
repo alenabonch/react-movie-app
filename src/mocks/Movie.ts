@@ -5,10 +5,10 @@ export const movieMock: Movie = {
   title: 'Pulp Fiction',
   genres: ['Action', 'Adventure'],
   releaseDate: '2004',
-  imageUrl: 'https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg',
+  posterUrl: 'https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg',
   rating: 8.9,
   duration: '2h 34m',
-  description: 'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra'
+  overview: 'Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra'
 };
 
 export const movieMock2: Movie = {
@@ -16,10 +16,10 @@ export const movieMock2: Movie = {
   title: 'Bohemian Rhapsody',
   genres: ['Drama', 'Biography', 'Music'],
   releaseDate: '2003',
-  imageUrl: 'https://m.media-amazon.com/images/I/71kuEWe9PYL._SY445_.jpg',
+  posterUrl: 'https://m.media-amazon.com/images/I/71kuEWe9PYL._SY445_.jpg',
   rating: 7.8,
   duration: '2h 14m',
-  description: 'Bohemian Rhapsody is a 2018 biographical musical drama film that focuses on the life of Freddie Mercury, the lead singer of the British rock band Queen, from the formation of the band in 1970 to their 1985 Live Aid performance at the original Wembley Stadium.',
+  overview: 'Bohemian Rhapsody is a 2018 biographical musical drama film that focuses on the life of Freddie Mercury, the lead singer of the British rock band Queen, from the formation of the band in 1970 to their 1985 Live Aid performance at the original Wembley Stadium.',
 };
 
 export const movieMock3: Movie = {
@@ -27,8 +27,8 @@ export const movieMock3: Movie = {
   title: 'Inception',
   genres: ['Action', 'Adventure'],
   releaseDate: '2003',
-  imageUrl: 'https://m.media-amazon.com/images/I/61xzvfJiNkL._AC_.jpg',
+  posterUrl: 'https://m.media-amazon.com/images/I/61xzvfJiNkL._AC_.jpg',
   rating: 9.3,
   duration: '2h 55m',
-  description: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.',
+  overview: 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.',
 }
