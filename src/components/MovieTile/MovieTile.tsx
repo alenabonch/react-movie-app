@@ -65,7 +65,7 @@ function MovieTile({movie, genres, onClick, onEdit, onDelete}: MovieTileProps) {
       </div>
       <Dialog title="Delete Movie" open={openDeleteMovieDialog} onClose={setOpenDeleteMovieDialog.bind(null, false)}>
         <p className="mb-4">Are you sure you want to delete this movie?</p>
-        <Button label="Confirm" primary onClick={handleDeleteConfirmedClick} className="float-end"></Button>
+        <Button label="Confirm" primary onClick={handleDeleteConfirmedClick} className="float-end"/>
       </Dialog>
       <Dialog title="Edit Movie" open={openEditMovieDialog} onClose={handleEditMovieDialogOpenChange.bind(null, false)}>
         <MovieForm movie={movie} genres={genres} onSubmit={handleEditMovieSubmit}/>
