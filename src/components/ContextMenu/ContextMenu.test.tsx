@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 import ContextMenu from './ContextMenu';
 
 describe(ContextMenu, () => {
+  const user = userEvent.setup();
   const options = ['Edit', 'Delete'];
   const onSelect = jest.fn();
 
@@ -16,17 +17,17 @@ describe(ContextMenu, () => {
     expect(screen.queryByText('Delete')).not.toBeInTheDocument();
   });
 
-  it('should render context menu options on Options button click',  () => {
+  it('should render context menu options on Options button click', async () => {
     render(<ContextMenu options={options} onSelect={onSelect}/>);
-    userEvent.click(screen.getByLabelText('Options', {selector: 'button'}));
+    await user.click(screen.getByLabelText('Options', {selector: 'button'}));
     expect(screen.getByText('Edit')).toBeInTheDocument();
     expect(screen.getByText('Delete')).toBeInTheDocument();
   });
 
-  it('should allow user to select an option and trigger onSelect callback', () => {
+  it('should allow user to select an option and trigger onSelect callback', async () => {
     render(<ContextMenu options={options} onSelect={onSelect}/>);
-    userEvent.click(screen.getByLabelText('Options', {selector: 'button'}));
-    userEvent.click(screen.getByText('Delete'));
+    await user.click(screen.getByLabelText('Options', {selector: 'button'}));
+    await user.click(screen.getByText('Delete'));
     expect(onSelect).toHaveBeenCalledWith('Delete');
   });
 });

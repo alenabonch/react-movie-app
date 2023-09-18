@@ -30,30 +30,33 @@ describe(MovieTile, () => {
     expect(screen.getByText('2004')).toBeInTheDocument();
   });
 
-  it('should call onSelect prop with movie id', () => {
+  it('should call onSelect prop with movie id', async () => {
+    const user = userEvent.setup();
     render(<MovieTile movie={movieInfo} genres={genres} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
-    userEvent.click(screen.getByTestId('movie-tile'));
+    await user.click(screen.getByTestId('movie-tile'));
     expect(onClick).toHaveBeenCalledWith(movieInfo);
   });
 
-  it('should call onEdit prop with movie id', () => {
+  it('should call onEdit prop with movie id', async () => {
+    const user = userEvent.setup();
     render(<MovieTile movie={movieInfo} genres={genres} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
-    userEvent.click(screen.getByLabelText('Options', {selector: 'button'}));
-    userEvent.click(screen.getByText('Edit'));
+    await user.click(screen.getByLabelText('Options', {selector: 'button'}));
+    await user.click(screen.getByText('Edit'));
     expect(screen.getByText('Edit Movie')).toBeInTheDocument();
     const submitButton = (screen.getByRole('button', {name: 'Submit'}));
     expect(submitButton).toBeInTheDocument();
   });
 
-  it('should open Delete Movie dialog on delete option click and call onDelete prop on Confirm', () => {
+  it('should open Delete Movie dialog on delete option click and call onDelete prop on Confirm', async () => {
+    const user = userEvent.setup();
     render(<MovieTile movie={movieInfo} genres={genres} onClick={onClick} onEdit={onEdit} onDelete={onDelete}/>);
-    userEvent.click(screen.getByLabelText('Options', {selector: 'button'}));
-    userEvent.click(screen.getByText('Delete'));
+    await user.click(screen.getByLabelText('Options', {selector: 'button'}));
+    await user.click(screen.getByText('Delete'));
     expect(screen.getByText('Delete Movie')).toBeInTheDocument();
     expect(screen.getByText('Are you sure you want to delete this movie?')).toBeInTheDocument();
     const confirmButton = (screen.getByRole('button', {name: 'Confirm'}));
     expect(confirmButton).toBeInTheDocument();
-    userEvent.click(confirmButton);
+    await user.click(confirmButton);
     expect(onDelete).toHaveBeenCalledWith(movieInfo.id);
   });
 });
