@@ -6,14 +6,25 @@ import { Button } from '../Button/Button';
 import { ErrorMessage } from "@hookform/error-message"
 import './MovieForm.scss'
 
-const emptyMovie: Movie = {
+export interface IMovieForm {
+  id: string;
+  title: string;
+  releaseDate: string;
+  posterUrl: string;
+  genres: string[];
+  rating: string | null;
+  duration: string | null;
+  overview: string;
+}
+
+const emptyMovieForm: IMovieForm = {
   id: '',
   title: '',
   releaseDate: '',
   posterUrl: '',
   genres: [],
-  rating: 0,
-  duration: 0,
+  rating: null,
+  duration: null,
   overview: ''
 };
 
@@ -24,18 +35,41 @@ interface MovieFormProps {
 }
 
 function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
+  const convertFormDataToMovie = (formData: IMovieForm): Movie => {
+    return  {
+      ...formData,
+      rating: Number(formData.rating),
+      duration: Number(formData.duration)
+    }
+  }
+
+  const convertMovieToFormData = (movieData: Movie | null): IMovieForm => {
+    if (movieData) {
+      return {
+        ...movieData,
+        rating: movieData.rating.toString(),
+        duration: movieData.duration.toString(),
+      }
+    }
+    return emptyMovieForm;
+  }
+
   const {
     register,
     handleSubmit,
     control,
     reset,
     formState: {errors},
-  } = useForm<Movie>({
-    defaultValues: movie ?? emptyMovie
+  } = useForm<IMovieForm>({
+    defaultValues: convertMovieToFormData(movie)
   });
 
-  const onFormSubmit = (data: Movie) => {
-    onSubmit(data);
+  const onFormSubmit = (data: IMovieForm) => {
+    onSubmit(convertFormDataToMovie(data));
+  }
+
+  const onFormReset = () => {
+    reset(convertMovieToFormData(movie));
   }
 
   return (
@@ -100,7 +134,7 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
         </div>
 
         <div className="d-flex justify-content-end">
-          <Button label="Reset" className="mx-2" onClick={() => reset(movie ?? emptyMovie)}></Button>
+          <Button label="Reset" className="mx-2" onClick={onFormReset}></Button>
           <Button primary label="Submit" type="submit"></Button>
         </div>
       </form>
