@@ -1,18 +1,13 @@
 import React from 'react';
 import { Movie } from '../../models/Movie';
 import './MovieDetails.scss';
+import { toHoursAndMinutes } from '../../utils/DateUtils';
 
 interface MovieDetailsProps {
   movie: Movie;
 }
 
 function MovieDetails({movie}: MovieDetailsProps) {
-  const toHoursAndMinutes = (totalMinutes: number): string => {
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
-    return `${hours}h ${minutes}m`;
-  }
-
   return (
     <div className="movie-details d-flex">
       <img className="movie-details__image" src={movie.posterUrl} alt=""/>

@@ -5,7 +5,7 @@ interface ButtonProps {
   primary?: boolean;
   size?: 'small' | 'medium' | 'large';
   label: string;
-  type?: 'button' | 'submit' | 'reset' | undefined;
+  type?: 'button' | 'submit' | 'reset';
   className?: string;
   backgroundColor?: string;
   onClick?: () => void;

@@ -151,8 +151,8 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
         </div>
 
         <div className="d-flex justify-content-end">
-          <Button label="Reset" className="mx-2" onClick={onFormReset}></Button>
-          <Button primary label="Submit" type="submit"></Button>
+          <Button label="Reset" className="mx-2" onClick={onFormReset}/>
+          <Button primary label="Submit" type="submit"/>
         </div>
       </form>
   );
