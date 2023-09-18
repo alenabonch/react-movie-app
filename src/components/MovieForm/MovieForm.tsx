@@ -4,12 +4,15 @@ import { Controller, useForm } from 'react-hook-form';
 import { Movie } from '../../models/Movie';
 import { Button } from '../Button/Button';
 import { ErrorMessage } from "@hookform/error-message"
+import DatePicker from "react-datepicker";
+import moment from 'moment';
+import "react-datepicker/dist/react-datepicker.css";
 import './MovieForm.scss'
 
 export interface IMovieForm {
   id: string;
   title: string;
-  releaseDate: string;
+  releaseDate: Date | null;
   posterUrl: string;
   genres: string[];
   rating: string | null;
@@ -20,7 +23,7 @@ export interface IMovieForm {
 const emptyMovieForm: IMovieForm = {
   id: '',
   title: '',
-  releaseDate: '',
+  releaseDate: null,
   posterUrl: '',
   genres: [],
   rating: null,
@@ -35,9 +38,12 @@ interface MovieFormProps {
 }
 
 function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
+
   const convertFormDataToMovie = (formData: IMovieForm): Movie => {
+    moment(formData.releaseDate).toISOString(true);
     return  {
       ...formData,
+      releaseDate: moment(formData.releaseDate).format('YYYY-MM-DD'),
       rating: Number(formData.rating),
       duration: Number(formData.duration)
     }
@@ -47,6 +53,7 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
     if (movieData) {
       return {
         ...movieData,
+        releaseDate: moment(movieData.releaseDate, 'YYYY-MM-DD').toDate(),
         rating: movieData.rating.toString(),
         duration: movieData.duration.toString(),
       }
@@ -73,9 +80,9 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
   }
 
   return (
-      <form className="movie-form" onSubmit={handleSubmit(onFormSubmit)}>
+      <form className="movie-form" onSubmit={handleSubmit(onFormSubmit)} autoComplete={'off'}>
         <div className="row mb-3">
-          <div className="col-8">
+          <div className="col-7">
             <label htmlFor="title">Title</label>
             <input {...register("title", {required: "Title is required"})} id="title"/>
             <ErrorMessage errors={errors} name="title" render={({ message }) => <p className="error-message">{message}</p>}/>
@@ -83,12 +90,22 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
 
           <div className="col">
             <label htmlFor="releaseDate">Release Date</label>
-            <input {...register("releaseDate")} id="releaseDate" placeholder="YYYY-MM-DD"/>
+            <Controller
+                control={control}
+                name="releaseDate"
+                render={({field: {onChange, value}}) => (
+                    <DatePicker id="releaseDate"
+                                selected={value}
+                                placeholderText="Select Date"
+                                onChange={onChange}
+                                dateFormat='yyyy-MM-dd'/>
+                )}
+            />
           </div>
         </div>
 
         <div className="row mb-3">
-          <div className="col-8">
+          <div className="col-7">
             <label htmlFor="posterUrl">Movie Url</label>
             <input {...register("posterUrl")} id="posterUrl" placeholder="https://"/>
           </div>
@@ -100,7 +117,7 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
         </div>
 
         <div className="row mb-3">
-          <div className="col-8">
+          <div className="col-7">
             <label htmlFor="genres_input">Genre</label>
             <Controller
                 control={control}

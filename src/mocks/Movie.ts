@@ -4,7 +4,7 @@ export const movieMock: Movie = {
   id: '1',
   title: 'Pulp Fiction',
   genres: ['Action', 'Adventure'],
-  releaseDate: '2004',
+  releaseDate: '2004-12-29',
   posterUrl: 'https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg',
   rating: 8.9,
   duration: 154,
