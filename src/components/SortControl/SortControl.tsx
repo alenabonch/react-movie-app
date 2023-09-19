@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './SortControl.scss';
 
 export type SortType = 'title' | 'releaseDate';
 
 interface SortControlProps {
-  initialSort: SortType;
-  onSortChange: (SortType: string) => void;
+  sort: SortType;
+  onSortChange: (sort: SortType) => void;
 }
 
-function SortControl({initialSort, onSortChange}: SortControlProps) {
-  const [sort, setSort] = useState(initialSort);
-
+function SortControl({sort, onSortChange}: SortControlProps) {
   const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSort(event.target.value as SortType);
-    onSortChange(event.target.value);
+    onSortChange(event.target.value as SortType);
   }
 
   return (

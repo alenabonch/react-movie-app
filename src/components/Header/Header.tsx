@@ -9,13 +9,14 @@ import './Header.scss'
 
 interface HeaderProps {
   genres: string[];
+  query: string;
   selectedMovie: Movie | null;
   onSelectedMovieReset: () => void;
   onSearch: (text: string) => void;
   onAddMovieSubmit: (movie: Movie) => void;
 }
 
-function Header({selectedMovie, genres, onSearch, onSelectedMovieReset, onAddMovieSubmit}: HeaderProps) {
+function Header({query, genres, selectedMovie, onSearch, onSelectedMovieReset, onAddMovieSubmit}: HeaderProps) {
   const [openAddMovieDialog, setOpenAddMovieDialog] = useState(false);
 
   const handleSelectedMovieChange = () => {
@@ -42,7 +43,7 @@ function Header({selectedMovie, genres, onSearch, onSelectedMovieReset, onAddMov
         </div>
         { selectedMovie
             ? <MovieDetails movie={selectedMovie}/>
-            : <SearchForm onSearch={onSearch}/>
+            : <SearchForm initialQuery={query} onSearch={onSearch}/>
         }
         <Dialog title="Add Movie" open={openAddMovieDialog} onClose={handleAddMovieDialogOpenChange.bind(null, false)}>
           <MovieForm movie={null} genres={genres} onSubmit={handleAddMovieSubmit}/>

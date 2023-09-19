@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './GenreSelect.scss'
 
 interface GenreSelectProps {
   genres: string[];
-  initialSelectedGenre: string;
+  selectedGenre: string;
   onSelect: (text: string) => void;
 }
 
-function GenreSelect({genres, initialSelectedGenre, onSelect}: GenreSelectProps) {
-  const [selectedGenre, setSelectedGenre] = useState(initialSelectedGenre);
-
+function GenreSelect({genres, selectedGenre, onSelect}: GenreSelectProps) {
   const handleGenreSelect = (genre: string) => {
-    setSelectedGenre(genre);
     onSelect(genre);
   }
 

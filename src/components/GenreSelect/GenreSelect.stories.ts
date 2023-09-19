@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    initialSelectedGenre: 'Comedy',
+    selectedGenre: 'Comedy',
     genres: ['Action', 'Comedy', 'Drama'],
   },
 };

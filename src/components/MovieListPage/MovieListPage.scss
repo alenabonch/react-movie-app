@@ -1,0 +1,13 @@
+@import "src/styles/colors";
+
+.movie-list-page {
+  &__header {
+    min-height: 400px;
+    background-color: $black;
+  }
+
+  &__body {
+    min-height: 500px;
+    background-color: $black;
+  }
+}
