@@ -1,17 +1,17 @@
-import React from 'react';
-import GenreSelect from './components/GenreSelect/GenreSelect';
-import MovieTile, { MovieInfo } from './components/MovieTile/MovieTile';
-import SearchForm from './components/SearchForm/SearchForm';
+import React, { useState } from 'react';
 import './App.scss';
+import GenreSelect from './components/GenreSelect/GenreSelect';
+import Header from './components/Header/Header';
+import MovieTile from './components/MovieTile/MovieTile';
 import SortControl from './components/SortControl/SortControl';
+import { genresMock } from './mocks/Genre';
+import { movieMock, movieMock2, movieMock3 } from './mocks/Movie';
+import { Movie } from './models/Movie';
 
 function App() {
-  const genres = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
-  const movies: MovieInfo[] = [
-      {id: '1', name: 'Pulp Fiction', genres: ['Action', 'Adventure'], year: '2004', imageUrl: 'https://cdn.europosters.eu/image/1300/posters/pulp-fiction-cover-i1288.jpg'},
-      {id: '2', name: 'Bohemian Rhapsody', genres: ['Drama', 'Biography', 'Music'], year: '2003', imageUrl: 'https://m.media-amazon.com/images/I/71kuEWe9PYL._SY445_.jpg'},
-      {id: '3', name: 'Inception', genres: ['Action', 'Adventure'], year: '2003', imageUrl: 'https://m.media-amazon.com/images/I/61xzvfJiNkL._AC_.jpg'}
-  ];
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const movies = [movieMock, movieMock2, movieMock3];
+  const genres = ['All', ...genresMock];
 
   const handleSearch = (text: string) => {
     console.log('searching for item...', text);
@@ -25,24 +25,34 @@ function App() {
     console.log('sort changed', sort);
   }
 
-  const handleTileClick = (id: string) => {
-    console.log('movie clicked', id);
+  const handleTileClick = (movie: Movie) => {
+    setSelectedMovie(movie);
   }
 
-  const handleEditClick = (id: string) => {
-    console.log('Edit movie clicked', id);
+  const handleAddMovieSubmit = (movie: Movie) => {
+    console.log('Add movie submitted', movie);
+  }
+
+  const handleEditMovieSubmitted = (movie: Movie) => {
+    console.log('Edit movie submitted', movie);
   }
 
   const handleDeleteClick = (id: string) => {
     console.log('Delete movie clicked', id);
   }
 
+  const handleSelectedMovieChange = (movie: Movie | null) => {
+    setSelectedMovie(movie);
+  }
+
   return (
     <div className="App p-5">
-      <div className="App-header container mb-2 d-flex flex-column">
-        <div className="App-search-container p-5">
-          <SearchForm onSearch={handleSearch}/>
-        </div>
+      <div className="App-header container mb-2 d-flex flex-column px-5 py-4">
+        <Header onSearch={handleSearch}
+                selectedMovie={selectedMovie}
+                genres={genres}
+                onSelectedMovieReset={handleSelectedMovieChange.bind(null, null)}
+                onAddMovieSubmit={handleAddMovieSubmit}/>
       </div>
       <div className="App-body container px-5">
         <div className="d-flex justify-content-between">
@@ -51,14 +61,16 @@ function App() {
         </div>
         <div className="d-flex justify-content-between flex-wrap py-3">
           {movies.map((movie) => (
-                <MovieTile movieInfo={movie}
+                <MovieTile movie={movie}
                            key={movie.id}
+                           genres={genres}
                            onClick={handleTileClick}
-                           onEdit={handleEditClick}
+                           onEdit={handleEditMovieSubmitted}
                            onDelete={handleDeleteClick}/>
           ))}
         </div>
       </div>
+      <div className="logo d-flex justify-content-center mt-4"><strong>netflix</strong>roulette</div>
     </div>
   );
 }

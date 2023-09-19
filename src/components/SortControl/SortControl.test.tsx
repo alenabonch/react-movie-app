@@ -4,6 +4,7 @@ import React from 'react';
 import SortControl from './SortControl';
 
 describe(SortControl, () => {
+  const user = userEvent.setup();
   const onSortChange = jest.fn();
   const initialSort = 'title';
 
@@ -17,10 +18,10 @@ describe(SortControl, () => {
     expect(screen.getAllByRole('option').length).toBe(2);
   });
 
-  it('should call sort change callback on select change', () => {
+  it('should call sort change callback on select change', async () => {
     render(<SortControl initialSort={initialSort} onSortChange={onSortChange}/>);
     const selectElement = screen.getByLabelText('Sort By');
-    userEvent.selectOptions(selectElement, 'year');
-    expect(onSortChange).toHaveBeenCalledWith('year');
+    await user.selectOptions(selectElement, 'releaseDate');
+    expect(onSortChange).toHaveBeenCalledWith('releaseDate');
   });
 });

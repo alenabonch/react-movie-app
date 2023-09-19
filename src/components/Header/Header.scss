@@ -1,0 +1,10 @@
+@import "src/styles/colors";
+
+.header {
+  &__search-icon {
+    color: $red;
+    font-size: 30px;
+    border: none;
+    background: transparent;
+  }
+}

@@ -4,6 +4,7 @@ import React from 'react';
 import SearchForm from './SearchForm';
 
 describe(SearchForm, () => {
+  const user = userEvent.setup();
   const onSearch = jest.fn();
 
   it('should render input with initial value', () => {
@@ -12,21 +13,21 @@ describe(SearchForm, () => {
     expect(inputElement).toHaveValue('hi');
   });
 
-  it('should call onSearch prop with proper value on Search button click', () => {
+  it('should call onSearch prop with proper value on Search button click', async () => {
     render(<SearchForm initialQuery="" onSearch={onSearch}/>);
     const searchInput = screen.getByLabelText('Find your movie');
     const searchButton = screen.getByRole('button', {name: 'Search'});
 
-    userEvent.type(searchInput, 'Inception');
-    userEvent.click(searchButton);
+    await user.type(searchInput, 'Inception');
+    await user.click(searchButton);
     expect(onSearch).toHaveBeenCalledWith('Inception');
   });
 
-  it('should call onSearch prop with proper value on Enter key press', () => {
+  it('should call onSearch prop with proper value on Enter key press', async () => {
     render(<SearchForm initialQuery="" onSearch={onSearch}/>);
     const searchInput = screen.getByLabelText('Find your movie');
 
-    userEvent.type(searchInput, 'Inception');
+    await user.type(searchInput, 'Inception');
     fireEvent.keyDown(searchInput, {key: 'Enter', code: 'Enter', charCode: 13})
     expect(onSearch).toHaveBeenCalledWith('Inception');
   });

@@ -25,7 +25,7 @@ function SearchForm({initialQuery = '', onSearch}: SearchFormProps) {
   }
 
   return (
-    <div className="search-form">
+    <div className="search-form p-5">
       <label htmlFor="search-input" className="mb-4 search-form-label">Find your movie</label>
       <div className="d-flex">
         <input
