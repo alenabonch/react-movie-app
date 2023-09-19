@@ -4,6 +4,7 @@ import React from 'react';
 import GenreSelect from './GenreSelect';
 
 describe(GenreSelect, () => {
+  const user = userEvent.setup();
   const genres = ['Action', 'Comedy', 'Drama'];
   const initialSelectedGenre = 'Comedy';
   const onSelect = jest.fn();
@@ -21,12 +22,12 @@ describe(GenreSelect, () => {
     expect(comedyButton).toHaveClass('active');
   });
 
-  it('should highlight clicked genre and call onSelect prop with proper genre', () => {
+  it('should highlight clicked genre and call onSelect prop with proper genre', async () => {
     render(<GenreSelect genres={genres} initialSelectedGenre={initialSelectedGenre} onSelect={onSelect}/>);
     const dramaButton = screen.getByText('Drama');
     expect(dramaButton).not.toHaveClass('active');
 
-    userEvent.click(dramaButton);
+    await user.click(dramaButton);
     expect(dramaButton).toHaveClass('active');
     expect(onSelect).toHaveBeenCalledWith('Drama');
   });
