@@ -21,7 +21,7 @@ describe(SortControl, () => {
   it('should call sort change callback on select change', async () => {
     render(<SortControl sort={initialSort} onSortChange={onSortChange}/>);
     const selectElement = screen.getByLabelText('Sort By');
-    await user.selectOptions(selectElement, 'releaseDate');
-    expect(onSortChange).toHaveBeenCalledWith('releaseDate');
+    await user.selectOptions(selectElement, 'release_date');
+    expect(onSortChange).toHaveBeenCalledWith('release_date');
   });
 });

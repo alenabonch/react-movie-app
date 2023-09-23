@@ -2,7 +2,7 @@
 
 .movie-details {
   color: $white;
-  height: 464px;
+  min-height: 464px;
   overflow: hidden;
 
   &__image {

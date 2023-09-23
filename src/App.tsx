@@ -1,5 +1,5 @@
 import React from 'react';
-import MovieListPage from './components/MovieListPage/MovieListPage';
+import MovieListPage from './pages/MovieListPage/MovieListPage';
 
 function App() {
   return (

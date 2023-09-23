@@ -8,3 +8,46 @@ export interface Movie {
   duration: number;
   overview: string;
 }
+
+export interface MovieDto {
+  id: number;
+  title: string;
+  release_date: string;
+  poster_path: string;
+  genres: string[];
+  vote_average: number;
+  runtime: number;
+  overview: string;
+  revenue: number;
+  budget: number;
+  tagline: string;
+  vote_count: number;
+}
+
+export interface MoviesResponseDto {
+  data: MovieDto[];
+  limit: number;
+  offset: number;
+  totalAmount: number;
+}
+
+export interface MoviesResponse {
+  data: Movie[];
+  limit: number;
+  offset: number;
+  totalAmount: number;
+}
+
+export type SortBy = 'title' | 'release_date';
+export type SearchBy = 'title' | 'genres';
+export type SortOrder = 'asc' | 'desc';
+
+export interface MoviesRequest {
+  sortBy?: SortBy;
+  search?: string;
+  searchBy?: SearchBy;
+  sortOrder?: SortOrder;
+  filter?: string;
+  offset?: string;
+  limit?: string;
+}

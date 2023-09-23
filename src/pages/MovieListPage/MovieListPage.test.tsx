@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import MovieListPage from './MovieListPage';
+import '../../__mocks__/intersectionObserver';
 
 describe(MovieListPage, () => {
   const user = userEvent.setup();
@@ -10,6 +11,15 @@ describe(MovieListPage, () => {
     render(<MovieListPage/>);
     expect(screen.getByText('+ Add Movie')).toBeInTheDocument();
     expect(screen.getByLabelText('Find your movie')).toBeInTheDocument();
+  });
+
+  it('should highlight selected genre', async () => {
+    render(<MovieListPage/>);
+    const dramaButton = screen.getByText('Drama');
+    expect(dramaButton).not.toHaveClass('active');
+
+    await user.click(dramaButton);
+    expect(dramaButton).toHaveClass('active');
   });
 
   it('should highlight selected genre', async () => {
