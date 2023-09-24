@@ -37,7 +37,9 @@ function Header({query, genres, selectedMovie, onSearch, onSelectedMovieReset, o
         <div className="d-flex justify-content-between">
           <div className="logo"><strong>netflix</strong>roulette</div>
           {selectedMovie
-              ? <button aria-label="Return to Search" className="header__search-icon" onClick={handleSelectedMovieChange}><i className="fa-solid fa-magnifying-glass"></i></button>
+              ? <button aria-label="Return to Search" className="header__search-icon" onClick={handleSelectedMovieChange} data-testid="return-to-search">
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </button>
               : <Button label="+ Add Movie" onClick={handleAddMovieDialogOpenChange.bind(null, true)} size="small" className="mx-4"/>
           }
         </div>

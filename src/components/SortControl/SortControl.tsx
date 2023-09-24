@@ -15,7 +15,7 @@ function SortControl({sort, onSortChange}: SortControlProps) {
   return (
     <div className="sort-control d-flex justify-content-center align-items-center">
       <label htmlFor="sort" className="sort-control__label">Sort By</label>
-      <select className="sort-control__select" name="sort" id="sort" value={sort} onChange={handleSortChange}>
+      <select className="sort-control__select" name="sort" id="sort" data-testid="sort-select" value={sort} onChange={handleSortChange}>
         <option value="release_date">RELEASE DATE</option>
         <option value="title">TITLE</option>
       </select>

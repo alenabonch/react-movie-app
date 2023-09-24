@@ -38,6 +38,7 @@ function SearchForm({initialQuery = '', onSearch}: SearchFormProps) {
                 type="text"
                 id="search-input"
                 name="search-input"
+                data-testid="search-input"
                 className="search-form__input form-control"
                 value={query}
                 onChange={handleInputChange}
@@ -54,6 +55,7 @@ function SearchForm({initialQuery = '', onSearch}: SearchFormProps) {
           </div>
           <Button
               label="Search"
+              dataTestId="search-button"
               onClick={handleSearchClick}
               primary
               size="medium"
