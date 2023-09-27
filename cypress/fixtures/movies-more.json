@@ -1,0 +1,119 @@
+{
+  "totalAmount": 3000,
+  "data": [
+    {
+      "id": 297802,
+      "title": "Aquaman",
+      "tagline": "",
+      "vote_average": 0,
+      "vote_count": 0,
+      "release_date": "2018-12-19",
+      "poster_path": "https://image.tmdb.org/t/p/w500/sshNRCbtU2ON8SiWLycQzr05doX.jpg",
+      "overview": "Following the events of Justice League, Arthur Curry, the reluctant ruler of the underwater kingdom of Atlantis, is caught between surface dwellers and his own people who are ready to lash out and invade the surface.",
+      "budget": 160000000,
+      "revenue": 0,
+      "genres": [
+        "Action",
+        "Fantasy",
+        "Science Fiction"
+      ],
+      "runtime": null
+    },
+    {
+      "id": 353081,
+      "title": "Mission: Impossible - Fallout",
+      "tagline": "",
+      "vote_average": 0,
+      "vote_count": 3,
+      "release_date": "2018-07-26",
+      "poster_path": "https://image.tmdb.org/t/p/w500/A2W75CVz9l8gEeWhQiiftlOCkgi.jpg",
+      "overview": "The sixth installment in the \"Mission: Impossible\". When an IMF mission ends badly, the world is faced with dire consequences. As Ethan Hunt takes it upon himself to fulfil his original briefing, the CIA begin to question his loyalty and his motives. The IMF team find themselves in a race against time, hunted by assassins while trying to prevent a global catastrophe.",
+      "budget": 0,
+      "revenue": 0,
+      "genres": [
+        "Adventure",
+        "Action",
+        "Thriller"
+      ],
+      "runtime": null
+    },
+    {
+      "id": 351286,
+      "title": "Jurassic World: Fallen Kingdom",
+      "tagline": "Life finds a way",
+      "vote_average": 0,
+      "vote_count": 28,
+      "release_date": "2018-06-01",
+      "poster_path": "https://image.tmdb.org/t/p/w500/ln6d5Okr6VK5vfQVobJTiYxeD0l.jpg",
+      "overview": "A volcanic eruption threatens the remaining dinosaurs on the island of Isla Nublar, where the creatures have freely roamed for several years after the demise of an animal theme park known as Jurassic World. Claire Dearing, the former park manager, has now founded the Dinosaur Protection Group, an organization dedicated to protecting the dinosaurs. To help with her cause, Claire has recruited Owen Grady, a former dinosaur trainer who worked at the park, to prevent the extinction of the dinosaurs once again.",
+      "budget": 0,
+      "revenue": 0,
+      "genres": [
+        "Action",
+        "Adventure",
+        "Drama",
+        "Science Fiction",
+        "Thriller"
+      ],
+      "runtime": null
+    },
+    {
+      "id": 348350,
+      "title": "Solo: A Star Wars Story",
+      "tagline": "",
+      "vote_average": 0,
+      "vote_count": 2,
+      "release_date": "2018-05-23",
+      "poster_path": "https://image.tmdb.org/t/p/w500/uJ6OnE3CzGWq6buLINAbdBqa0gV.jpg",
+      "overview": "Through a series of daring escapades deep within a dark and dangerous criminal underworld, Han Solo meets his mighty future copilot Chewbacca and encounters the notorious gambler Lando Calrissian.",
+      "budget": 0,
+      "revenue": 0,
+      "genres": [
+        "Action",
+        "Adventure",
+        "Family",
+        "Science Fiction"
+      ],
+      "runtime": null
+    },
+    {
+      "id": 383498,
+      "title": "Deadpool 2",
+      "tagline": "Prepare for the Second Coming.",
+      "vote_average": 0,
+      "vote_count": 1,
+      "release_date": "2018-05-16",
+      "poster_path": "https://image.tmdb.org/t/p/w500/qjiPP4FhTV3UAGa1Dbf2qEqTvu5.jpg",
+      "overview": "Wisecracking mercenary Deadpool battles the evil and powerful Cable and other bad guys to save a boy's life.",
+      "budget": 0,
+      "revenue": 0,
+      "genres": [
+        "Action",
+        "Comedy",
+        "Science Fiction"
+      ],
+      "runtime": null
+    },
+    {
+      "id": 299536,
+      "title": "Avengers: Infinity War",
+      "tagline": "An entire universe. Once and for all.",
+      "vote_average": 0,
+      "vote_count": 0,
+      "release_date": "2018-04-25",
+      "poster_path": "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+      "overview": "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
+      "budget": 500000000,
+      "revenue": 0,
+      "genres": [
+        "Adventure",
+        "Science Fiction",
+        "Fantasy",
+        "Action"
+      ],
+      "runtime": 156
+    }
+  ],
+  "offset": 6,
+  "limit": 6
+}

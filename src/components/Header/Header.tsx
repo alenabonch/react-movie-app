@@ -9,13 +9,14 @@ import './Header.scss'
 
 interface HeaderProps {
   genres: string[];
+  query: string;
   selectedMovie: Movie | null;
   onSelectedMovieReset: () => void;
   onSearch: (text: string) => void;
   onAddMovieSubmit: (movie: Movie) => void;
 }
 
-function Header({selectedMovie, genres, onSearch, onSelectedMovieReset, onAddMovieSubmit}: HeaderProps) {
+function Header({query, genres, selectedMovie, onSearch, onSelectedMovieReset, onAddMovieSubmit}: HeaderProps) {
   const [openAddMovieDialog, setOpenAddMovieDialog] = useState(false);
 
   const handleSelectedMovieChange = () => {
@@ -36,13 +37,15 @@ function Header({selectedMovie, genres, onSearch, onSelectedMovieReset, onAddMov
         <div className="d-flex justify-content-between">
           <div className="logo"><strong>netflix</strong>roulette</div>
           {selectedMovie
-              ? <button aria-label="Return to Search" className="header__search-icon" onClick={handleSelectedMovieChange}><i className="fa-solid fa-magnifying-glass"></i></button>
+              ? <button aria-label="Return to Search" className="header__search-icon" onClick={handleSelectedMovieChange} data-testid="return-to-search">
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </button>
               : <Button label="+ Add Movie" onClick={handleAddMovieDialogOpenChange.bind(null, true)} size="small" className="mx-4"/>
           }
         </div>
         { selectedMovie
             ? <MovieDetails movie={selectedMovie}/>
-            : <SearchForm onSearch={onSearch}/>
+            : <SearchForm initialQuery={query} onSearch={onSearch}/>
         }
         <Dialog title="Add Movie" open={openAddMovieDialog} onClose={handleAddMovieDialogOpenChange.bind(null, false)}>
           <MovieForm movie={null} genres={genres} onSubmit={handleAddMovieSubmit}/>

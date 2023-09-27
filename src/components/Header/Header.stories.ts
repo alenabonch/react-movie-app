@@ -17,6 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Initial: Story = {
   args: {
+    query: '',
     genres: genresMock,
     selectedMovie: null,
   },
@@ -24,6 +25,7 @@ export const Initial: Story = {
 
 export const MovieSelected: Story = {
   args: {
+    query: 'Inception',
     genres: genresMock,
     selectedMovie: movieMock,
   },

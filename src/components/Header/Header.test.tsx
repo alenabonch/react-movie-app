@@ -9,11 +9,13 @@ describe(Header, () => {
   const onSearch = jest.fn();
   const onSelectedMovieReset = jest.fn();
   const onAddMovieSubmit = jest.fn();
+  const queryMock = 'Text';
 
   it('should render header with search bar by default', () => {
     render(<Header selectedMovie={null}
                    onSearch={onSearch}
                    genres={genresMock}
+                   query={queryMock}
                    onAddMovieSubmit={onAddMovieSubmit}
                    onSelectedMovieReset={onSelectedMovieReset}/>);
     expect(screen.getByText('+ Add Movie')).toBeInTheDocument();
@@ -24,6 +26,7 @@ describe(Header, () => {
     render(<Header selectedMovie={movieMock}
                    onSearch={onSearch}
                    genres={genresMock}
+                   query={queryMock}
                    onAddMovieSubmit={onAddMovieSubmit}
                    onSelectedMovieReset={onSelectedMovieReset}/>);
     expect(screen.queryByText('+ Add Movie')).not.toBeInTheDocument();

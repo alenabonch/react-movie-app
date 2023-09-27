@@ -1,19 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import SortControl from './SortControl';
+import MovieListPage from './MovieListPage';
 
 const meta = {
-  title: 'Components/SortControl',
-  component: SortControl,
+  title: 'Components/MovieListPage',
+  component: MovieListPage,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
   },
-} satisfies Meta<typeof SortControl>;
+} satisfies Meta<typeof MovieListPage>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
   args: {
-    sort: 'title'
-  },
+  }
 };

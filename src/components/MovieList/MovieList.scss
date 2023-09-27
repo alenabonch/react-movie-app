@@ -1,0 +1,18 @@
+@import "src/styles/colors";
+
+.movie-list {
+  color: $white;
+
+  &__total {
+    font-size: 20px;
+  }
+
+  &__error {
+    font-size: 24px;
+    color: $red;
+  }
+
+  &__last-element {
+    height: 20px;
+  }
+}

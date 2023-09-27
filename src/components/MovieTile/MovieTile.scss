@@ -3,6 +3,7 @@
 .movie-tile {
   width: 326px;
   color: $white;
+  cursor: pointer;
 
   &__image {
     width: 100%;
@@ -27,6 +28,7 @@
     border: 1px solid $slight-gray;
     padding: 2px 10px;
     margin-left: 4px;
+    white-space: nowrap;
   }
 
   &__menu {

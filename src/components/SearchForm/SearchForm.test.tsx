@@ -31,4 +31,14 @@ describe(SearchForm, () => {
     fireEvent.keyDown(searchInput, {key: 'Enter', code: 'Enter', charCode: 13})
     expect(onSearch).toHaveBeenCalledWith('Inception');
   });
+
+  it('should clear search on clear icon click', async () => {
+    render(<SearchForm initialQuery="text" onSearch={onSearch}/>);
+    const clearSearch = screen.getByLabelText('Clear Search');
+    const searchInput = screen.getByLabelText('Find your movie');
+
+    await user.click(clearSearch);
+    expect(searchInput).toHaveValue('')
+    expect(onSearch).toHaveBeenCalledWith('');
+  });
 });
