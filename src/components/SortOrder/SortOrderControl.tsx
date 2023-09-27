@@ -12,18 +12,22 @@ function SortOrderControl({sortOrder, onSortOrderChange}: SortOrderControlProps)
     onSortOrderChange(sortOrder);
   }
 
+  const sortOrderConfigs: {order: SortOrder, label: string, icon: string}[] = [
+    {order: 'desc', label: 'Sort Down', icon: 'fa-arrow-down-wide-short'},
+    {order: 'asc', label: 'Sort Up', icon: 'fa-arrow-up-short-wide'}
+  ];
+
   return (
     <div className="sort-order d-flex justify-content-center">
-      <button aria-label="Sort Down"
-              className={`sort-order__button ${sortOrder ===  'desc' ? 'active' : ''}`}
-              onClick={handleSortOrderChange.bind(null, 'desc')}>
-        <i className="fa-solid fa-arrow-down-wide-short"></i>
-      </button>
-      <button aria-label="Sort Up"
-              className={`sort-order__button ${sortOrder ===  'asc' ? 'active' : ''}`}
-              onClick={handleSortOrderChange.bind(null, 'asc')}>
-        <i className="fa-solid fa-arrow-up-short-wide"></i>
-      </button>
+      {
+        sortOrderConfigs.map(config => (
+            <button aria-label={config.label}
+                    className={`sort-order__button ${sortOrder ===  config.order ? 'active' : ''}`}
+                    onClick={handleSortOrderChange.bind(null, config.order)}>
+              <i className={`fa-solid ${config.icon}`}></i>
+            </button>
+        ))
+      }
     </div>
   );
 }

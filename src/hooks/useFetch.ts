@@ -1,18 +1,24 @@
+import axios, { CancelToken, CancelTokenSource } from 'axios';
 import { useState } from 'react';
-import { REQUEST_CANCELLED_ERROR } from '../services/MovieService';
+let cancelToken: CancelTokenSource;
 
-export const useFetch = (request: () => Promise<void>): [() => Promise<void>, boolean, string] => {
+export const useFetch = (request: (cancelToken: CancelToken) => Promise<void>): [() => Promise<void>, boolean, string] => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const fetching = async () => {
+    if (cancelToken) {
+      cancelToken.cancel();
+    }
+    cancelToken = axios.CancelToken.source();
+
     try {
       setLoading(true);
       setError('');
-      await request();
+      await request(cancelToken.token);
       setLoading(false);
     } catch (e: any) {
-      if (!REQUEST_CANCELLED_ERROR) {
+      if (!axios.isCancel(e)) {
         setLoading(false);
         setError(e.message);
       }

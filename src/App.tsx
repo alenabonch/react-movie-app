@@ -3,7 +3,7 @@ import MovieListPage from './pages/MovieListPage/MovieListPage';
 
 function App() {
   return (
-    <MovieListPage></MovieListPage>
+    <MovieListPage/>
   );
 }
 

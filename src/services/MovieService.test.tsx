@@ -1,4 +1,4 @@
-import axios, { CancelTokenSource } from 'axios'
+import axios, { CancelToken, CancelTokenSource } from 'axios'
 import { MoviesRequest, MoviesResponse, MoviesResponseDto } from '../models/Movie';
 import MovieService from './MovieService';
 
@@ -61,35 +61,12 @@ describe(MovieService, () => {
       }
 
       jest.spyOn(mockedAxios, 'get').mockResolvedValue({data: moviesResponseDto});
-      const cancelToken = {cancel: jest.fn(), token: {reason: {message: 'user canceled'}}} as unknown as CancelTokenSource;
-      jest.spyOn(mockedAxios.CancelToken, 'source').mockReturnValueOnce(cancelToken);
+      const cancelToken = {reason: {message: 'user canceled'}} as CancelToken;
+      const data = await service.getMovies(mockMoviesRequest, cancelToken);
+      const params = mockMoviesRequest;
 
-      const data = await service.getMovies(mockMoviesRequest);
-      expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:4000/movies', {
-        params: mockMoviesRequest,
-        cancelToken: cancelToken.token
-      });
+      expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:4000/movies', {params, cancelToken});
       expect(data).toEqual(expectedMoviesResponse);
-    });
-
-    it('should cancel if cancel token exists', async () => {
-      jest.spyOn(mockedAxios, 'get').mockResolvedValue({data: moviesResponseDto});
-      const cancelToken = {cancel: jest.fn(), token: {reason: {message: 'user canceled'}}} as unknown as CancelTokenSource;
-      jest.spyOn(mockedAxios.CancelToken, 'source').mockReturnValue(cancelToken);
-
-      await service.getMovies({search: 'black'});
-      expect(mockedAxios.get).toBeCalledWith('http://localhost:4000/movies', {
-        params: {search: 'black'},
-        cancelToken: cancelToken.token
-      });
-      expect(mockedAxios.CancelToken.source).toBeCalledTimes(1);
-
-      await service.getMovies({search: 'black box'});
-      expect(cancelToken.cancel).toBeCalledTimes(1);
-      expect(mockedAxios.get).toBeCalledWith('http://localhost:4000/movies', {
-        params: {search: 'black box'},
-        cancelToken: cancelToken.token
-      });
     });
   });
 });

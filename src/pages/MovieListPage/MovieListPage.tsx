@@ -32,41 +32,44 @@ function MovieListPage() {
       sortBy: sortBy,
       sortOrder: sortOrder,
       limit: limit.toString(),
-      offset: (movies.length).toString(),
+      offset: ((page - 1) * limit).toString(),
       filter: selectedGenre !== 'All' ? selectedGenre : ''
     }
   }
 
-  const [fetchMovies, moviesLoading, moviesError] = useFetch(async () => {
-    const response = await movieService.getMovies(prepareRequestParams());
+  const [fetchMovies, moviesLoading, moviesError] = useFetch(async (cancelToken) => {
+    const response = await movieService.getMovies(prepareRequestParams(), cancelToken);
     setMovies([...movies, ...response.data]);
     setTotalAmount(response.totalAmount);
     setTotalPages(getPageCount(response.totalAmount, limit));
   })
 
   useEffect(() => {
-    (async () => {
-      await fetchMovies();
-    })();
+    void fetchMovies();
   }, [page, sortBy, sortOrder, searchQuery, selectedGenre]);
 
-  const handleSearch = (query: string) => {
+  const resetSearch = () => {
     setMovies([]);
+    setPage(1);
+  }
+
+  const handleSearch = (query: string) => {
+    resetSearch();
     setSearchQuery(query);
   }
 
   const handleSort = (sort: SortBy) => {
-    setMovies([]);
+    resetSearch();
     setSortBy(sort);
   }
 
   const handleSortOrder = (sortOrder: SortOrder) => {
-    setMovies([]);
+    resetSearch();
     setSortOrder(sortOrder);
   }
 
   const handleGenreSelect = (genre: string) => {
-    setMovies([]);
+    resetSearch();
     setSelectedGenre(genre);
   }
 
