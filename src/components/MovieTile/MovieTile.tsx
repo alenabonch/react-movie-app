@@ -51,7 +51,7 @@ function MovieTile({movie, genres, onClick, onEdit, onDelete}: MovieTileProps) {
   }
 
   return (
-    <div className="movie-tile position-relative" onClick={handleTileClick} data-testid="movie-tile">
+    <div className="movie-tile position-relative mb-4" onClick={handleTileClick} data-testid="movie-tile">
       <img className="movie-tile__image" src={movie.posterUrl} alt=""/>
       <div className="d-flex justify-content-between align-items-center">
         <h3 className="movie-tile__title text-truncate">{movie.title}</h3>

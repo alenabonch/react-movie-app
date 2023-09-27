@@ -9,7 +9,7 @@ interface MovieDetailsProps {
 
 function MovieDetails({movie}: MovieDetailsProps) {
   return (
-    <div className="movie-details d-flex">
+    <div className="movie-details d-flex" data-testid="movie-details">
       <img className="movie-details__image" src={movie.posterUrl} alt=""/>
       <div>
         <div className="d-flex">
