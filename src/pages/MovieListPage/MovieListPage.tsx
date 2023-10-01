@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import Header from '../../components/Header/Header';
 import MovieList from '../../components/MovieList/MovieList';
@@ -15,15 +16,20 @@ function MovieListPage() {
   const movieService = new MovieService();
   const genres = ['All', ...genresMock];
   const limit = 6;
+  const navigate = useNavigate();
+
   const [movies, setMovies] = useState<Movie[]>([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
-  const [sortBy, setSortBy] = useState<SortBy>('release_date');
-  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  const [selectedGenre, setSelectedGenre] = useState<string>(genres[0]);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('query') || '';
+  const sortBy = searchParams.get('sortBy') as SortBy || 'release_date';
+  const sortOrder = searchParams.get('sortOrder') as SortOrder || 'desc';
+  const selectedGenre = searchParams.get('genre') || genres[0];
+
+  const {movieId} = useParams();
 
   const prepareRequestParams = (): MoviesRequest => {
     return {
@@ -49,28 +55,33 @@ function MovieListPage() {
   }, [page, sortBy, sortOrder, searchQuery, selectedGenre]);
 
   const resetSearch = () => {
+    setTotalAmount(0);
     setMovies([]);
     setPage(1);
   }
 
   const handleSearch = (query: string) => {
     resetSearch();
-    setSearchQuery(query);
+    searchParams.set('query', query);
+    setSearchParams(searchParams);
   }
 
-  const handleSort = (sort: SortBy) => {
+  const handleSort = (sortBy: SortBy) => {
     resetSearch();
-    setSortBy(sort);
+    searchParams.set('sortBy', sortBy);
+    setSearchParams(searchParams);
   }
 
   const handleSortOrder = (sortOrder: SortOrder) => {
     resetSearch();
-    setSortOrder(sortOrder);
+    searchParams.set('sortOrder', sortOrder);
+    setSearchParams(searchParams);
   }
 
   const handleGenreSelect = (genre: string) => {
     resetSearch();
-    setSelectedGenre(genre);
+    searchParams.set('genre', genre);
+    setSearchParams(searchParams);
   }
 
   const handlePageChange = (page: number) => {
@@ -78,7 +89,13 @@ function MovieListPage() {
   }
 
   const handleSelectedMovieChange = (movie: Movie | null) => {
-    setSelectedMovie(movie);
+    if (movie?.id === movieId) return;
+
+    let pathname = movie ? `/${movie.id}` : '/';
+    navigate({
+      pathname,
+      search: searchParams.toString()
+    });
   }
 
   const handleAddMovie = (movie: Movie) => {
@@ -97,8 +114,8 @@ function MovieListPage() {
       <div className="movie-list-page p-5">
         <div className="movie-list-page__header container mb-2 d-flex flex-column px-5 py-4">
           <Header query={searchQuery}
+                  selectedMovieId={movieId as string}
                   onSearch={handleSearch}
-                  selectedMovie={selectedMovie}
                   genres={genres}
                   onSelectedMovieReset={handleSelectedMovieChange.bind(null, null)}
                   onAddMovieSubmit={handleAddMovie}/>

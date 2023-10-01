@@ -32,7 +32,7 @@ function MovieList({movies, loading, error, genres, page, totalPages, totalAmoun
         <div className="movie-list__total m-2 pb-2" data-testid="movies-found"><strong>{totalAmount}</strong> movies found</div>
         {
           error &&
-            <div className="movie-list__error p-5 d-flex justify-content-center align-items-center ">
+            <div className="movie-list__error p-5 d-flex justify-content-center align-items-center">
               <div className="p-5">
                 <i className="fa-solid fa-triangle-exclamation m-1"></i>Something went wrong...
               </div>

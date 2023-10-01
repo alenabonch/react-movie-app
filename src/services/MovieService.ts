@@ -16,6 +16,13 @@ class MovieService {
     }
   }
 
+  public async getMovie(movieId: string, cancelToken?: CancelToken): Promise<Movie> {
+    const response = await axios.get<MovieDto>(`${this.MOVIES_URL}/${movieId}`, {
+      cancelToken: cancelToken
+    });
+    return this.transformDtoToMovie(response.data);
+  }
+
   private transformDtoToMovie(dto: MovieDto): Movie {
     return {
       id: dto.id.toString(),

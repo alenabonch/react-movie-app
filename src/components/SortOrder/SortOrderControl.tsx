@@ -22,6 +22,8 @@ function SortOrderControl({sortOrder, onSortOrderChange}: SortOrderControlProps)
       {
         sortOrderConfigs.map(config => (
             <button aria-label={config.label}
+                    disabled={sortOrder ===  config.order}
+                    key={config.label}
                     className={`sort-order__button ${sortOrder ===  config.order ? 'active' : ''}`}
                     onClick={handleSortOrderChange.bind(null, config.order)}>
               <i className={`fa-solid ${config.icon}`}></i>

@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { genresMock } from '../../mocks/Genre';
-import { movieMock } from '../../mocks/Movie';
 import Header from './Header';
 
 
@@ -11,26 +10,24 @@ describe(Header, () => {
   const onAddMovieSubmit = jest.fn();
   const queryMock = 'Text';
 
-  it('should render header with search bar by default', () => {
-    render(<Header selectedMovie={null}
-                   onSearch={onSearch}
+  it('should render Add Movie button when movie is not selected', () => {
+    render(<Header onSearch={onSearch}
+                   selectedMovieId={null}
                    genres={genresMock}
                    query={queryMock}
                    onAddMovieSubmit={onAddMovieSubmit}
                    onSelectedMovieReset={onSelectedMovieReset}/>);
     expect(screen.getByText('+ Add Movie')).toBeInTheDocument();
-    expect(screen.getByLabelText('Find your movie')).toBeInTheDocument();
   });
 
-  it('should render header with movie details when movie selected', () => {
-    render(<Header selectedMovie={movieMock}
-                   onSearch={onSearch}
+  it('should render Return to Search button when movie is selected', () => {
+    render(<Header onSearch={onSearch}
+                   selectedMovieId="1"
                    genres={genresMock}
                    query={queryMock}
                    onAddMovieSubmit={onAddMovieSubmit}
                    onSelectedMovieReset={onSelectedMovieReset}/>);
     expect(screen.queryByText('+ Add Movie')).not.toBeInTheDocument();
     expect(screen.getByLabelText('Return to Search')).toBeInTheDocument();
-    expect(screen.getByText(movieMock.title)).toBeInTheDocument();
   });
 });

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { genresMock } from '../../mocks/Genre';
-import { movieMock } from '../../mocks/Movie';
 import Header from './Header';
 
 
@@ -19,7 +18,7 @@ export const Initial: Story = {
   args: {
     query: '',
     genres: genresMock,
-    selectedMovie: null,
+    selectedMovieId: null,
   },
 };
 
@@ -27,6 +26,6 @@ export const MovieSelected: Story = {
   args: {
     query: 'Inception',
     genres: genresMock,
-    selectedMovie: movieMock,
+    selectedMovieId: '1'
   },
 };
