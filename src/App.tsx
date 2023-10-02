@@ -6,9 +6,9 @@ import { Movie } from './models/Movie';
 import MovieListPage from './pages/MovieListPage/MovieListPage';
 import MovieService from './services/MovieService';
 
-function App() {
-  const movieService = new MovieService();
+const movieService = new MovieService();
 
+function App() {
   const router = createBrowserRouter([
     {
       path: '/',

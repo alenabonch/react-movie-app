@@ -11,9 +11,9 @@ import { Movie, MoviesRequest, SortBy, SortOrder } from '../../models/Movie';
 import MovieService from '../../services/MovieService';
 import { getPageCount } from '../../utils/PageUtils';
 import './MovieListPage.scss';
+const movieService = new MovieService();
 
 function MovieListPage() {
-  const movieService = new MovieService();
   const genres = ['All', ...genresMock];
   const limit = 6;
   const navigate = useNavigate();
