@@ -39,7 +39,7 @@ function Header({query, genres, selectedMovieId, onSearch, onSelectedMovieReset,
               ? <button aria-label="Return to Search" className="header__search-icon" onClick={handleSelectedMovieChange} data-testid="return-to-search">
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
-              : <Button label="+ Add Movie" onClick={handleAddMovieDialogOpenChange.bind(null, true)} size="small" className="mx-4"/>
+              : <Button onClick={handleAddMovieDialogOpenChange.bind(null, true)} size="small" className="mx-4">+ Add Movie</Button>
           }
         </div>
         <Outlet context={{initialQuery: query, onSearch}} />

@@ -56,12 +56,12 @@ function SearchForm() {
             }
           </div>
           <Button
-              label="Search"
               dataTestId="search-button"
               onClick={handleSearchClick}
               primary
-              size="medium"
-          />
+              size="medium">
+            Search
+          </Button>
         </div>
       </div>
   );

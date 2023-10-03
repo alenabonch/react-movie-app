@@ -8,27 +8,27 @@ import MovieService from './services/MovieService';
 
 const movieService = new MovieService();
 
-function App() {
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <MovieListPage/>,
-      children: [
-        {
-          path: '/',
-          element: <SearchForm/>
-        },
-        {
-          path: ':movieId',
-          element: <MovieDetailsContainer/>,
-          loader: async ({params}: any): Promise<Movie> => {
-            return movieService.getMovie(params.movieId);
-          }
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <MovieListPage/>,
+    children: [
+      {
+        path: '/',
+        element: <SearchForm/>
+      },
+      {
+        path: ':movieId',
+        element: <MovieDetailsContainer/>,
+        loader: async ({params}: any): Promise<Movie> => {
+          return movieService.getMovie(params.movieId);
         }
-      ]
-    },
-  ]);
+      }
+    ]
+  },
+]);
 
+function App() {
   return (
       <RouterProvider router={router}/>
   );
