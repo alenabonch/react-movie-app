@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { Movie } from '../../models/Movie';
 import { Button } from '../Button/Button';
 import Dialog from '../Dialog/Dialog';
+import { LinkWithQuery } from '../LinkWithQuery/LinkWithQuery';
 import MovieForm from '../MovieForm/MovieForm';
 import './Header.scss'
 
 interface HeaderProps {
   genres: string[];
-  query: string;
-  selectedMovieId: string | null;
-  onSelectedMovieReset: () => void;
   onSearch: (text: string) => void;
   onAddMovieSubmit: (movie: Movie) => void;
 }
 
-function Header({query, genres, selectedMovieId, onSearch, onSelectedMovieReset, onAddMovieSubmit}: HeaderProps) {
+function Header({genres, onSearch, onAddMovieSubmit}: HeaderProps) {
   const [openAddMovieDialog, setOpenAddMovieDialog] = useState(false);
-
-  const handleSelectedMovieChange = () => {
-    onSelectedMovieReset();
-  }
+  const {movieId} = useParams();
 
   const handleAddMovieDialogOpenChange = (open: boolean) => {
     setOpenAddMovieDialog(open);
@@ -35,14 +30,16 @@ function Header({query, genres, selectedMovieId, onSearch, onSelectedMovieReset,
       <div className="header">
         <div className="d-flex justify-content-between">
           <div className="logo"><strong>netflix</strong>roulette</div>
-          {selectedMovieId
-              ? <button aria-label="Return to Search" className="header__search-icon" onClick={handleSelectedMovieChange} data-testid="return-to-search">
-                  <i className="fa-solid fa-magnifying-glass"></i>
+          {movieId
+              ? <button aria-label="Return to Search" className="header__search-icon" data-testid="return-to-search">
+                  <LinkWithQuery to="/"><i className="fa-solid fa-magnifying-glass"></i></LinkWithQuery>
                 </button>
-              : <Button onClick={handleAddMovieDialogOpenChange.bind(null, true)} size="small" className="mx-4">+ Add Movie</Button>
+              : <Button onClick={handleAddMovieDialogOpenChange.bind(null, true)} size="small" className="mx-4">
+                  + Add Movie
+                </Button>
           }
         </div>
-        <Outlet context={{initialQuery: query, onSearch}} />
+        <Outlet context={{onSearch}} />
         <Dialog title="Add Movie" open={openAddMovieDialog} onClose={handleAddMovieDialogOpenChange.bind(null, false)}>
           <MovieForm movie={null} genres={genres} onSubmit={handleAddMovieSubmit}/>
         </Dialog>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import GenreSelect from '../../components/GenreSelect/GenreSelect';
 import Header from '../../components/Header/Header';
 import MovieList from '../../components/MovieList/MovieList';
@@ -11,12 +11,12 @@ import { Movie, MoviesRequest, SortBy, SortOrder } from '../../models/Movie';
 import MovieService from '../../services/MovieService';
 import { getPageCount } from '../../utils/PageUtils';
 import './MovieListPage.scss';
+
 const movieService = new MovieService();
 
 function MovieListPage() {
   const genres = ['All', ...genresMock];
   const limit = 6;
-  const navigate = useNavigate();
 
   const [movies, setMovies] = useState<Movie[]>([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -28,8 +28,6 @@ function MovieListPage() {
   const sortBy = searchParams.get('sortBy') as SortBy || 'release_date';
   const sortOrder = searchParams.get('sortOrder') as SortOrder || 'desc';
   const selectedGenre = searchParams.get('genre') || genres[0];
-
-  const {movieId} = useParams();
 
   const prepareRequestParams = (): MoviesRequest => {
     return {
@@ -88,16 +86,6 @@ function MovieListPage() {
     setPage(page);
   }
 
-  const handleSelectedMovieChange = (movie: Movie | null) => {
-    if (movie?.id === movieId) return;
-
-    let pathname = movie ? `/${movie.id}` : '/';
-    navigate({
-      pathname,
-      search: searchParams.toString()
-    });
-  }
-
   const handleAddMovie = (movie: Movie) => {
     console.log('Add movie submitted', movie);
   }
@@ -113,11 +101,8 @@ function MovieListPage() {
   return (
       <div className="movie-list-page p-5">
         <div className="movie-list-page__header container mb-2 d-flex flex-column px-5 py-4">
-          <Header query={searchQuery}
-                  selectedMovieId={movieId as string}
-                  onSearch={handleSearch}
+          <Header onSearch={handleSearch}
                   genres={genres}
-                  onSelectedMovieReset={handleSelectedMovieChange.bind(null, null)}
                   onAddMovieSubmit={handleAddMovie}/>
         </div>
         <div className="movie-list-page__body container px-5">
@@ -135,7 +120,6 @@ function MovieListPage() {
                      page={page}
                      totalPages={totalPages}
                      totalAmount={totalAmount}
-                     onClick={handleSelectedMovieChange}
                      onPageChange={handlePageChange}
                      onEdit={handleEditMovie}
                      onDelete={handleDeleteMovie}/>

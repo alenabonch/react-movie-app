@@ -13,13 +13,12 @@ interface MovieListProps {
   page: number;
   totalPages: number;
   totalAmount: number;
-  onClick: (movie: Movie) => void;
   onEdit: (movie: Movie) => void;
   onDelete: (id: string) => void;
   onPageChange: (page: number) => void;
 }
 
-function MovieList({movies, loading, error, genres, page, totalPages, totalAmount, onClick, onEdit, onDelete, onPageChange} : MovieListProps) {
+function MovieList({movies, loading, error, genres, page, totalPages, totalAmount, onEdit, onDelete, onPageChange} : MovieListProps) {
   const lastElement = useRef<HTMLDivElement>(null);
   const canLoad = (page < totalPages) && !error;
 
@@ -43,7 +42,6 @@ function MovieList({movies, loading, error, genres, page, totalPages, totalAmoun
               <MovieTile movie={movie}
                          key={movie.id}
                          genres={genres}
-                         onClick={onClick}
                          onEdit={onEdit}
                          onDelete={onDelete}/>
           ))}
