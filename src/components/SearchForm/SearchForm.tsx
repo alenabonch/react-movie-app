@@ -1,19 +1,19 @@
 import React, { ChangeEvent, useState } from 'react';
-import './SearchForm.scss';
-import { useOutletContext, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Button } from '../Button/Button';
-
-export interface SearchFormProps {
-  onSearch: (text: string) => void;
-}
+import './SearchForm.scss';
 
 function SearchForm() {
-  const {onSearch} = useOutletContext<SearchFormProps>();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('query') || '');
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
+  }
+
+  const onSearch = (query: string) => {
+    searchParams.set('query', query);
+    setSearchParams(searchParams);
   }
 
   const handleSearchClear = () => {

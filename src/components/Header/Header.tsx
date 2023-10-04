@@ -9,11 +9,10 @@ import './Header.scss'
 
 interface HeaderProps {
   genres: string[];
-  onSearch: (text: string) => void;
   onAddMovieSubmit: (movie: Movie) => void;
 }
 
-function Header({genres, onSearch, onAddMovieSubmit}: HeaderProps) {
+function Header({genres, onAddMovieSubmit}: HeaderProps) {
   const [openAddMovieDialog, setOpenAddMovieDialog] = useState(false);
   const {movieId} = useParams();
 
@@ -39,7 +38,7 @@ function Header({genres, onSearch, onAddMovieSubmit}: HeaderProps) {
                 </Button>
           }
         </div>
-        <Outlet context={{onSearch}} />
+        <Outlet/>
         <Dialog title="Add Movie" open={openAddMovieDialog} onClose={handleAddMovieDialogOpenChange.bind(null, false)}>
           <MovieForm movie={null} genres={genres} onSubmit={handleAddMovieSubmit}/>
         </Dialog>
