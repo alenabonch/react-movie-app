@@ -1,19 +1,16 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import { genresMock } from '../../mocks/Genre';
 import Header from './Header';
-
-const onAddMovieSubmit = jest.fn();
 
 const routes = [
   {
     path: '/',
-    element: <Header genres={genresMock} onAddMovieSubmit={onAddMovieSubmit} />,
+    element: <Header/>,
   },
   {
     path: '/:movieId',
-    element: <Header genres={genresMock} onAddMovieSubmit={onAddMovieSubmit} />,
+    element: <Header/>,
   },
 ];
 

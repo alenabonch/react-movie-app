@@ -6,7 +6,6 @@ jest.mock('axios');
 
 describe(MovieService, () => {
   const mockedAxios = axios as jest.Mocked<typeof axios>;
-  let service: MovieService;
 
   const mockMoviesRequest: MoviesRequest = {
     sortBy: 'release_date',
@@ -40,10 +39,6 @@ describe(MovieService, () => {
     totalAmount: 100,
   };
 
-  beforeEach(() => {
-    service = new MovieService();
-  });
-
   describe('Get Movies', () => {
     it('should get movies and transform movie dto', async () => {
       const expectedMoviesResponse: MoviesResponse = {
@@ -64,7 +59,7 @@ describe(MovieService, () => {
 
       jest.spyOn(mockedAxios, 'get').mockResolvedValue({data: moviesResponseDto});
       const cancelToken = {reason: {message: 'user canceled'}} as CancelToken;
-      const data = await service.getMovies(mockMoviesRequest, cancelToken);
+      const data = await MovieService.getMovies(mockMoviesRequest, cancelToken);
       const params = mockMoviesRequest;
 
       expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:4000/movies', {params, cancelToken});
@@ -87,7 +82,7 @@ describe(MovieService, () => {
 
       jest.spyOn(mockedAxios, 'get').mockResolvedValue({data: movieDto});
       const cancelToken = {reason: {message: 'user canceled'}} as CancelToken;
-      const data = await service.getMovie('1', cancelToken);
+      const data = await MovieService.getMovie('1', cancelToken);
 
       expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:4000/movies/1', {cancelToken});
       expect(data).toEqual(expectedMoviesResponse);

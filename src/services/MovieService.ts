@@ -2,28 +2,28 @@ import axios, { CancelToken } from 'axios';
 import { Movie, MovieDto, MoviesRequest, MoviesResponse, MoviesResponseDto } from '../models/Movie';
 
 class MovieService {
-  private readonly MOVIES_URL = 'http://localhost:4000/movies';
+  private static readonly MOVIES_URL = 'http://localhost:4000/movies';
 
-  public async getMovies(moviesRequest: MoviesRequest, cancelToken?: CancelToken): Promise<MoviesResponse> {
+  public static async getMovies(moviesRequest: MoviesRequest, cancelToken?: CancelToken): Promise<MoviesResponse> {
     const response = await axios.get<MoviesResponseDto>(this.MOVIES_URL, {
       params: moviesRequest,
       cancelToken
     });
-    const data: Movie[] = response.data.data.map(this.transformDtoToMovie);
+    const data: Movie[] = response.data.data.map(MovieService.transformDtoToMovie);
     return {
       ...response.data,
       data
     }
   }
 
-  public async getMovie(movieId: string, cancelToken?: CancelToken): Promise<Movie> {
-    const response = await axios.get<MovieDto>(`${this.MOVIES_URL}/${movieId}`, {
+  public static async getMovie(movieId: string, cancelToken?: CancelToken): Promise<Movie> {
+    const response = await axios.get<MovieDto>(`${MovieService.MOVIES_URL}/${movieId}`, {
       cancelToken
     });
-    return this.transformDtoToMovie(response.data);
+    return MovieService.transformDtoToMovie(response.data);
   }
 
-  private transformDtoToMovie(dto: MovieDto): Movie {
+  private static transformDtoToMovie(dto: MovieDto): Movie {
     return {
       id: dto.id.toString(),
       title: dto.title,

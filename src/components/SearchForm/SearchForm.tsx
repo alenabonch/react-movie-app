@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import './SearchForm.scss';
 
@@ -63,6 +63,7 @@ function SearchForm() {
             Search
           </Button>
         </div>
+        <Outlet/>
       </div>
   );
 }

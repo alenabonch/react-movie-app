@@ -1,12 +1,11 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import AddMovieForm from './components/AddMovieForm/AddMovieForm';
 import MovieDetailsContainer from './components/MovieDetailsContainer/MovieDetailsContainer';
 import SearchForm from './components/SearchForm/SearchForm';
 import { Movie } from './models/Movie';
 import MovieListPage from './pages/MovieListPage/MovieListPage';
 import MovieService from './services/MovieService';
-
-const movieService = new MovieService();
 
 const router = createBrowserRouter([
   {
@@ -15,13 +14,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <SearchForm/>
+        element: <SearchForm/>,
+        children: [
+          {
+            path: '/new',
+            element: <AddMovieForm/>,
+          }
+        ]
       },
       {
         path: ':movieId',
         element: <MovieDetailsContainer/>,
         loader: async ({params}: any): Promise<Movie> => {
-          return movieService.getMovie(params.movieId);
+          return MovieService.getMovie(params.movieId);
         }
       }
     ]
