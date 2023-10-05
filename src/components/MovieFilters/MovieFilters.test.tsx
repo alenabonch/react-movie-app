@@ -2,22 +2,23 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import '../../__mocks__/intersectionObserver';
-import MovieListPage from './MovieListPage';
+import { genresMock } from '../../mocks/Genre';
+import MovieFilters from './MovieFilters';
 
 const routes = [
   {
     path: '/test',
-    element: <MovieListPage/>,
-  },
+    element: <MovieFilters genres={genresMock}/>
+  }
 ];
 
 const router = createMemoryRouter(routes, {
   initialEntries: ['/test'],
 });
 
-describe(MovieListPage, () => {
-  it('should render movie list page', () => {
+describe(MovieFilters, () => {
+  it('should render movie filters component', () => {
     render(<RouterProvider router={router}/>);
-    expect(screen.getByText('+ Add Movie')).toBeInTheDocument();
+    expect(screen.getByTestId('movie-filters')).toBeInTheDocument();
   });
 });

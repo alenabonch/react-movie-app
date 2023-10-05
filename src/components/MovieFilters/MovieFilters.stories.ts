@@ -1,27 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { genresMock } from '../../mocks/Genre';
-import Header from './Header';
-
+import MovieFilters from './MovieFilters';
 
 const meta = {
-  title: 'Components/Header',
-  component: Header,
+  title: 'Components/MovieFilters',
+  component: MovieFilters,
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof Header>;
+} satisfies Meta<typeof MovieFilters>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Initial: Story = {
+export const Basic: Story = {
   args: {
     genres: genresMock,
-  },
+  }
 };
 
-export const MovieSelected: Story = {
+export const LoadingState: Story = {
   args: {
     genres: genresMock,
-  },
+  }
+};
+
+export const ErrorState: Story = {
+  args: {
+    genres: genresMock,
+  }
 };

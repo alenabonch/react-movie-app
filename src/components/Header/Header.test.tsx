@@ -1,36 +1,34 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { genresMock } from '../../mocks/Genre';
-import { movieMock } from '../../mocks/Movie';
 import Header from './Header';
 
+const onAddMovieSubmit = jest.fn();
+
+const routes = [
+  {
+    path: '/',
+    element: <Header genres={genresMock} onAddMovieSubmit={onAddMovieSubmit} />,
+  },
+  {
+    path: '/:movieId',
+    element: <Header genres={genresMock} onAddMovieSubmit={onAddMovieSubmit} />,
+  },
+];
 
 describe(Header, () => {
-  const onSearch = jest.fn();
-  const onSelectedMovieReset = jest.fn();
-  const onAddMovieSubmit = jest.fn();
-  const queryMock = 'Text';
-
-  it('should render header with search bar by default', () => {
-    render(<Header selectedMovie={null}
-                   onSearch={onSearch}
-                   genres={genresMock}
-                   query={queryMock}
-                   onAddMovieSubmit={onAddMovieSubmit}
-                   onSelectedMovieReset={onSelectedMovieReset}/>);
+  it('should render Add Movie button when movie is not selected', async () => {
+    const router = createMemoryRouter(routes, {initialEntries: ['/'],});
+    render(<RouterProvider router={router} />);
+    await waitFor(() => screen.getByText('+ Add Movie'));
     expect(screen.getByText('+ Add Movie')).toBeInTheDocument();
-    expect(screen.getByLabelText('Find your movie')).toBeInTheDocument();
   });
 
-  it('should render header with movie details when movie selected', () => {
-    render(<Header selectedMovie={movieMock}
-                   onSearch={onSearch}
-                   genres={genresMock}
-                   query={queryMock}
-                   onAddMovieSubmit={onAddMovieSubmit}
-                   onSelectedMovieReset={onSelectedMovieReset}/>);
+  it('should render Return to Search button when movie is selected', async () => {
+    const router = createMemoryRouter(routes, {initialEntries: ['/', '/12345'],});
+    render(<RouterProvider router={router} />);
     expect(screen.queryByText('+ Add Movie')).not.toBeInTheDocument();
     expect(screen.getByLabelText('Return to Search')).toBeInTheDocument();
-    expect(screen.getByText(movieMock.title)).toBeInTheDocument();
   });
 });

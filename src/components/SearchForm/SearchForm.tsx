@@ -1,17 +1,19 @@
 import React, { ChangeEvent, useState } from 'react';
-import './SearchForm.scss';
+import { useSearchParams } from 'react-router-dom';
 import { Button } from '../Button/Button';
+import './SearchForm.scss';
 
-interface SearchFormProps {
-  initialQuery?: string;
-  onSearch: (text: string) => void;
-}
-
-function SearchForm({initialQuery = '', onSearch}: SearchFormProps) {
-  const [query, setQuery] = useState(initialQuery);
+function SearchForm() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get('query') || '');
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
+  }
+
+  const onSearch = (query: string) => {
+    searchParams.set('query', query);
+    setSearchParams(searchParams);
   }
 
   const handleSearchClear = () => {
@@ -54,12 +56,12 @@ function SearchForm({initialQuery = '', onSearch}: SearchFormProps) {
             }
           </div>
           <Button
-              label="Search"
               dataTestId="search-button"
               onClick={handleSearchClick}
               primary
-              size="medium"
-          />
+              size="medium">
+            Search
+          </Button>
         </div>
       </div>
   );
