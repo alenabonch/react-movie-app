@@ -4,7 +4,7 @@ import './Button.scss';
 interface ButtonProps {
   primary?: boolean;
   size?: 'small' | 'medium' | 'large';
-  label: string;
+  children: any;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
   dataTestId?: string;
@@ -17,9 +17,9 @@ export const Button = ({
   size = 'medium',
   className = '',
   backgroundColor,
-  label,
   type = 'button',
   dataTestId,
+  children,
   ...props
 }: ButtonProps) => {
   const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
@@ -31,7 +31,7 @@ export const Button = ({
       {...props}
       style={{ backgroundColor }}
     >
-      {label}
+      {children}
     </button>
   );
 };

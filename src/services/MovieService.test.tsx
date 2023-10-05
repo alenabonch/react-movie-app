@@ -1,5 +1,5 @@
 import axios, { CancelToken, CancelTokenSource } from 'axios'
-import { MoviesRequest, MoviesResponse, MoviesResponseDto } from '../models/Movie';
+import { Movie, MoviesRequest, MoviesResponse, MoviesResponseDto } from '../models/Movie';
 import MovieService from './MovieService';
 
 jest.mock('axios');
@@ -18,21 +18,23 @@ describe(MovieService, () => {
     limit: '10',
   };
 
+  const movieDto = {
+    id: 1,
+    title: 'title',
+    release_date: '1998-12-23',
+    poster_path: 'poster.jpg',
+    genres: ['Comedy', 'Action'],
+    vote_average: 5,
+    runtime: 86,
+    overview: 'overview',
+    revenue: 0,
+    budget: 15,
+    tagline: 'tag',
+    vote_count: 6
+  };
+
   const moviesResponseDto: MoviesResponseDto = {
-    data: [{
-      id: 1,
-      title: 'title',
-      release_date: '1998-12-23',
-      poster_path: 'poster.jpg',
-      genres: ['Comedy', 'Action'],
-      vote_average: 5,
-      runtime: 86,
-      overview: 'overview',
-      revenue: 0,
-      budget: 15,
-      tagline: 'tag',
-      vote_count: 6
-    }],
+    data: [movieDto],
     limit: 10,
     offset: 5,
     totalAmount: 100,
@@ -66,6 +68,28 @@ describe(MovieService, () => {
       const params = mockMoviesRequest;
 
       expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:4000/movies', {params, cancelToken});
+      expect(data).toEqual(expectedMoviesResponse);
+    });
+  });
+
+  describe('Get Movie', () => {
+    it('should get movie and transform movie dto', async () => {
+      const expectedMoviesResponse: Movie = {
+        id: '1',
+        title: 'title',
+        releaseDate: '1998-12-23',
+        posterUrl: 'poster.jpg',
+        genres: ['Comedy', 'Action'],
+        duration: 86,
+        overview: 'overview',
+        rating: 5,
+      }
+
+      jest.spyOn(mockedAxios, 'get').mockResolvedValue({data: movieDto});
+      const cancelToken = {reason: {message: 'user canceled'}} as CancelToken;
+      const data = await service.getMovie('1', cancelToken);
+
+      expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:4000/movies/1', {cancelToken});
       expect(data).toEqual(expectedMoviesResponse);
     });
   });

@@ -4,7 +4,7 @@ import { movieMock, movieMock2, movieMock3 } from '../../mocks/Movie';
 import MovieList from './MovieList';
 
 const meta = {
-  title: 'Components/MovieList',
+  title: 'Components/MovieFilters',
   component: MovieList,
   parameters: {
     layout: 'fullscreen',

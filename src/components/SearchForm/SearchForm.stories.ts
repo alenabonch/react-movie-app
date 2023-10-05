@@ -19,6 +19,5 @@ export const Basic: Story = {
 
 export const WithQuery: Story = {
   args: {
-    initialQuery: 'Inception'
   },
 };

@@ -1,6 +1,7 @@
 describe('MovieSelect', () => {
   beforeEach(() => {
     cy.intercept('GET', '/movies**', { fixture: 'movies-all.json' }).as('allMovies')
+    cy.intercept('GET', '/movies/447365**', { fixture: 'movie-get.json' }).as('getMovie')
     cy.visit(Cypress.env('baseUrl'));
     cy.wait('@allMovies')
   })
@@ -10,6 +11,8 @@ describe('MovieSelect', () => {
     .first()
     .should('contain.text', 'Guardians of the Galaxy Vol. 3')
     .click()
+
+    cy.wait('@getMovie')
 
     cy.getByTestId('search-input')
     .should('not.exist');
@@ -25,6 +28,8 @@ describe('MovieSelect', () => {
     .should('contain.text', 'Guardians of the Galaxy Vol. 3')
     .click()
 
+    cy.wait('@getMovie')
+
     cy.getByTestId('search-input')
     .should('not.exist');
 
@@ -36,5 +41,27 @@ describe('MovieSelect', () => {
 
     cy.getByTestId('movie-details')
     .should('not.exist')
+  });
+
+  it('clicks on the first movie tile, refreshes the page and ensures same movie tile is displayed', () => {
+    cy.getByTestId('movie-tile')
+    .first()
+    .should('contain.text', 'Guardians of the Galaxy Vol. 3')
+    .click()
+
+    cy.reload()
+
+    cy.getByTestId('movie-details')
+    .should('have.length', 1)
+    .should('contain.text', 'Guardians of the Galaxy Vol. 3')
+  });
+
+  it('navigates by link with movie id', () => {
+    cy.visit(`${Cypress.env('baseUrl')}/447365`)
+    cy.wait('@getMovie')
+
+    cy.getByTestId('movie-details')
+    .should('have.length', 1)
+    .should('contain.text', 'Guardians of the Galaxy Vol. 3')
   });
 })
