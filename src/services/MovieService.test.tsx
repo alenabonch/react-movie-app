@@ -1,5 +1,5 @@
-import axios, { CancelToken, CancelTokenSource } from 'axios'
-import { Movie, MoviesRequest, MoviesResponse, MoviesResponseDto } from '../models/Movie';
+import axios, { CancelToken } from 'axios'
+import { Movie, MovieDraft, MoviesRequest, MoviesResponse, MoviesResponseDto } from '../models/Movie';
 import MovieService from './MovieService';
 
 jest.mock('axios');
@@ -86,6 +86,26 @@ describe(MovieService, () => {
 
       expect(mockedAxios.get).toHaveBeenCalledWith('http://localhost:4000/movies/1', {cancelToken});
       expect(data).toEqual(expectedMoviesResponse);
+    });
+  });
+
+  describe('Create Movie', () => {
+    it('should create movie and transform movie dto', async () => {
+      const createMovieRequest: MovieDraft = {
+        title: 'title',
+        releaseDate: '1998-12-23',
+        posterUrl: 'poster.jpg',
+        genres: ['Comedy', 'Action'],
+        duration: 86,
+        overview: 'overview',
+        rating: 5,
+      }
+
+      jest.spyOn(mockedAxios, 'post').mockResolvedValue({data: movieDto});
+      const cancelToken = {reason: {message: 'user canceled'}} as CancelToken;
+      const data = await MovieService.createMovie(createMovieRequest, cancelToken);
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(data).toEqual({...createMovieRequest, id: movieDto.id.toString()});
     });
   });
 });

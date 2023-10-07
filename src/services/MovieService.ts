@@ -1,5 +1,5 @@
 import axios, { CancelToken } from 'axios';
-import { Movie, MovieDto, MoviesRequest, MoviesResponse, MoviesResponseDto } from '../models/Movie';
+import { Movie, MovieDraft, MovieDraftDto, MovieDto, MoviesRequest, MoviesResponse, MoviesResponseDto } from '../models/Movie';
 
 class MovieService {
   private static readonly MOVIES_URL = 'http://localhost:4000/movies';
@@ -17,9 +17,13 @@ class MovieService {
   }
 
   public static async getMovie(movieId: string, cancelToken?: CancelToken): Promise<Movie> {
-    const response = await axios.get<MovieDto>(`${MovieService.MOVIES_URL}/${movieId}`, {
-      cancelToken
-    });
+    const response = await axios.get<MovieDto>(`${MovieService.MOVIES_URL}/${movieId}`, {cancelToken});
+    return MovieService.transformDtoToMovie(response.data);
+  }
+
+  public static async createMovie(movie: MovieDraft, cancelToken?: CancelToken): Promise<Movie> {
+    const movieDto = MovieService.transformMovieToDto(movie);
+    const response = await axios.post<MovieDto>(`${MovieService.MOVIES_URL}`, movieDto, {cancelToken});
     return MovieService.transformDtoToMovie(response.data);
   }
 
@@ -34,6 +38,18 @@ class MovieService {
       rating: dto.vote_average,
       duration: dto.runtime
     }
+  }
+
+  private static transformMovieToDto(movie: MovieDraft): MovieDraftDto {
+    return {
+      title: movie.title,
+      release_date: movie.releaseDate,
+      poster_path: movie.posterUrl,
+      genres: movie.genres,
+      overview: movie.overview,
+      vote_average: movie.rating,
+      runtime: movie.duration,
+    };
   }
 }
 

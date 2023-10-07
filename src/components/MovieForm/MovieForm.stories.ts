@@ -19,6 +19,8 @@ export const Empty: Story = {
   args: {
     movie: null,
     genres: genresMock,
+    error: null,
+    loading: false,
   },
 };
 
@@ -26,5 +28,7 @@ export const filled: Story = {
   args: {
     movie: movieMock,
     genres: genresMock,
+    error: null,
+    loading: false,
   },
 };

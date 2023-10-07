@@ -1,13 +1,16 @@
 import { Multiselect } from 'multiselect-react-dropdown';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Movie } from '../../models/Movie';
+import { CreateMovieServerError, Movie } from '../../models/Movie';
 import { Button } from '../Button/Button';
 import { ErrorMessage } from "@hookform/error-message"
 import DatePicker from "react-datepicker";
 import moment from 'moment';
 import "react-datepicker/dist/react-datepicker.css";
 import './MovieForm.scss'
+import Spinner from '../Spinner/Spinner';
+
+const URL_PATTERN = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
 export interface IMovieForm {
   id: string;
@@ -26,18 +29,20 @@ const emptyMovieForm: IMovieForm = {
   releaseDate: null,
   posterUrl: '',
   genres: [],
-  rating: null,
-  duration: null,
+  rating: '0',
+  duration: '0',
   overview: ''
 };
 
 interface MovieFormProps {
   movie: Movie | null;
   genres: string[];
+  loading: boolean;
+  error: CreateMovieServerError | null;
   onSubmit: (movie: Movie) => void;
 }
 
-function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
+function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
 
   const convertFormDataToMovie = (formData: IMovieForm): Movie => {
     moment(formData.releaseDate).toISOString(true);
@@ -93,6 +98,7 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
             <Controller
                 control={control}
                 name="releaseDate"
+                rules={{ required: "Release Date is required" }}
                 render={({field: {onChange, value}}) => (
                     <DatePicker id="releaseDate"
                                 selected={value}
@@ -101,13 +107,18 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
                                 dateFormat='yyyy-MM-dd'/>
                 )}
             />
+            <ErrorMessage errors={errors} name="releaseDate" render={({ message }) => <p className="error-message">{message}</p>}/>
           </div>
         </div>
 
         <div className="row mb-3">
           <div className="col-7">
             <label htmlFor="posterUrl">Movie Url</label>
-            <input {...register("posterUrl")} id="posterUrl" placeholder="https://"/>
+            <input {...register("posterUrl", {required: "Movie URL is required", pattern: {
+                value: URL_PATTERN,
+                message: "Entered value does not match URL format",
+              }})} id="posterUrl" placeholder="https://"/>
+            <ErrorMessage errors={errors} name="posterUrl" render={({ message }) => <p className="error-message">{message}</p>}/>
           </div>
 
           <div className="col">
@@ -122,6 +133,7 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
             <Controller
                 control={control}
                 name="genres"
+                rules={{ required: "At least one genre should be selected" }}
                 render={({field: {onChange, value}}) => (
                     <Multiselect
                         id="genres"
@@ -135,6 +147,7 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
                     />
                 )}
             />
+            <ErrorMessage errors={errors} name="genres" render={({ message }) => <p className="error-message">{message}</p>}/>
           </div>
 
           <div className="col">
@@ -146,11 +159,24 @@ function MovieForm({movie, genres, onSubmit}: MovieFormProps) {
         <div className="row mb-4">
           <div className="col">
             <label htmlFor="overview">Overview</label>
-            <textarea {...register("overview")} id="overview" rows={4} placeholder="Movie Description"/>
+            <textarea {...register("overview", {required: "Overview is required"})} id="overview" rows={4} placeholder="Movie Description"/>
+            <ErrorMessage errors={errors} name="overview" render={({ message }) => <p className="error-message">{message}</p>}/>
           </div>
         </div>
 
+        {
+          error && error.response.data.messages.map((message) => (
+                <div className="text-danger" key={message}>{message}</div>
+            ))
+        }
+
         <div className="d-flex justify-content-end">
+          {
+              loading &&
+              <div className="d-flex justify-content-center align-items-center mt-4">
+                <Spinner size="small"/>
+              </div>
+          }
           <Button className="mx-2" onClick={onFormReset}>Reset</Button>
           <Button primary type="submit">Submit</Button>
         </div>
