@@ -6,11 +6,11 @@ import Header from './Header';
 const routes = [
   {
     path: '/',
-    element: <Header/>,
+    element: <Header onAdd={jest.fn()} onEdit={jest.fn()} onDelete={jest.fn()}/>,
   },
   {
     path: '/:movieId',
-    element: <Header/>,
+    element: <Header onAdd={jest.fn()} onEdit={jest.fn()} onDelete={jest.fn()}/>,
   },
 ];
 

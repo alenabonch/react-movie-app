@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import './MovieForm.scss'
 import Spinner from '../Spinner/Spinner';
 
-const URL_PATTERN = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+const URL_PATTERN = /^https?:\/\/(?:www\.)?./;
 
 export interface IMovieForm {
   id: string;
@@ -171,12 +171,7 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
         }
 
         <div className="d-flex justify-content-end">
-          {
-              loading &&
-              <div className="d-flex justify-content-center align-items-center mt-4">
-                <Spinner size="small"/>
-              </div>
-          }
+          { loading && <div className="mt-2 mx-2"><Spinner size="small"/></div> }
           <Button className="mx-2" onClick={onFormReset}>Reset</Button>
           <Button primary type="submit">Submit</Button>
         </div>

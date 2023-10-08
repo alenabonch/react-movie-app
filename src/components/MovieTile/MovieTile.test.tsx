@@ -2,9 +2,13 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import { genresMock } from '../../mocks/Genre';
 import { Movie } from '../../models/Movie';
 import MovieTile from './MovieTile';
+
+const mockedUseNavigateWithQuery = jest.fn();
+jest.mock('../../hooks/useNavigateWithQuery', () => ({
+  useNavigateWithQuery: () => ({navigateWithQuery: mockedUseNavigateWithQuery}),
+}));
 
 const movieInfo: Movie = {
   id: '1',
@@ -17,14 +21,10 @@ const movieInfo: Movie = {
   overview: 'Good movie',
 };
 
-const onEdit = jest.fn();
-const onDelete = jest.fn();
-const genres = genresMock;
-
 const routes = [
   {
     path: '/test',
-    element: <MovieTile movie={movieInfo} genres={genres} onEdit={onEdit} onDelete={onDelete}/>,
+    element: <MovieTile movie={movieInfo}/>,
   },
 ];
 
@@ -52,9 +52,7 @@ describe(MovieTile, () => {
     render(<RouterProvider router={router}/>);
     await user.click(screen.getByLabelText('Options', {selector: 'button'}));
     await user.click(screen.getByText('Edit'));
-    expect(screen.getByText('Edit Movie')).toBeInTheDocument();
-    const submitButton = (screen.getByRole('button', {name: 'Submit'}));
-    expect(submitButton).toBeInTheDocument();
+    expect(mockedUseNavigateWithQuery).toHaveBeenCalledWith('1/edit');
   });
 
   it('should open Delete Movie dialog on delete option click and call onDelete prop on Confirm', async () => {
@@ -62,11 +60,6 @@ describe(MovieTile, () => {
     render(<RouterProvider router={router}/>);
     await user.click(screen.getByLabelText('Options', {selector: 'button'}));
     await user.click(screen.getByText('Delete'));
-    expect(screen.getByText('Delete Movie')).toBeInTheDocument();
-    expect(screen.getByText('Are you sure you want to delete this movie?')).toBeInTheDocument();
-    const confirmButton = (screen.getByRole('button', {name: 'Confirm'}));
-    expect(confirmButton).toBeInTheDocument();
-    await user.click(confirmButton);
-    expect(onDelete).toHaveBeenCalledWith(movieInfo.id);
+    expect(mockedUseNavigateWithQuery).toHaveBeenCalledWith('1/delete');
   });
 });

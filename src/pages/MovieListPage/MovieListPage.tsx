@@ -53,31 +53,36 @@ function MovieListPage() {
     setPage(page);
   }
 
-  const handleEditMovie = (movie: Movie) => {
-    console.log('Edit movie submitted', movie);
+  const handleAddMovie = () => {
+    void fetchMovies();
   }
 
-  const handleDeleteMovie = (id: string) => {
-    console.log('Delete movie clicked', id);
+  const handleEditMovie = (updatedMovie: Movie) => {
+    const updatedMovies = movies.map((movie) => movie.id === updatedMovie.id ? updatedMovie : movie);
+    setMovies(updatedMovies)
+  }
+
+  const handleDeleteMovie = () => {
+    void fetchMovies();
   }
 
   return (
       <div className="movie-list-page p-5">
         <div className="movie-list-page__header container mb-2 d-flex flex-column px-5 py-4">
-          <Header/>
+          <Header onAdd={handleAddMovie}
+                  onEdit={handleEditMovie}
+                  onDelete={handleDeleteMovie}/>
         </div>
         <div className="movie-list-page__body container px-5">
           <MovieFilters genres={genres}/>
           <MovieList movies={movies}
-                     genres={genres}
                      error={!!moviesError}
                      loading={moviesLoading}
                      page={page}
                      totalPages={totalPages}
                      totalAmount={totalAmount}
                      onPageChange={handlePageChange}
-                     onEdit={handleEditMovie}
-                     onDelete={handleDeleteMovie}/>
+          />
         </div>
         <div className="logo d-flex justify-content-center mt-4"><strong>netflix</strong>roulette</div>
       </div>

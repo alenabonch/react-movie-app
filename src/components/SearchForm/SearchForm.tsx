@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet, useOutletContext, useSearchParams } from 'react-router-dom';
 import { Button } from '../Button/Button';
 import './SearchForm.scss';
 
 function SearchForm() {
+  const contextData = useOutletContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('query') || '');
 
@@ -63,7 +64,7 @@ function SearchForm() {
             Search
           </Button>
         </div>
-        <Outlet/>
+        <Outlet context={contextData}/>
       </div>
   );
 }

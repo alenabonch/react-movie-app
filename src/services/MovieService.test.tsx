@@ -108,4 +108,34 @@ describe(MovieService, () => {
       expect(data).toEqual({...createMovieRequest, id: movieDto.id.toString()});
     });
   });
+
+  describe('Update Movie', () => {
+    it('should update movie and transform movie dto', async () => {
+      const updateMovieRequest: Movie = {
+        id: '1',
+        title: 'title',
+        releaseDate: '1998-12-23',
+        posterUrl: 'poster.jpg',
+        genres: ['Comedy', 'Action'],
+        duration: 86,
+        overview: 'overview',
+        rating: 5,
+      }
+
+      jest.spyOn(mockedAxios, 'put').mockResolvedValue({data: movieDto});
+      const cancelToken = {reason: {message: 'user canceled'}} as CancelToken;
+      const data = await MovieService.updateMovie(updateMovieRequest, cancelToken);
+      expect(mockedAxios.put).toHaveBeenCalled();
+      expect(data).toEqual(updateMovieRequest);
+    });
+  });
+
+  describe('Delete Movie', () => {
+    it('should delete movie', async () => {
+      jest.spyOn(mockedAxios, 'delete').mockResolvedValue({});
+      const cancelToken = {reason: {message: 'user canceled'}} as CancelToken;
+      await MovieService.deleteMovie('1', cancelToken);
+      expect(mockedAxios.delete).toHaveBeenCalledWith('http://localhost:4000/movies/1', {cancelToken})
+    });
+  });
 });

@@ -2,12 +2,9 @@ import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import '../../__mocks__/intersectionObserver';
-import { genresMock } from '../../mocks/Genre';
 import { movieMock, movieMock2 } from '../../mocks/Movie';
 import MovieList from './MovieList';
 
-const mockOnEdit = jest.fn();
-const mockOnDelete = jest.fn();
 const mockOnPageChange = jest.fn();
 
 describe(MovieList, () => {
@@ -16,14 +13,11 @@ describe(MovieList, () => {
       {
         path: '/test',
         element: <MovieList movies={[movieMock, movieMock2]}
-                            genres={genresMock}
                             loading={false}
                             error={false}
                             page={0}
                             totalPages={10}
                             totalAmount={100}
-                            onEdit={mockOnEdit}
-                            onDelete={mockOnDelete}
                             onPageChange={mockOnPageChange}/>
       }
     ];
@@ -44,14 +38,11 @@ describe(MovieList, () => {
       {
         path: '/test',
         element: <MovieList movies={[movieMock]}
-                            genres={genresMock}
                             loading={true}
                             error={true}
                             page={0}
                             totalPages={10}
                             totalAmount={100}
-                            onEdit={mockOnEdit}
-                            onDelete={mockOnDelete}
                             onPageChange={mockOnPageChange}/>
       }
     ];

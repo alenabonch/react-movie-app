@@ -1,10 +1,17 @@
 import React from 'react';
 import { Outlet, useParams } from 'react-router-dom';
+import { Movie, MovieDraft } from '../../models/Movie';
 import { Button } from '../Button/Button';
 import { LinkWithQuery } from '../LinkWithQuery/LinkWithQuery';
 import './Header.scss'
 
-function Header() {
+interface HeaderProps {
+  onAdd: (movie: MovieDraft) => void;
+  onEdit: (movie: Movie) => void;
+  onDelete: (id: string) => void;
+}
+
+function Header({onAdd, onEdit, onDelete}: HeaderProps) {
   const {movieId} = useParams();
 
   return (
@@ -20,7 +27,7 @@ function Header() {
                 </Button>
           }
         </div>
-        <Outlet/>
+        <Outlet context={{onAdd, onEdit, onDelete}}/>
       </div>
   );
 }

@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import { GENRES } from '../../data/Genre';
 import { useFetch } from '../../hooks/useFetch';
+import { useNavigateWithQuery } from '../../hooks/useNavigateWithQuery';
 import { MovieDraft } from '../../models/Movie';
 import MovieService from '../../services/MovieService';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
 
+interface AddMovieFormProps {
+  onAdd: (movie: MovieDraft) => void;
+}
+
 function AddMovieForm() {
-  const navigate = useNavigate();
-  const [movieDraft, setMovieDraft] = useState<MovieDraft | null>(null);
+  const {onAdd} = useOutletContext<AddMovieFormProps>();
+  const {navigateWithQuery} = useNavigateWithQuery()
+  const [movieDraft, setMovieDraft] = useState<MovieDraft>();
 
   const [createMovie, loading, error] = useFetch(async (cancelToken) => {
     if (movieDraft) {
       const createdMovie = await MovieService.createMovie(movieDraft, cancelToken);
-      console.log('createdMovie', createdMovie);
-      navigate(`/${createdMovie.id}`);
+      navigateWithQuery(`/${createdMovie.id}`);
+      onAdd(createdMovie);
     }
-  })
+  });
 
   useEffect(() => {
     void createMovie();
@@ -29,7 +34,7 @@ function AddMovieForm() {
   }
 
   const handleDialogClose = () => {
-    navigate('..');
+    navigateWithQuery('/');
   }
 
   return (

@@ -4,16 +4,10 @@ import { Movie, MovieDraft, MovieDraftDto, MovieDto, MoviesRequest, MoviesRespon
 class MovieService {
   private static readonly MOVIES_URL = 'http://localhost:4000/movies';
 
-  public static async getMovies(moviesRequest: MoviesRequest, cancelToken?: CancelToken): Promise<MoviesResponse> {
-    const response = await axios.get<MoviesResponseDto>(this.MOVIES_URL, {
-      params: moviesRequest,
-      cancelToken
-    });
+  public static async getMovies(params: MoviesRequest, cancelToken?: CancelToken): Promise<MoviesResponse> {
+    const response = await axios.get<MoviesResponseDto>(this.MOVIES_URL, {params, cancelToken});
     const data: Movie[] = response.data.data.map(MovieService.transformDtoToMovie);
-    return {
-      ...response.data,
-      data
-    }
+    return {...response.data, data}
   }
 
   public static async getMovie(movieId: string, cancelToken?: CancelToken): Promise<Movie> {
@@ -25,6 +19,16 @@ class MovieService {
     const movieDto = MovieService.transformMovieToDto(movie);
     const response = await axios.post<MovieDto>(`${MovieService.MOVIES_URL}`, movieDto, {cancelToken});
     return MovieService.transformDtoToMovie(response.data);
+  }
+
+  public static async updateMovie(movie: Movie, cancelToken?: CancelToken): Promise<Movie> {
+    const movieDto = {...MovieService.transformMovieToDto(movie), id: Number(movie.id)};
+    const response = await axios.put<MovieDto>(`${MovieService.MOVIES_URL}`, movieDto, {cancelToken});
+    return MovieService.transformDtoToMovie(response.data);
+  }
+
+  public static async deleteMovie(movieId: string, cancelToken?: CancelToken): Promise<{}> {
+    return axios.delete<{}>(`${MovieService.MOVIES_URL}/${movieId}`, {cancelToken});
   }
 
   private static transformDtoToMovie(dto: MovieDto): Movie {
@@ -40,7 +44,7 @@ class MovieService {
     }
   }
 
-  private static transformMovieToDto(movie: MovieDraft): MovieDraftDto {
+  private static transformMovieToDto(movie: Movie | MovieDraft): MovieDraftDto {
     return {
       title: movie.title,
       release_date: movie.releaseDate,
