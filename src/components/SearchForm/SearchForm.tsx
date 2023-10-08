@@ -57,7 +57,7 @@ function SearchForm() {
             }
           </div>
           <Button
-              dataTestId="search-button"
+              data-testid="search-button"
               onClick={handleSearchClick}
               primary
               size="medium">

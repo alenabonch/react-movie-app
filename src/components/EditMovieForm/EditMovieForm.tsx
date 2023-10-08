@@ -8,11 +8,6 @@ import MovieService from '../../services/MovieService';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
 
-const mockedUseNavigateWithQuery = jest.fn();
-jest.mock('../../hooks/useNavigateWithQuery', () => ({
-  useNavigateWithQuery: () => ({navigateWithQuery: mockedUseNavigateWithQuery}),
-}));
-
 interface EditMovieFormProps {
   onEdit: (movie: Movie) => void;
 }

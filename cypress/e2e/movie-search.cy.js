@@ -1,7 +1,7 @@
 describe('MovieSearch', () => {
   beforeEach(() => {
     cy.intercept('GET', '/movies**', { fixture: 'movies-all.json' }).as('allMovies')
-    cy.intercept('GET', '/movies?search=bambi**', { fixture: 'movies-search.json' }).as('searchMovie')
+    cy.intercept('GET', '/movies?search=bambi**', { fixture: 'movies-search-bambi.json' }).as('searchMovie')
     cy.intercept('GET', '/movies?*offset=6**', { fixture: 'movies-more.json' }).as('moreMovies')
 
     cy.visit(Cypress.env('baseUrl'))

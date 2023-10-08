@@ -42,7 +42,7 @@ function DeleteMovieDialog() {
         <p className="mb-4">Are you sure you want to delete this movie?</p>
         <div className="d-flex justify-content-end">
           { loading && <Spinner size="small"/> }
-          <Button primary onClick={handleDeleteMovieSubmit}>Confirm</Button>
+          <Button primary onClick={handleDeleteMovieSubmit} data-testid="confirm-delete-button">Confirm</Button>
         </div>
       </Dialog>
   );

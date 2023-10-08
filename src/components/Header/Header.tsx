@@ -22,7 +22,7 @@ function Header({onAdd, onEdit, onDelete}: HeaderProps) {
               ? <button aria-label="Return to Search" className="header__search-icon" data-testid="return-to-search">
                   <LinkWithQuery to="/"><i className="fa-solid fa-magnifying-glass"></i></LinkWithQuery>
                 </button>
-              : <Button size="small" className="mx-4">
+              : <Button size="small" className="mx-4" data-testid="add-movie-button">
                   <LinkWithQuery to="new">+ Add Movie</LinkWithQuery>
                 </Button>
           }

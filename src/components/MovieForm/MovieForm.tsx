@@ -85,11 +85,11 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
   }
 
   return (
-      <form className="movie-form" onSubmit={handleSubmit(onFormSubmit)} autoComplete={'off'}>
+      <form className="movie-form" id="movie-form" onSubmit={handleSubmit(onFormSubmit)} autoComplete={'off'}>
         <div className="row mb-3">
           <div className="col-7">
             <label htmlFor="title">Title</label>
-            <input {...register("title", {required: "Title is required"})} id="title"/>
+            <input {...register("title", {required: "Title is required"})} id="title" data-testid="title-input"/>
             <ErrorMessage errors={errors} name="title" render={({ message }) => <p className="error-message">{message}</p>}/>
           </div>
 
@@ -117,13 +117,13 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
             <input {...register("posterUrl", {required: "Movie URL is required", pattern: {
                 value: URL_PATTERN,
                 message: "Entered value does not match URL format",
-              }})} id="posterUrl" placeholder="https://"/>
+              }})} id="posterUrl" placeholder="https://" data-testid="url-input"/>
             <ErrorMessage errors={errors} name="posterUrl" render={({ message }) => <p className="error-message">{message}</p>}/>
           </div>
 
           <div className="col">
             <label htmlFor="rating">Rating</label>
-            <input {...register("rating")} id="rating" type="number" min={0} max={10} step=".1"/>
+            <input {...register("rating")} id="rating" type="number" min={0} max={10} step=".1" data-testid="rating-input"/>
           </div>
         </div>
 
@@ -152,14 +152,15 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
 
           <div className="col">
             <label htmlFor="duration">Duration</label>
-            <input {...register("duration")} id="duration" type="number" min={0} placeholder="minutes"/>
+            <input {...register("duration")} id="duration" type="number" min={0} placeholder="minutes" data-testid="duration-input"/>
           </div>
         </div>
 
         <div className="row mb-4">
           <div className="col">
             <label htmlFor="overview">Overview</label>
-            <textarea {...register("overview", {required: "Overview is required"})} id="overview" rows={4} placeholder="Movie Description"/>
+            <textarea {...register("overview", {required: "Overview is required"})} id="overview"
+                      rows={4} placeholder="Movie Description"  data-testid="overview-input"/>
             <ErrorMessage errors={errors} name="overview" render={({ message }) => <p className="error-message">{message}</p>}/>
           </div>
         </div>
@@ -173,7 +174,7 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
         <div className="d-flex justify-content-end">
           { loading && <div className="mt-2 mx-2"><Spinner size="small"/></div> }
           <Button className="mx-2" onClick={onFormReset}>Reset</Button>
-          <Button primary type="submit">Submit</Button>
+          <Button primary type="submit" data-testid="submit-movie-form">Submit</Button>
         </div>
       </form>
   );
