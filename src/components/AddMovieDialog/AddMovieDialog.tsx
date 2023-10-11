@@ -8,12 +8,12 @@ import MovieService from '../../services/MovieService';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
 
-interface AddMovieFormProps {
+interface AddMovieDialogProps {
   onAdd: (movie: MovieDraft) => void;
 }
 
-function AddMovieForm() {
-  const {onAdd} = useOutletContext<AddMovieFormProps>();
+function AddMovieDialog() {
+  const {onAdd} = useOutletContext<AddMovieDialogProps>();
   const {navigateWithQuery} = useNavigateWithQuery()
   const [movieDraft, setMovieDraft] = useState<MovieDraft>();
 
@@ -44,4 +44,4 @@ function AddMovieForm() {
   );
 }
 
-export default AddMovieForm;
+export default AddMovieDialog;

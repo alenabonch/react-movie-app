@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { createMemoryRouter, Outlet, RouterProvider } from 'react-router-dom';
-import AddMovieForm from './AddMovieForm';
+import AddMovieDialog from './AddMovieDialog';
 
 const mockedUseNavigateWithQuery = jest.fn();
 jest.mock('../../hooks/useNavigateWithQuery', () => ({
@@ -21,13 +21,13 @@ const routes = [
     children: [
       {
         path: '/test',
-        element: <AddMovieForm/>,
+        element: <AddMovieDialog/>,
       },
     ]
   },
 ];
 
-describe(AddMovieForm, () => {
+describe(AddMovieDialog, () => {
   const user = userEvent.setup();
 
   it('should render add movie form', async () => {

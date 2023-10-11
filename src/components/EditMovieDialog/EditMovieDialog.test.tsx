@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { createMemoryRouter, Outlet, RouterProvider } from 'react-router-dom';
-import EditMovieForm from './EditMovieForm';
+import EditMovieDialog from './EditMovieDialog';
 
 const mockedFetch = jest.fn();
 jest.mock('../../hooks/useFetch', () => ({
@@ -16,13 +16,13 @@ const routes = [
     children: [
       {
         path: '/test',
-        element: <EditMovieForm/>,
+        element: <EditMovieDialog/>,
       },
     ]
   },
 ];
 
-describe(EditMovieForm, () => {
+describe(EditMovieDialog, () => {
   const user = userEvent.setup();
 
   it('should render add movie form', () => {

@@ -3,7 +3,7 @@ import DeleteMovieDialog from './DeleteMovieDialog';
 
 
 const meta = {
-  title: 'Components/EditMovieForm',
+  title: 'Components/EditMovieDialog',
   component: DeleteMovieDialog,
   parameters: {
     layout: 'centered',

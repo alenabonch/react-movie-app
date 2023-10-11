@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import EditMovieForm from './EditMovieForm';
+import AddMovieDialog from './AddMovieDialog';
 
 
 const meta = {
-  title: 'Components/EditMovieForm',
-  component: EditMovieForm,
+  title: 'Components/AddMovieDialog',
+  component: AddMovieDialog,
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof EditMovieForm>;
+} satisfies Meta<typeof AddMovieDialog>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

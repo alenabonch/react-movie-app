@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AddMovieForm from './components/AddMovieForm/AddMovieForm';
+import AddMovieDialog from './components/AddMovieDialog/AddMovieDialog';
 import DeleteMovieDialog from './components/DeleteMovieDialog/DeleteMovieDialog';
-import EditMovieForm from './components/EditMovieForm/EditMovieForm';
+import EditMovieDialog from './components/EditMovieDialog/EditMovieDialog';
 import MovieDetailsContainer from './components/MovieDetailsContainer/MovieDetailsContainer';
 import SearchForm from './components/SearchForm/SearchForm';
 import { Movie } from './models/Movie';
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/new',
-            element: <AddMovieForm/>,
+            element: <AddMovieDialog/>,
           }
         ]
       },
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: ':movieId/edit',
-        element: <EditMovieForm/>,
+        element: <EditMovieDialog/>,
         loader: async ({params}: any): Promise<Movie> => {
           return MovieService.getMovie(params.movieId);
         }

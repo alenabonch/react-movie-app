@@ -8,12 +8,12 @@ import MovieService from '../../services/MovieService';
 import Dialog from '../Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
 
-interface EditMovieFormProps {
+interface EditMovieDialogProps {
   onEdit: (movie: Movie) => void;
 }
 
-function EditMovieForm() {
-  const {onEdit} = useOutletContext<EditMovieFormProps>();
+function EditMovieDialog() {
+  const {onEdit} = useOutletContext<EditMovieDialogProps>();
   const {navigateWithQuery} = useNavigateWithQuery()
   const movie = useLoaderData() as Movie;
   const [movieToUpdate, setMovieToUpdate] = useState<Movie>();
@@ -45,4 +45,4 @@ function EditMovieForm() {
   );
 }
 
-export default EditMovieForm;
+export default EditMovieDialog;

@@ -29,7 +29,7 @@ const routes = [
 describe(DeleteMovieDialog, () => {
   const user = userEvent.setup();
 
-  it('should render add movie form', async () => {
+  it('should render delete movie form', async () => {
     const router = createMemoryRouter(routes, {initialEntries: ['/123']});
     render(<RouterProvider router={router} />);
     expect(screen.getByText('Delete Movie')).toBeInTheDocument();
