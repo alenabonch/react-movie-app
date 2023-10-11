@@ -24,7 +24,7 @@ const movieInfo: Movie = {
 const routes = [
   {
     path: '/test',
-    element: <MovieTile movie={movieInfo}/>,
+    element: <MovieTile onDelete={jest.fn()} movie={movieInfo}/>,
   },
 ];
 
@@ -60,6 +60,6 @@ describe(MovieTile, () => {
     render(<RouterProvider router={router}/>);
     await user.click(screen.getByLabelText('Options', {selector: 'button'}));
     await user.click(screen.getByText('Delete'));
-    expect(mockedUseNavigateWithQuery).toHaveBeenCalledWith('1/delete');
+    expect(screen.getByText('Delete Movie')).toBeInTheDocument();
   });
 });

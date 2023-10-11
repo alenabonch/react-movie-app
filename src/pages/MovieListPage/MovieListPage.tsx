@@ -70,8 +70,7 @@ function MovieListPage() {
       <div className="movie-list-page p-5">
         <div className="movie-list-page__header container mb-2 d-flex flex-column px-5 py-4">
           <Header onAdd={handleAddMovie}
-                  onEdit={handleEditMovie}
-                  onDelete={handleDeleteMovie}/>
+                  onEdit={handleEditMovie}/>
         </div>
         <div className="movie-list-page__body container px-5">
           <MovieFilters genres={genres}/>
@@ -82,6 +81,7 @@ function MovieListPage() {
                      totalPages={totalPages}
                      totalAmount={totalAmount}
                      onPageChange={handlePageChange}
+                     onDelete={handleDeleteMovie}
           />
         </div>
         <div className="logo d-flex justify-content-center mt-4"><strong>netflix</strong>roulette</div>

@@ -8,10 +8,9 @@ import './Header.scss'
 interface HeaderProps {
   onAdd: (movie: MovieDraft) => void;
   onEdit: (movie: Movie) => void;
-  onDelete: (id: string) => void;
 }
 
-function Header({onAdd, onEdit, onDelete}: HeaderProps) {
+function Header({onAdd, onEdit}: HeaderProps) {
   const {movieId} = useParams();
 
   return (
@@ -27,7 +26,7 @@ function Header({onAdd, onEdit, onDelete}: HeaderProps) {
                 </Button>
           }
         </div>
-        <Outlet context={{onAdd, onEdit, onDelete}}/>
+        <Outlet context={{onAdd, onEdit}}/>
       </div>
   );
 }

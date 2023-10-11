@@ -13,9 +13,10 @@ interface MovieListProps {
   totalPages: number;
   totalAmount: number;
   onPageChange: (page: number) => void;
+  onDelete: (id: string) => void;
 }
 
-function MovieList({movies, loading, error, page, totalPages, totalAmount, onPageChange} : MovieListProps) {
+function MovieList({movies, loading, error, page, totalPages, totalAmount, onDelete, onPageChange} : MovieListProps) {
   const lastElement = useRef<HTMLDivElement>(null);
   const canLoad = (page < totalPages) && !error;
 
@@ -36,7 +37,7 @@ function MovieList({movies, loading, error, page, totalPages, totalAmount, onPag
         }
         <div className="movie-list__items d-flex justify-content-around flex-wrap py-3">
           {movies.map((movie) => (
-              <MovieTile movie={movie} key={movie.id}/>
+              <MovieTile movie={movie} key={movie.id} onDelete={onDelete}/>
           ))}
         </div>
         {

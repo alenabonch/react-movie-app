@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigateWithQuery } from '../../hooks/useNavigateWithQuery';
 import { Movie } from '../../models/Movie';
 import ContextMenu from '../ContextMenu/ContextMenu';
+import DeleteMovieDialog from '../DeleteMovieDialog/DeleteMovieDialog';
 import { LinkWithQuery } from '../LinkWithQuery/LinkWithQuery';
 import './MovieTile.scss';
 
 interface MovieTileProps {
   movie: Movie;
+  onDelete: (id: string) => void;
 }
 
-function MovieTile({movie}: MovieTileProps) {
+function MovieTile({movie, onDelete}: MovieTileProps) {
+  const [openDeleteMovieDialog, setOpenDeleteMovieDialog] = useState(false);
   const {navigateWithQuery} = useNavigateWithQuery();
   const menuOptions = ['Edit', 'Delete'];
 
@@ -20,7 +23,7 @@ function MovieTile({movie}: MovieTileProps) {
         break;
       }
       case 'Delete': {
-        navigateWithQuery(`${movie.id}/delete`);
+        setOpenDeleteMovieDialog(true);
         break;
       }
     }
@@ -41,6 +44,7 @@ function MovieTile({movie}: MovieTileProps) {
         <div className="movie-tile__menu position-absolute">
           <ContextMenu options={menuOptions} onSelect={handleMenuOptionClick}/>
         </div>
+        <DeleteMovieDialog movieId={movie.id} onDelete={onDelete} open={openDeleteMovieDialog} onClose={setOpenDeleteMovieDialog.bind(null, false)}/>
     </div>
   );
 }

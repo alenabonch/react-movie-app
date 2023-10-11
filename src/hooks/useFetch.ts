@@ -1,7 +1,7 @@
 import axios, { CancelToken, CancelTokenSource } from 'axios';
 import { useState } from 'react';
 
-export const useFetch = (request: (cancelToken: CancelToken) => Promise<any>): [(args?: any) => Promise<void>, boolean, any, any] => {
+export const useFetch = (request: (cancelToken: CancelToken) => Promise<any>): [() => Promise<void>, boolean, any, any] => {
   let cancelToken: CancelTokenSource;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);

@@ -172,7 +172,7 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
         }
 
         <div className="d-flex justify-content-end">
-          { loading && <div className="mt-2 mx-2"><Spinner size="small"/></div> }
+          { loading && <div className="mt-1 mx-1"><Spinner size="small"/></div> }
           <Button className="mx-2" onClick={onFormReset}>Reset</Button>
           <Button primary type="submit" data-testid="submit-movie-form">Submit</Button>
         </div>

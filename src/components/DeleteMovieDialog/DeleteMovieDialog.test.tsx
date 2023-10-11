@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { createMemoryRouter, Outlet, RouterProvider } from 'react-router-dom';
+import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import DeleteMovieDialog from './DeleteMovieDialog';
 
 const mockedFetch = jest.fn();
@@ -15,14 +15,8 @@ jest.mock('../../services/MovieService', () => ({
 
 const routes = [
   {
-    path: '/',
-    element: <Outlet context={{onDelete: jest.fn()}}/>,
-    children: [
-      {
-        path: ':movieId',
-        element: <DeleteMovieDialog/>,
-      },
-    ]
+    path: '/test',
+    element: <DeleteMovieDialog onDelete={jest.fn()} movieId={'123'} onClose={jest.fn()} open={true}/>,
   },
 ];
 
@@ -30,7 +24,7 @@ describe(DeleteMovieDialog, () => {
   const user = userEvent.setup();
 
   it('should render delete movie form', async () => {
-    const router = createMemoryRouter(routes, {initialEntries: ['/123']});
+    const router = createMemoryRouter(routes, {initialEntries: ['/test']});
     render(<RouterProvider router={router} />);
     expect(screen.getByText('Delete Movie')).toBeInTheDocument();
     expect(screen.getByText('Are you sure you want to delete this movie?')).toBeInTheDocument();

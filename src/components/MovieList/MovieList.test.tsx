@@ -6,6 +6,7 @@ import { movieMock, movieMock2 } from '../../mocks/Movie';
 import MovieList from './MovieList';
 
 const mockOnPageChange = jest.fn();
+const mockOnDelete = jest.fn();
 
 describe(MovieList, () => {
   it('should render movie list with total amount', () => {
@@ -18,7 +19,8 @@ describe(MovieList, () => {
                             page={0}
                             totalPages={10}
                             totalAmount={100}
-                            onPageChange={mockOnPageChange}/>
+                            onPageChange={mockOnPageChange}
+                            onDelete={mockOnDelete}/>
       }
     ];
 
@@ -43,7 +45,8 @@ describe(MovieList, () => {
                             page={0}
                             totalPages={10}
                             totalAmount={100}
-                            onPageChange={mockOnPageChange}/>
+                            onPageChange={mockOnPageChange}
+                            onDelete={mockOnDelete}/>
       }
     ];
 
