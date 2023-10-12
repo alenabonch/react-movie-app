@@ -18,22 +18,18 @@ function EditMovieDialog() {
   const movie = useLoaderData() as Movie;
   const [movieToUpdate, setMovieToUpdate] = useState<Movie>();
 
-  const [updateMovie, loading, error, updatedMovie] = useFetch(async (cancelToken) => {
+  const [updateMovie, loading, error] = useFetch(async (cancelToken) => {
     return MovieService.updateMovie(movieToUpdate as Movie, cancelToken);
   })
 
   useEffect(() => {
     if (movieToUpdate) {
-      void updateMovie();
+      updateMovie().then((updatedMovie) => {
+        navigateWithQuery(`/${updatedMovie.id}`);
+        onEdit(updatedMovie);
+      });
     }
   }, [movieToUpdate]);
-
-  useEffect(() => {
-    if (updatedMovie) {
-      navigateWithQuery(`/${updatedMovie.id}`);
-      onEdit(updatedMovie);
-    }
-  }, [updatedMovie]);
 
   const handleEditMovieSubmit = async (movie: Movie) => {
     setMovieToUpdate(movie);

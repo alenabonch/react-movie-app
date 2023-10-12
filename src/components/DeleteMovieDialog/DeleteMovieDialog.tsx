@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import { useNavigateWithQuery } from '../../hooks/useNavigateWithQuery';
 import MovieService from '../../services/MovieService';
@@ -15,20 +15,15 @@ interface DeleteMovieDialogProps {
 
 function DeleteMovieDialog({movieId, open, onClose, onDelete}: DeleteMovieDialogProps) {
   const {navigateWithQuery} = useNavigateWithQuery();
-  const [deleteMovie, loading, error, movieDeleted] = useFetch(async (cancelToken) => {
+  const [deleteMovie, loading] = useFetch(async (cancelToken) => {
     return MovieService.deleteMovie(movieId, cancelToken);
   })
 
-  useEffect(() => {
-    if (movieDeleted) {
-      navigateWithQuery('/');
-      onDelete(movieId);
-      onClose();
-    }
-  }, [movieDeleted]);
-
   const handleDeleteMovieSubmit = async () => {
-    void deleteMovie();
+    await deleteMovie();
+    navigateWithQuery('/');
+    onDelete(movieId);
+    onClose();
   }
 
   return (

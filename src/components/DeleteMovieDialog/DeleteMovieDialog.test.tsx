@@ -15,6 +15,10 @@ jest.mock('../../services/MovieService', () => ({
 
 const routes = [
   {
+    path: '/',
+    element: <div></div>,
+  },
+  {
     path: '/test',
     element: <DeleteMovieDialog onDelete={jest.fn()} movieId={'123'} onClose={jest.fn()} open={true}/>,
   },

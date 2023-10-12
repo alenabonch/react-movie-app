@@ -17,22 +17,18 @@ function AddMovieDialog() {
   const {navigateWithQuery} = useNavigateWithQuery()
   const [movieDraft, setMovieDraft] = useState<MovieDraft>();
 
-  const [createMovie, loading, error, createdMovie] = useFetch(async (cancelToken) => {
+  const [createMovie, loading, error] = useFetch(async (cancelToken) => {
     return MovieService.createMovie(movieDraft as MovieDraft, cancelToken);
   });
 
   useEffect(() => {
     if (movieDraft) {
-      void createMovie();
+      createMovie().then((createdMovie) => {
+        navigateWithQuery(`/${createdMovie.id}`);
+        onAdd(createdMovie);
+      });
     }
   }, [movieDraft]);
-
-  useEffect(() => {
-    if (createdMovie) {
-      navigateWithQuery(`/${createdMovie.id}`);
-      onAdd(createdMovie);
-    }
-  }, [createdMovie]);
 
   const handleAddMovieSubmit = async (movie: MovieDraft) => {
     setMovieDraft(movie);

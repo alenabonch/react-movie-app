@@ -1,11 +1,10 @@
 import axios, { CancelToken, CancelTokenSource } from 'axios';
 import { useState } from 'react';
 
-export const useFetch = (request: (cancelToken: CancelToken) => Promise<any>): [() => Promise<void>, boolean, any, any] => {
+export const useFetch = (request: (cancelToken: CancelToken) => Promise<any>): [() => Promise<any>, boolean, any] => {
   let cancelToken: CancelTokenSource;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
 
   const fetching = async () => {
     if (cancelToken) {
@@ -16,10 +15,9 @@ export const useFetch = (request: (cancelToken: CancelToken) => Promise<any>): [
     try {
       setLoading(true);
       setError(null);
-      setData(null);
       const data = await request(cancelToken.token);
       setLoading(false);
-      setData(data);
+      return data;
     } catch (e: any) {
       if (!axios.isCancel(e)) {
         setLoading(false);
@@ -28,5 +26,5 @@ export const useFetch = (request: (cancelToken: CancelToken) => Promise<any>): [
     }
   }
 
-  return [fetching, loading, error, data];
+  return [fetching, loading, error];
 }

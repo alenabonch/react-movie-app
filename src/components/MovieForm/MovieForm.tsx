@@ -60,7 +60,7 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
         ...movieData,
         releaseDate: moment(movieData.releaseDate, 'YYYY-MM-DD').toDate(),
         rating: movieData.rating.toString(),
-        duration: movieData.duration.toString(),
+        duration: movieData.duration?.toString(),
       }
     }
     return emptyMovieForm;
