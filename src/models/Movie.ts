@@ -63,3 +63,14 @@ export interface CreateMovieServerError {
     }
   }
 }
+
+export interface IMovieForm {
+  id: string;
+  title: string;
+  releaseDate: Date | null;
+  posterUrl: string;
+  genres: string[];
+  rating: string | null;
+  duration: string | null;
+  overview: string;
+}

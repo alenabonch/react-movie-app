@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { createMemoryRouter, Outlet, RouterProvider } from 'react-router-dom';
@@ -58,9 +58,12 @@ describe(AddMovieDialog, () => {
     await user.type(screen.getByLabelText('Duration'), '120');
     await user.type(screen.getByLabelText('Overview'), 'Test movie overview');
 
-    await user.click(screen.getByText('Submit'));
-    expect(mockedFetch).toHaveBeenCalled();
-    expect(mockedUseNavigateWithQuery).toHaveBeenCalledWith('/1')
-    expect(mockOnAdd).toHaveBeenCalledWith(movieMock)
+    await waitFor(async () => {
+      await user.click(screen.getByText('Submit'));
+      expect(mockedFetch).toHaveBeenCalled();
+      expect(mockedFetch).toHaveBeenCalled();
+      expect(mockedUseNavigateWithQuery).toHaveBeenCalledWith('/1')
+      expect(mockOnAdd).toHaveBeenCalledWith(movieMock)
+    });
   });
 });

@@ -63,7 +63,7 @@ describe('Add Movie', () => {
 
     cy.intercept('GET', '/movies?search=bambi**', { fixture: 'movies-search-with-added.json' }).as('searchMovieWithAdded')
 
-    cy.getByTestId('submit-movie-form')
+    cy.getByTestId('submit-form-button')
     .click()
 
     cy.wait('@addMovie')

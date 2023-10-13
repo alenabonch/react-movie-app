@@ -64,7 +64,7 @@ describe('Edit Movie', () => {
 
     cy.intercept('GET', '/movies/3170**', { fixture: 'movie-get-edited.json' }).as('getEditedMovie')
 
-    cy.getByTestId('submit-movie-form')
+    cy.getByTestId('submit-form-button')
     .click()
 
     cy.wait('@editMovie')
