@@ -1,0 +1,38 @@
+{
+  "totalAmount": 2,
+  "data": [
+    {
+      "id": 1696790724464,
+      "title": "Bambi and the Great Prince of the Forest",
+      "release_date": "2006-02-07",
+      "poster_path": "https://m.media-amazon.com/images/I/41GMriCpmYL._AC_.jpg",
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "overview": "Taking place between Bambi's mother's death and Bambi shown as a young adult buck, the film follows Bambi's relationship with his father, The Great Prince of the Forest, and Bambi's efforts to earn his father's love for him. ",
+      "vote_average": 7.5,
+      "runtime": 72
+    },
+    {
+      "id": 3170,
+      "title": "Bambi",
+      "tagline": "A great love story.",
+      "vote_average": 6.8,
+      "vote_count": 1912,
+      "release_date": "1942-08-14",
+      "poster_path": "https://image.tmdb.org/t/p/w500/wV9e2y4myJ4KMFsyFfWYcUOawyK.jpg",
+      "overview": "Bambi's tale unfolds from season to season as the young prince of the forest learns about life, love, and friends.",
+      "budget": 858000,
+      "revenue": 267447150,
+      "genres": [
+        "Animation",
+        "Drama",
+        "Family"
+      ],
+      "runtime": 70
+    }
+  ],
+  "offset": 0,
+  "limit": 6
+}

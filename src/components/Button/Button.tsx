@@ -7,7 +7,6 @@ interface ButtonProps {
   children: any;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
-  dataTestId?: string;
   backgroundColor?: string;
   onClick?: () => void;
 }
@@ -18,7 +17,6 @@ export const Button = ({
   className = '',
   backgroundColor,
   type = 'button',
-  dataTestId,
   children,
   ...props
 }: ButtonProps) => {
@@ -26,7 +24,6 @@ export const Button = ({
   return (
     <button
       type={type}
-      data-testid={dataTestId}
       className={['storybook-button', `storybook-button--${size}`, mode, className].join(' ')}
       {...props}
       style={{ backgroundColor }}

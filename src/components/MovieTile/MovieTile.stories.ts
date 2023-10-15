@@ -18,13 +18,11 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     movie: movieMock,
-    genres: genresMock,
   }
 };
 
 export const LongNames: Story = {
   args: {
-    genres: genresMock,
     movie: {
       ...movieMock,
       title: 'Pulp Fiction Pulp Fiction Pulp Fiction',

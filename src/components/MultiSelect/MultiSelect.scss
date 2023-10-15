@@ -1,0 +1,30 @@
+@import "src/styles/colors";
+
+.multi-select {
+  color: $white;
+
+  .multiSelectContainer {
+    .searchWrapper {
+      border: none;
+      padding: 0 8px;
+      background: $dark-gray;
+    }
+
+    input {
+      margin-top: 0;
+      width: 133px;
+    }
+
+    .optionListContainer {
+      background: $dark-gray;
+
+      .option:hover, .highlightOption {
+        background: $red;
+      }
+    }
+
+    .chip {
+      background: $red;
+    }
+  }
+}

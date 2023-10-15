@@ -20,12 +20,12 @@ describe(MovieForm, () => {
   };
 
   it('should render empty movie form', () => {
-    render(<MovieForm genres={mockGenres} onSubmit={mockOnSubmit} movie={null}/>);
+    render(<MovieForm error={null} loading={false} genres={mockGenres} onSubmit={mockOnSubmit} movie={null}/>);
     expect(screen.getByLabelText('Title')).toHaveValue('');
     expect(screen.getByLabelText('Release Date')).toHaveValue('');
     expect(screen.getByLabelText('Movie Url')).toHaveValue('');
-    expect(screen.getByLabelText('Rating')).toHaveValue(null);
-    expect(screen.getByLabelText('Duration')).toHaveValue(null);
+    expect(screen.getByLabelText('Rating')).toHaveValue(0);
+    expect(screen.getByLabelText('Duration')).toHaveValue(0);
     expect(screen.getByLabelText('Overview')).toHaveValue('');
     expect(screen.getByLabelText('Genre')).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Submit'})).toBeInTheDocument()
@@ -33,7 +33,7 @@ describe(MovieForm, () => {
   });
 
   it('should render movie form with provided values', () => {
-    render(<MovieForm genres={mockGenres} onSubmit={mockOnSubmit} movie={movieMock}/>);
+    render(<MovieForm error={null} loading={false} genres={mockGenres} onSubmit={mockOnSubmit} movie={movieMock}/>);
     expect(screen.getByLabelText('Title')).toHaveValue(movieMock.title);
     expect(screen.getByLabelText('Release Date')).toHaveValue(movieMock.releaseDate);
     expect(screen.getByLabelText('Movie Url')).toHaveValue(movieMock.posterUrl);
@@ -46,7 +46,7 @@ describe(MovieForm, () => {
   });
 
   it('should submit the form with valid data', async () => {
-    render(<MovieForm movie={null} genres={mockGenres} onSubmit={mockOnSubmit} />);
+    render(<MovieForm error={null} loading={false} movie={null} genres={mockGenres} onSubmit={mockOnSubmit} />);
     await user.type(screen.getByLabelText('Title'), 'Test Movie');
     await user.type(screen.getByLabelText('Release Date'), '2020-12-23');
     await user.type(screen.getByLabelText('Movie Url'), 'https://example.com/movie.jpg');
@@ -71,7 +71,7 @@ describe(MovieForm, () => {
   });
 
   it('should reset the form to initial state when movie is not provided', async () => {
-    render(<MovieForm movie={null} genres={mockGenres} onSubmit={mockOnSubmit} />);
+    render(<MovieForm error={null} loading={false} movie={null} genres={mockGenres} onSubmit={mockOnSubmit} />);
     await user.type(screen.getByLabelText('Title'), 'Test Movie');
     await user.type(screen.getByLabelText('Release Date'), '2023-09-18');
     await user.type(screen.getByLabelText('Movie Url'), 'https://example.com/movie.jpg');
@@ -86,8 +86,8 @@ describe(MovieForm, () => {
     expect(screen.getByLabelText('Title')).toHaveValue('');
     expect(screen.getByLabelText('Release Date')).toHaveValue('');
     expect(screen.getByLabelText('Movie Url')).toHaveValue('');
-    expect(screen.getByLabelText('Rating')).toHaveValue(null);
-    expect(screen.getByLabelText('Duration')).toHaveValue(null);
+    expect(screen.getByLabelText('Rating')).toHaveValue(0);
+    expect(screen.getByLabelText('Duration')).toHaveValue(0);
     expect(screen.getByLabelText('Overview')).toHaveValue('');
     expect(screen.getByLabelText('Genre')).toBeInTheDocument();
   });

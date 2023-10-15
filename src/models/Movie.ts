@@ -9,6 +9,8 @@ export interface Movie {
   overview: string;
 }
 
+export type MovieDraft = Omit<Movie, 'id'> ;
+
 export interface MovieDto {
   id: number;
   title: string;
@@ -18,11 +20,13 @@ export interface MovieDto {
   vote_average: number;
   runtime: number;
   overview: string;
-  revenue: number;
-  budget: number;
-  tagline: string;
-  vote_count: number;
+  revenue?: number;
+  budget?: number;
+  tagline?: string;
+  vote_count?: number;
 }
+
+export type MovieDraftDto = Omit<MovieDto, 'id'> ;
 
 export interface MoviesResponseDto {
   data: MovieDto[];
@@ -50,4 +54,23 @@ export interface MoviesRequest {
   filter?: string;
   offset?: string;
   limit?: string;
+}
+
+export interface CreateMovieServerError {
+  response: {
+    data: {
+      messages: string[];
+    }
+  }
+}
+
+export interface IMovieForm {
+  id: string;
+  title: string;
+  releaseDate: Date | null;
+  posterUrl: string;
+  genres: string[];
+  rating: string | null;
+  duration: string | null;
+  overview: string;
 }
