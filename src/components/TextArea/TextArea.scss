@@ -1,0 +1,25 @@
+@import "src/styles/colors";
+
+.text-area {
+  color: $white;
+
+  textarea {
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: $dark-gray;
+    color: $white;
+    font-weight: 400;
+    font-size: 20px;
+    border: none;
+
+    &:hover, &:focus {
+      background: $dark-gray;
+      color: $white;
+    }
+
+    &::placeholder {
+      color: $light-gray;
+    }
+  }
+}

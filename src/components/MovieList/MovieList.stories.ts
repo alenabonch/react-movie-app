@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { genresMock } from '../../mocks/Genre';
 import { movieMock, movieMock2, movieMock3 } from '../../mocks/Movie';
 import MovieList from './MovieList';
 
 const meta = {
-  title: 'Components/MovieFilters',
+  title: 'Components/MovieList',
   component: MovieList,
   parameters: {
     layout: 'fullscreen',
@@ -17,7 +16,6 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     movies: [movieMock, movieMock2, movieMock3],
-    genres: genresMock,
     loading: false,
     error: false,
     page: 0,
@@ -29,7 +27,6 @@ export const Basic: Story = {
 export const LoadingState: Story = {
   args: {
     movies: [],
-    genres: genresMock,
     loading: true,
     error: false,
     page: 1,
@@ -41,7 +38,6 @@ export const LoadingState: Story = {
 export const ErrorState: Story = {
   args: {
     movies: [],
-    genres: genresMock,
     loading: false,
     error: true,
     page: 0,

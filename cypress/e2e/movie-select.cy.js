@@ -1,7 +1,7 @@
 describe('MovieSelect', () => {
   beforeEach(() => {
     cy.intercept('GET', '/movies**', { fixture: 'movies-all.json' }).as('allMovies')
-    cy.intercept('GET', '/movies/447365**', { fixture: 'movie-get.json' }).as('getMovie')
+    cy.intercept('GET', '/movies/447365**', { fixture: 'movie-get-selected.json' }).as('getSelectedMovie')
     cy.visit(Cypress.env('baseUrl'));
     cy.wait('@allMovies')
   })
@@ -12,7 +12,7 @@ describe('MovieSelect', () => {
     .should('contain.text', 'Guardians of the Galaxy Vol. 3')
     .click()
 
-    cy.wait('@getMovie')
+    cy.wait('@getSelectedMovie')
 
     cy.getByTestId('search-input')
     .should('not.exist');
@@ -28,7 +28,7 @@ describe('MovieSelect', () => {
     .should('contain.text', 'Guardians of the Galaxy Vol. 3')
     .click()
 
-    cy.wait('@getMovie')
+    cy.wait('@getSelectedMovie')
 
     cy.getByTestId('search-input')
     .should('not.exist');
@@ -58,7 +58,7 @@ describe('MovieSelect', () => {
 
   it('navigates by link with movie id', () => {
     cy.visit(`${Cypress.env('baseUrl')}/447365`)
-    cy.wait('@getMovie')
+    cy.wait('@getSelectedMovie')
 
     cy.getByTestId('movie-details')
     .should('have.length', 1)

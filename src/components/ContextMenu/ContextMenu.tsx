@@ -22,13 +22,14 @@ function ContextMenu({options, onSelect}: ContextMenuProps) {
 
   return (
       <div className="position-relative">
-        <button aria-label="Options" className="context-menu__button" onClick={handleToggleMenuVisibility}>
+        <button aria-label="Options" data-testid="context-menu-button" className="context-menu__button" onClick={handleToggleMenuVisibility}>
           <i className="fa-solid fa-ellipsis-vertical"></i>
         </button>
         {menuOpened &&
             <div role="menu" className="context-menu__menu position-absolute">
               {options.map((option) => (
                   <button key={option}
+                      data-testid="context-menu-item"
                       className="context-menu__option"
                       onClick={handleOptionSelect.bind(null, option)}>
                     {option}
