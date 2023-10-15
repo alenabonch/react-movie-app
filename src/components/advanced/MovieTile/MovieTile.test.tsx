@@ -6,7 +6,7 @@ import { Movie } from '../../../models/Movie';
 import MovieTile from './MovieTile';
 
 const mockedUseNavigateWithQuery = jest.fn();
-jest.mock('../../hooks/useNavigateWithQuery', () => ({
+jest.mock('../../../hooks/useNavigateWithQuery', () => ({
   useNavigateWithQuery: () => ({navigateWithQuery: mockedUseNavigateWithQuery}),
 }));
 

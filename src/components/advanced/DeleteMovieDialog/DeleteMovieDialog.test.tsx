@@ -5,11 +5,11 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import DeleteMovieDialog from './DeleteMovieDialog';
 
 const mockedFetch = jest.fn();
-jest.mock('../../hooks/useFetch', () => ({
+jest.mock('../../../hooks/useFetch', () => ({
   useFetch: () => ([mockedFetch, null, null]),
 }));
 
-jest.mock('../../services/MovieService', () => ({
+jest.mock('../../../services/MovieService', () => ({
   deleteMovie: jest.fn().mockResolvedValue({}),
 }));
 

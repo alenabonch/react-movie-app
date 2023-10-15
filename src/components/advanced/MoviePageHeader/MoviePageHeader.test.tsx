@@ -1,20 +1,20 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
-import Header from './Header';
+import MoviePageHeader from './MoviePageHeader';
 
 const routes = [
   {
     path: '/',
-    element: <Header onAdd={jest.fn()} onEdit={jest.fn()}/>,
+    element: <MoviePageHeader onAdd={jest.fn()} onEdit={jest.fn()}/>,
   },
   {
     path: '/:movieId',
-    element: <Header onAdd={jest.fn()} onEdit={jest.fn()}/>,
+    element: <MoviePageHeader onAdd={jest.fn()} onEdit={jest.fn()}/>,
   },
 ];
 
-describe(Header, () => {
+describe(MoviePageHeader, () => {
   it('should render Add Movie button when movie is not selected', async () => {
     const router = createMemoryRouter(routes, {initialEntries: ['/'],});
     render(<RouterProvider router={router} />);

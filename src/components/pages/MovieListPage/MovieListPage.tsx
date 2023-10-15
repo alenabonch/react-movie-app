@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Header from '../../advanced/Header/Header';
+import MoviePageHeader from '../../advanced/MoviePageHeader/MoviePageHeader';
 import MovieFilters from '../../advanced/MovieFilters/MovieFilters';
 import MovieList from '../../advanced/MovieList/MovieList';
 import { GENRES } from '../../../data/Genre';
@@ -69,8 +69,8 @@ function MovieListPage() {
   return (
       <div className="movie-list-page p-5">
         <div className="movie-list-page__header container mb-2 d-flex flex-column px-5 py-4">
-          <Header onAdd={handleAddMovie}
-                  onEdit={handleEditMovie}/>
+          <MoviePageHeader onAdd={handleAddMovie}
+                           onEdit={handleEditMovie}/>
         </div>
         <div className="movie-list-page__body container px-5">
           <MovieFilters genres={genres}/>

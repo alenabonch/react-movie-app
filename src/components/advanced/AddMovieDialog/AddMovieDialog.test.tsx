@@ -6,12 +6,12 @@ import { movieMock } from '../../../data/mocks/Movie';
 import AddMovieDialog from './AddMovieDialog';
 
 const mockedUseNavigateWithQuery = jest.fn();
-jest.mock('../../hooks/useNavigateWithQuery', () => ({
+jest.mock('../../../hooks/useNavigateWithQuery', () => ({
   useNavigateWithQuery: () => ({navigateWithQuery: mockedUseNavigateWithQuery}),
 }));
 
 const mockedFetch = jest.fn();
-jest.mock('../../hooks/useFetch', () => ({
+jest.mock('../../../hooks/useFetch', () => ({
   useFetch: () => ([mockedFetch, null, null]),
 }));
 

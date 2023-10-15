@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Header from './Header';
+import MoviePageHeader from './MoviePageHeader';
 
 
 const meta = {
-  title: 'Components/Header',
-  component: Header,
+  title: 'Components/MoviePageHeader',
+  component: MoviePageHeader,
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof Header>;
+} satisfies Meta<typeof MoviePageHeader>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
