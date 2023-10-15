@@ -1,12 +1,12 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AddMovieDialog from './components/AddMovieDialog/AddMovieDialog';
-import EditMovieDialog from './components/EditMovieDialog/EditMovieDialog';
-import MovieDetailsContainer from './components/MovieDetailsContainer/MovieDetailsContainer';
-import SearchForm from './components/SearchForm/SearchForm';
+import AddMovieDialog from './components/advanced/AddMovieDialog/AddMovieDialog';
+import EditMovieDialog from './components/advanced/EditMovieDialog/EditMovieDialog';
+import MovieDetailsContainer from './components/advanced/MovieDetailsContainer/MovieDetailsContainer';
+import SearchForm from './components/advanced/SearchForm/SearchForm';
 import { Movie } from './models/Movie';
-import MovieListPage from './pages/MovieListPage/MovieListPage';
-import PageNotFound from './pages/PageNotFound/PageNotFound';
+import MovieListPage from './components/pages/MovieListPage/MovieListPage';
+import PageNotFound from './components/pages/PageNotFound/PageNotFound';
 import MovieService from './services/MovieService';
 
 const router = createBrowserRouter([
