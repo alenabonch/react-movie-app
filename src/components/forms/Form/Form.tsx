@@ -1,5 +1,4 @@
 import React, { createContext } from 'react';
-import './Form.scss';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { Button } from '../../common/Button/Button';
 import Spinner from '../../common/Spinner/Spinner';

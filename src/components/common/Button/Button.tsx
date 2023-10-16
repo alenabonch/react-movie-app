@@ -1,9 +1,9 @@
 import React from 'react';
-import './Button.scss';
+import styles from './Button.module.scss';
 
 interface ButtonProps {
   primary?: boolean;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium';
   children: any;
   type?: 'button' | 'submit' | 'reset';
   className?: string;
@@ -20,11 +20,12 @@ export const Button = ({
   children,
   ...props
 }: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+  const mode = primary ? styles.appButton__primary : styles.appButton__secondary;
+  const sizeClass = styles.appButton + ' ' + styles[size];
   return (
     <button
       type={type}
-      className={['storybook-button', `storybook-button--${size}`, mode, className].join(' ')}
+      className={[styles.appButton, sizeClass, mode, className].join(' ')}
       {...props}
       style={{ backgroundColor }}
     >

@@ -1,7 +1,7 @@
 import FocusTrap from 'focus-trap-react';
 import React from 'react';
 import { Portal } from 'react-portal';
-import './Dialog.scss';
+import style from './Dialog.module.scss';
 
 export interface DialogProps {
   children: any;
@@ -21,11 +21,11 @@ function Dialog({children, title, open, onClose}: DialogProps) {
   return (
       <Portal>
         <FocusTrap>
-          <div className="dialog" tabIndex={-1} role="dialog" onClick={handleBackdropClick} data-testid="dialog-overlay">
-            <div className="dialog__content" onClick={e => e.stopPropagation()} data-testid="dialog-content">
-              <div className="dialog__header">
-                <h3 className="dialog__title">{title}</h3>
-                <button className="dialog__close" onClick={onClose} aria-label="Close Dialog">
+          <div className={style.dialog} tabIndex={-1} role="dialog" onClick={handleBackdropClick} data-testid="dialog-overlay">
+            <div className={style.dialog__content} onClick={e => e.stopPropagation()} data-testid="dialog-content">
+              <div className={style.dialog__header}>
+                <h3 className={style.dialog__title}>{title}</h3>
+                <button className={style.dialog__close} onClick={onClose} aria-label="Close Dialog">
                   <i className="fa-solid fa-xmark"></i>
                 </button>
               </div>

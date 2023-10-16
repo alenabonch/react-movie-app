@@ -10,7 +10,7 @@ import { Movie, SortBy, SortOrder } from '../../../models/Movie';
 import MovieService from '../../../services/MovieService';
 import { prepareRequestParams } from '../../../utils/MovieUtils';
 import { getPageCount } from '../../../utils/PageUtils';
-import './MovieListPage.scss';
+import styles from './MovieListPage.module.scss';
 
 
 function MovieListPage() {
@@ -67,12 +67,12 @@ function MovieListPage() {
   }
 
   return (
-      <div className="movie-list-page p-5">
-        <div className="movie-list-page__header container mb-2 d-flex flex-column px-5 py-4">
+      <div className={styles.movieListPage}>
+        <div className={styles.movieListPage__header}>
           <MoviePageHeader onAdd={handleAddMovie}
                            onEdit={handleEditMovie}/>
         </div>
-        <div className="movie-list-page__body container px-5">
+        <div className={styles.movieListPage__body}>
           <MovieFilters genres={genres}/>
           <MovieList movies={movies}
                      error={!!moviesError}

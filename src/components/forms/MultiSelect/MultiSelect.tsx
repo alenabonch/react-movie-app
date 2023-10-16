@@ -3,12 +3,11 @@ import { Multiselect } from 'multiselect-react-dropdown';
 import React, { useContext } from 'react';
 import { Controller } from 'react-hook-form';
 import { FormContext } from '../Form/Form';
-import './MultiSelect.scss';
 
 function MultiSelect({ name, label, rules, options, ...rest }: any) {
   const {control, formState} = useContext(FormContext);
   return (
-      <div className="multi-select">
+      <>
         <label htmlFor={name}>{label}</label>
         <label htmlFor={`${name}_input`}>Genre</label>
         <Controller
@@ -29,7 +28,7 @@ function MultiSelect({ name, label, rules, options, ...rest }: any) {
             )}
         />
         <ErrorMessage errors={formState.errors} name={name} render={({ message }) => <p className="error-message">{message}</p>}/>
-      </div>
+      </>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ContextMenu.scss';
+import styles from './ContextMenu.module.scss';
 
 interface ContextMenuProps {
   options: string[];
@@ -22,15 +22,15 @@ function ContextMenu({options, onSelect}: ContextMenuProps) {
 
   return (
       <div className="position-relative">
-        <button aria-label="Options" data-testid="context-menu-button" className="context-menu__button" onClick={handleToggleMenuVisibility}>
+        <button aria-label="Options" data-testid="context-menu-button" className={styles.contextMenu__button} onClick={handleToggleMenuVisibility}>
           <i className="fa-solid fa-ellipsis-vertical"></i>
         </button>
         {menuOpened &&
-            <div role="menu" className="context-menu__menu position-absolute">
+            <div role="menu" className={styles.contextMenu__menu}>
               {options.map((option) => (
                   <button key={option}
                       data-testid="context-menu-item"
-                      className="context-menu__option"
+                      className={styles.contextMenu__option}
                       onClick={handleOptionSelect.bind(null, option)}>
                     {option}
                   </button>

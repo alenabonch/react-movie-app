@@ -1,10 +1,10 @@
 import React from 'react';
-import './PageNotFound.scss';
+import styles from './PageNotFound.module.scss';
 
 
 function PageNotFound() {
   return (
-      <h1 className="page-not-found d-flex justify-content-center align-items-center">
+      <h1 className={styles.pageNotFound}>
         404: Page Not Found
       </h1>
   );

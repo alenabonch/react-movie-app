@@ -1,5 +1,5 @@
 import React from 'react';
-import './Spinner.scss';
+import styles from './Spinner.module.scss';
 
 interface SpinnerProps {
   size?: 'small' | 'medium' | 'large'
@@ -7,8 +7,8 @@ interface SpinnerProps {
 
 function Spinner({size = 'medium'} : SpinnerProps) {
   return (
-      <div className={`spinner__${size}`} data-testid="spinner">
-        <div className="lds-ripple">
+      <div className={styles.spinner + ' ' + styles[size]} data-testid="spinner">
+        <div className={styles.ldsRipple}>
           <div></div>
           <div></div>
         </div>

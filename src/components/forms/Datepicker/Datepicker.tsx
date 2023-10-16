@@ -4,12 +4,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller } from 'react-hook-form';
 import { FormContext } from '../Form/Form';
-import './Datepicker.scss';
 
 function Datepicker({name, label, rules, placeholder, ...rest}: any) {
   const {control, formState} = useContext(FormContext);
   return (
-      <div className="datepicker">
+      <>
         <label htmlFor={name}>{label}</label>
         <Controller
             control={control}
@@ -26,7 +25,7 @@ function Datepicker({name, label, rules, placeholder, ...rest}: any) {
             )}
         />
         <ErrorMessage errors={formState.errors} name={name} render={({message}) => <p className="error-message">{message}</p>}/>
-      </div>
+      </>
   );
 }
 

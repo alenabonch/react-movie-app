@@ -1,0 +1,33 @@
+@import "src/styles/colors";
+
+.appButton {
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1;
+  text-transform: uppercase;
+
+  &__primary {
+    color: $white;
+    background-color: $red;
+  }
+
+  &__secondary {
+    color: $red;
+    background-color: transparent;
+    box-shadow: $red 0 0 0 1px inset;
+  }
+
+  &.small {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  &.medium {
+    font-size: 20px;
+    padding: 12px 30px;
+  }
+}

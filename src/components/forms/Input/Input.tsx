@@ -1,7 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message';
 import React, { useContext } from 'react';
 import { FormContext } from '../Form/Form';
-import './Input.scss';
 
 function Input({ name, label, rules, ...rest }: any) {
   const {register, formState} = useContext(FormContext);
