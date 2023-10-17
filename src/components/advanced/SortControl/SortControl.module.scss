@@ -1,7 +1,10 @@
 @import "src/styles/colors";
 
-.sort-control {
+.sortControl {
   color: $white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &__label {
     opacity: 0.6;

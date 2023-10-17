@@ -1,6 +1,6 @@
 import React from 'react';
 import { SortOrder } from '../../../models/Movie';
-import "./SortOrderControl.scss"
+import styles from "./SortOrderControl.module.scss"
 
 interface SortOrderControlProps {
   sortOrder: SortOrder;
@@ -18,13 +18,13 @@ function SortOrderControl({sortOrder, onSortOrderChange}: SortOrderControlProps)
   ];
 
   return (
-    <div className="sort-order d-flex justify-content-center">
+    <div className={styles.sortOrder}>
       {
         sortOrderConfigs.map(config => (
             <button aria-label={config.label}
                     disabled={sortOrder ===  config.order}
                     key={config.label}
-                    className={`sort-order__button ${sortOrder ===  config.order ? 'active' : ''}`}
+                    className={`${styles.sortOrder__button} ${sortOrder ===  config.order ? styles.sortOrder__button + ' ' + styles.active : ''}`}
                     onClick={handleSortOrderChange.bind(null, config.order)}>
               <i className={`fa-solid ${config.icon}`}></i>
             </button>

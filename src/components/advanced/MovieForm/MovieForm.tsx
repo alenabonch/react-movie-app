@@ -6,7 +6,7 @@ import Form from '../../forms/Form/Form';
 import Input from '../../forms/Input/Input';
 import MultiSelect from '../../forms/MultiSelect/MultiSelect';
 import TextArea from '../../forms/TextArea/TextArea';
-import './MovieForm.scss'
+import styles from './MovieForm.module.scss'
 
 const URL_PATTERN = /^https?:\/\/(?:www\.)?./;
 
@@ -26,7 +26,7 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
   }
 
   return (
-      <div className="movie-form">
+      <div className={styles.movieForm}>
         <Form onSubmit={onFormSubmit} defaultValues={defaultValues} loading={loading} serverError={error?.response.data.messages}>
           <div className="row mb-3">
             <div className="col-7">

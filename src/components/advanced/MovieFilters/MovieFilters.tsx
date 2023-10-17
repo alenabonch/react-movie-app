@@ -4,7 +4,6 @@ import { SortBy, SortOrder } from '../../../models/Movie';
 import GenreSelect from '../GenreSelect/GenreSelect';
 import SortControl from '../SortControl/SortControl';
 import SortOrderControl from '../SortOrder/SortOrderControl';
-import './MovieFilters.scss';
 
 interface MovieFiltersProps {
   genres: string[]

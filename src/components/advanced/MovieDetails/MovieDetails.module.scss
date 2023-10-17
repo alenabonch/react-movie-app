@@ -1,9 +1,10 @@
 @import "src/styles/colors";
 
-.movie-details {
+.movieDetails {
   color: $white;
   min-height: 464px;
   overflow: hidden;
+  display: flex;
 
   &__image {
     width: 326px;

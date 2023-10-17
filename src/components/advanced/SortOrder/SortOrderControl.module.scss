@@ -1,8 +1,10 @@
 @import "src/styles/colors";
 
-.sort-order {
+.sortOrder {
   height: 30px;
   margin: 0 15px;
+  display: flex;
+  justify-content: center;
 
   &__button {
     color: $white;

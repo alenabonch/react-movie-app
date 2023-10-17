@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Outlet, useOutletContext, useSearchParams } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
-import './SearchForm.scss';
+import styles from './SearchForm.module.scss';
 
 function SearchForm() {
   const contextData = useOutletContext();
@@ -33,8 +33,8 @@ function SearchForm() {
   }
 
   return (
-      <div className="search-form p-5">
-        <label htmlFor="search-input" className="mb-4 search-form__label">Find your movie</label>
+      <div className={styles.searchForm}>
+        <label htmlFor="search-input" className={styles.searchForm__label}>Find your movie</label>
         <div className="d-flex">
           <div className="d-flex position-relative w-100">
             <input
@@ -42,7 +42,7 @@ function SearchForm() {
                 id="search-input"
                 name="search-input"
                 data-testid="search-input"
-                className="search-form__input form-control"
+                className="form-control"
                 value={query}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
@@ -50,10 +50,9 @@ function SearchForm() {
             />
             {
               query &&
-                <i aria-label="Clear Search"
-                   className="search-form__clear fa-solid fa-xmark"
-                   onClick={handleSearchClear}
-                ></i>
+                <button onClick={handleSearchClear} className={styles.searchForm__clear} aria-label="Clear Search">
+                  <i className="fa-solid fa-xmark"></i>
+                </button>
             }
           </div>
           <Button

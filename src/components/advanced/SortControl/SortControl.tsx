@@ -1,6 +1,6 @@
 import React from 'react';
-import './SortControl.scss';
 import { SortBy } from '../../../models/Movie';
+import styles from './SortControl.module.scss';
 
 interface SortControlProps {
   sort: SortBy;
@@ -13,9 +13,9 @@ function SortControl({sort, onSortChange}: SortControlProps) {
   }
 
   return (
-    <div className="sort-control d-flex justify-content-center align-items-center">
-      <label htmlFor="sort" className="sort-control__label">Sort By</label>
-      <select className="sort-control__select" name="sort" id="sort" data-testid="sort-select" value={sort} onChange={handleSortChange}>
+    <div className={styles.sortControl}>
+      <label htmlFor="sort" className={styles.sortControl__label}>Sort By</label>
+      <select className={styles.sortControl__select} name="sort" id="sort" data-testid="sort-select" value={sort} onChange={handleSortChange}>
         <option value="release_date">RELEASE DATE</option>
         <option value="title">TITLE</option>
       </select>

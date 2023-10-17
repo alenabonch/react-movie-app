@@ -1,16 +1,16 @@
 @import "src/styles/colors";
 
-.genre-select {
+.genreSelect {
   button {
     color: $white;
     text-transform: uppercase;
     background: transparent;
     border: none;
     height: 40px;
-    margin-botton: 20px;
+    padding: 8px;
+  }
 
-    &.active {
-      color: $red;
-    }
+  &.active {
+    color: $red;
   }
 }

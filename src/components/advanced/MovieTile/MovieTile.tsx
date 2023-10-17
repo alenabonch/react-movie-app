@@ -4,7 +4,7 @@ import { Movie } from '../../../models/Movie';
 import ContextMenu from '../../common/ContextMenu/ContextMenu';
 import DeleteMovieDialog from '../DeleteMovieDialog/DeleteMovieDialog';
 import { LinkWithQuery } from '../../common/LinkWithQuery/LinkWithQuery';
-import './MovieTile.scss';
+import styles from './MovieTile.module.scss';
 
 interface MovieTileProps {
   movie: Movie;
@@ -30,18 +30,18 @@ function MovieTile({movie, onDelete}: MovieTileProps) {
   }
 
   return (
-    <div className="movie-tile position-relative mb-4" data-testid="movie-tile">
+    <div className={styles.movieTile} data-testid="movie-tile">
         <LinkWithQuery to={movie.id}>
-          <img className="movie-tile__image" src={movie.posterUrl} alt=""/>
+          <img className={styles.movieTile__image} src={movie.posterUrl} alt=""/>
         </LinkWithQuery>
         <div className="d-flex justify-content-between align-items-center">
-          <h3 className="movie-tile__title text-truncate">{movie.title}</h3>
-          <span className="movie-tile__date">{movie.releaseDate}</span>
+          <h3 className={styles.movieTile__title}>{movie.title}</h3>
+          <span className={styles.movieTile__date}>{movie.releaseDate}</span>
         </div>
-        <div className="movie-tile__genres text-truncate">
+        <div className={styles.movieTile__genres}>
           {movie.genres.join(', ')}
         </div>
-        <div className="movie-tile__menu position-absolute">
+        <div className={styles.movieTile__menu}>
           <ContextMenu options={menuOptions} onSelect={handleMenuOptionClick}/>
         </div>
         <DeleteMovieDialog movieId={movie.id} onDelete={onDelete} open={openDeleteMovieDialog} onClose={setOpenDeleteMovieDialog.bind(null, false)}/>

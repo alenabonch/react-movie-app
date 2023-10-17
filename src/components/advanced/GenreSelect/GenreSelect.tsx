@@ -1,5 +1,5 @@
 import React from 'react';
-import './GenreSelect.scss'
+import styles from './GenreSelect.module.scss'
 
 interface GenreSelectProps {
   genres: string[];
@@ -13,12 +13,12 @@ function GenreSelect({genres, selectedGenre, onSelect}: GenreSelectProps) {
   }
 
   return (
-    <div className="genre-select py-2">
+    <div className={styles.genreSelect}>
       {genres.map((genre) => (
           <button
               key={genre}
               onClick={handleGenreSelect.bind(null, genre)}
-              className={genre === selectedGenre ? 'active' : ''}
+              className={genre === selectedGenre ? styles.genreSelect + ' ' + styles.active : ''}
               data-testid="genre-button">
             {genre}
           </button>

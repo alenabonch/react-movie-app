@@ -1,20 +1,24 @@
 @import "src/styles/colors";
 
-.search-form {
+.searchForm {
   color: $white;
+  padding: 20px;
 
   &__label {
     font-size: 40px;
     font-weight: 300;
     text-transform: uppercase;
+    margin-bottom: 12px;
   }
 
   &__clear {
     position: absolute;
-    top: 19px;
+    top: 15px;
     right: 23px;
     font-size: 20px;
     cursor: pointer;
+    background: transparent;
+    border: none;
   }
 
   input {

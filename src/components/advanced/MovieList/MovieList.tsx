@@ -3,7 +3,7 @@ import MovieTile from '../MovieTile/MovieTile';
 import { useObserver } from '../../../hooks/useObserver';
 import { Movie } from '../../../models/Movie';
 import Spinner from '../../common/Spinner/Spinner';
-import './MovieList.scss';
+import styles from './MovieList.module.scss';
 
 interface MovieListProps {
   movies: Movie[];
@@ -25,17 +25,17 @@ function MovieList({movies, loading, error, page, totalPages, totalAmount, onDel
   });
 
   return (
-      <div className="movie-list">
-        <div className="movie-list__total m-2 pb-2" data-testid="movies-found"><strong>{totalAmount}</strong> movies found</div>
+      <div className={styles.movieList}>
+        <div className={styles.movieList__total} data-testid="movies-found"><strong>{totalAmount}</strong> movies found</div>
         {
           error &&
-            <div className="movie-list__error p-5 d-flex justify-content-center align-items-center">
+            <div className={styles.movieList__error}>
               <div className="p-5">
                 <i className="fa-solid fa-triangle-exclamation m-1"></i>Something went wrong...
               </div>
             </div>
         }
-        <div className="movie-list__items d-flex justify-content-around flex-wrap py-3">
+        <div className="d-flex justify-content-around flex-wrap py-3">
           {movies.map((movie) => (
               <MovieTile movie={movie} key={movie.id} onDelete={onDelete}/>
           ))}
@@ -46,7 +46,7 @@ function MovieList({movies, loading, error, page, totalPages, totalAmount, onDel
               <Spinner size="large"/>
             </div>
         }
-        <div ref={lastElement} className="movie-list__last-element"></div>
+        <div ref={lastElement} className={styles.movieList__lastElement}></div>
       </div>
   );
 }
