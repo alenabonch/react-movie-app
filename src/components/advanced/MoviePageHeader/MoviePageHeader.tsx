@@ -1,8 +1,9 @@
 import React from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import { Movie, MovieDraft } from '../../../models/Movie';
-import { Button } from '../../common/Button/Button';
-import { LinkWithQuery } from '../../common/LinkWithQuery/LinkWithQuery';
+import AddMovieButton from '../AddMovieButton/AddMovieButton';
+import LogoButton from '../LogoButton/LogoButton';
+import ReturnToSearchButton from '../ReturnToSearchButton/ReturnToSearchButton';
 import styles from './MoviePageHeader.module.scss'
 
 interface MoviePageHeaderProps {
@@ -16,14 +17,10 @@ function MoviePageHeader({onAdd, onEdit}: MoviePageHeaderProps) {
   return (
       <div className={styles.moviePageHeader}>
         <div className="d-flex justify-content-between">
-          <div className="logo"><strong>netflix</strong>roulette</div>
+          <LogoButton/>
           {movieId
-              ? <button aria-label="Return to Search" className={styles.moviePageHeader__searchIcon} data-testid="return-to-search">
-                  <LinkWithQuery to="/"><i className="fa-solid fa-magnifying-glass"></i></LinkWithQuery>
-                </button>
-              : <Button size="small" className="mx-4" data-testid="add-movie-button">
-                  <LinkWithQuery to="new">+ Add Movie</LinkWithQuery>
-                </Button>
+              ? <ReturnToSearchButton/>
+              : <AddMovieButton/>
           }
         </div>
         <Outlet context={{onAdd, onEdit}}/>
