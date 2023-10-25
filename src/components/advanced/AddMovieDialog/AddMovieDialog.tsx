@@ -8,11 +8,7 @@ import React, { useEffect, useState } from 'react';
 import Dialog from '../../common/Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
 
-interface AddMovieDialogProps {
-  handleDialogClose: () => void
-}
-
-function AddMovieDialog({handleDialogClose}: AddMovieDialogProps) {
+function AddMovieDialog() {
   const {navigateWithQuery} = useNavigateWithQuery()
   const [movieDraft, setMovieDraft] = useState<MovieDraft>();
 
@@ -24,15 +20,18 @@ function AddMovieDialog({handleDialogClose}: AddMovieDialogProps) {
     if (movieDraft) {
       createMovie().then((createdMovie) => {
         navigateWithQuery(`/${createdMovie.id}`);
-        handleDialogClose();
+
       });
     }
   }, [movieDraft]);
 
-  const handleAddMovieSubmit = async (movie: MovieDraft) => {
+  const handleAddMovieSubmit = (movie: MovieDraft) => {
     setMovieDraft(movie);
   }
 
+  const handleDialogClose = () => {
+    navigateWithQuery('/');
+  }
 
   return (
       <Dialog title="Add Movie" open={true} onClose={handleDialogClose}>

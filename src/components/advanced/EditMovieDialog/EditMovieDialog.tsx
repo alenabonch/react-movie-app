@@ -33,7 +33,7 @@ function EditMovieDialog({movie}: EditMovieDialogProps) {
   }
 
   const handleDialogClose = () => {
-    navigateWithQuery('/');
+    navigateWithQuery(`/${movie.id}`);
   }
 
   return (

@@ -1,3 +1,4 @@
+import ConditionalSearch from '@components/advanced/ConditionalSearch/ConditionalSearch';
 import styles from '@styles/HomePage.module.scss';
 import React, { ReactNode } from 'react';
 import '../../styles/globals.scss';
@@ -13,7 +14,9 @@ export default async function HomeLayout({children, movieList, search}: HomeLayo
       <div className={styles.homePage}>
         <div className={styles.homePage__header}>
           {children}
-          {search}
+          <ConditionalSearch>
+            {search}
+          </ConditionalSearch>
         </div>
         <div className={styles.homePage__body}>
           {movieList}
