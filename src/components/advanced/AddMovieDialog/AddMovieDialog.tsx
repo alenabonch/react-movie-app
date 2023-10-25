@@ -20,7 +20,6 @@ function AddMovieDialog() {
     if (movieDraft) {
       createMovie().then((createdMovie) => {
         navigateWithQuery(`/${createdMovie.id}`);
-
       });
     }
   }, [movieDraft]);

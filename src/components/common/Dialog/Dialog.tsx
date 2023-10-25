@@ -1,18 +1,9 @@
 'use client';
+import { useHasMounted } from '@hooks/useHasMounted';
 import FocusTrap from 'focus-trap-react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Portal } from 'react-portal';
 import style from './Dialog.module.scss';
-
-const useHasMounted = () => {
-  const [hasMounted, setHasMounted] = useState(false)
-
-  useEffect(() => {
-    setHasMounted(true)
-  }, [])
-
-  return hasMounted
-}
 
 export interface DialogProps {
   children: any;

@@ -30,7 +30,7 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
         <Form onSubmit={onFormSubmit} defaultValues={defaultValues} loading={loading} serverErrors={error?.response.data.messages}>
           <div className="row mb-3">
             <div className="col-7">
-              <Input name="title" label="Title" data-testid="title-input"/>
+              <Input name="title" label="Title" rules={{required: "Title is required"}} data-testid="title-input"/>
             </div>
 
             <div className="col">
