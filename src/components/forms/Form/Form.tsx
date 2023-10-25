@@ -1,3 +1,4 @@
+'use client'
 import React, { createContext } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { Button } from '../../common/Button/Button';
@@ -6,7 +7,6 @@ import Spinner from '../../common/Spinner/Spinner';
 export interface FormProps {
   defaultValues: any
   children: any;
-  serverError: any;
   onSubmit: (data: any) => void;
   loading: boolean;
   serverErrors?: string[];

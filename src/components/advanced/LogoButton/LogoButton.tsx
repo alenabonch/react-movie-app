@@ -1,5 +1,5 @@
-import React from 'react';
-import { LinkWithQuery } from '../../common/LinkWithQuery/LinkWithQuery';
+'use client'
+import { LinkWithQuery } from '@components/common/LinkWithQuery/LinkWithQuery';
 import styles from './LogoButton.module.scss'
 
 export default function LogoButton() {

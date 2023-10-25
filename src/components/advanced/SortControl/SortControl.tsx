@@ -1,5 +1,5 @@
-import React from 'react';
-import { SortBy } from '../../../models/Movie';
+'use client'
+import { SortBy } from '@models/Movie';
 import styles from './SortControl.module.scss';
 
 interface SortControlProps {

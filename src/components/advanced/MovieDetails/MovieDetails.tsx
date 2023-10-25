@@ -1,7 +1,7 @@
 import React from 'react';
-import { Movie } from '../../../models/Movie';
+import { Movie } from '@models/Movie';
 import styles from './MovieDetails.module.scss';
-import { toHoursAndMinutes } from '../../../utils/DateUtils';
+import { toHoursAndMinutes } from '@utils/DateUtils';
 
 interface MovieDetailsProps {
   movie: Movie;

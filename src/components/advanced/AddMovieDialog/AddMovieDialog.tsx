@@ -1,19 +1,18 @@
+'use client'
+import { GENRES } from '@data/Genre';
+import { useFetch } from '@hooks/useFetch';
+import { useNavigateWithQuery } from '@hooks/useNavigateWithQuery';
+import { MovieDraft } from '@models/Movie';
+import MovieService from '@services/MovieService';
 import React, { useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
-import { GENRES } from '../../../data/Genre';
-import { useFetch } from '../../../hooks/useFetch';
-import { useNavigateWithQuery } from '../../../hooks/useNavigateWithQuery';
-import { MovieDraft } from '../../../models/Movie';
-import MovieService from '../../../services/MovieService';
 import Dialog from '../../common/Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
 
 interface AddMovieDialogProps {
-  onAdd: (movie: MovieDraft) => void;
+  handleDialogClose: () => void
 }
 
-function AddMovieDialog() {
-  const {onAdd} = useOutletContext<AddMovieDialogProps>();
+function AddMovieDialog({handleDialogClose}: AddMovieDialogProps) {
   const {navigateWithQuery} = useNavigateWithQuery()
   const [movieDraft, setMovieDraft] = useState<MovieDraft>();
 
@@ -25,7 +24,7 @@ function AddMovieDialog() {
     if (movieDraft) {
       createMovie().then((createdMovie) => {
         navigateWithQuery(`/${createdMovie.id}`);
-        onAdd(createdMovie);
+        handleDialogClose();
       });
     }
   }, [movieDraft]);
@@ -34,9 +33,6 @@ function AddMovieDialog() {
     setMovieDraft(movie);
   }
 
-  const handleDialogClose = () => {
-    navigateWithQuery('/');
-  }
 
   return (
       <Dialog title="Add Movie" open={true} onClose={handleDialogClose}>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { SortOrder } from '../../../models/Movie';
+'use client'
+import { SortOrder } from '@models/Movie';
 import styles from "./SortOrderControl.module.scss"
 
 interface SortOrderControlProps {

@@ -1,4 +1,4 @@
-@import "styles/main";
+@import "src/styles/main";
 
 body {
   margin: 0;
@@ -8,12 +8,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: $light-gray;
-}
-
-.logo {
-  color: $red;
-  font-weight: 300;
-  font-size: 20px;
 }
 
 a {

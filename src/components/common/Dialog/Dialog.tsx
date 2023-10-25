@@ -1,7 +1,18 @@
+'use client';
 import FocusTrap from 'focus-trap-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Portal } from 'react-portal';
 import style from './Dialog.module.scss';
+
+const useHasMounted = () => {
+  const [hasMounted, setHasMounted] = useState(false)
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
+
+  return hasMounted
+}
 
 export interface DialogProps {
   children: any;
@@ -11,6 +22,7 @@ export interface DialogProps {
 }
 
 function Dialog({children, title, open, onClose}: DialogProps) {
+  const hasMounted = useHasMounted();
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     onClose();
@@ -19,7 +31,8 @@ function Dialog({children, title, open, onClose}: DialogProps) {
   if (!open) return null;
 
   return (
-      <Portal>
+      hasMounted &&
+      <Portal node={document.body}>
         <FocusTrap>
           <div className={style.dialog} tabIndex={-1} role="dialog" onClick={handleBackdropClick} data-testid="dialog-overlay">
             <div className={style.dialog__content} onClick={e => e.stopPropagation()} data-testid="dialog-content">
@@ -36,7 +49,7 @@ function Dialog({children, title, open, onClose}: DialogProps) {
           </div>
         </FocusTrap>
       </Portal>
-  );
+  )
 }
 
 export default Dialog;
