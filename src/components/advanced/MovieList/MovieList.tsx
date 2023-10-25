@@ -30,7 +30,7 @@ function MovieList({movies, error, totalPages, page, totalAmount} : MovieListPro
           error &&
             <div className={styles.movieList__error}>
               <div className="p-5">
-                <i className="fa-solid fa-triangle-exclamation m-1"></i>Something went wrong...
+                Something went wrong...
               </div>
             </div>
         }
