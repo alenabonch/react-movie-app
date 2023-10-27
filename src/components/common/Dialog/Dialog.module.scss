@@ -41,9 +41,12 @@
   }
 
   &__close {
-    color: $white;
     font-size: 28px;
     border: none;
     background: transparent;
+
+    svg {
+      fill: $white;
+    }
   }
 }

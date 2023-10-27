@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigateWithQuery } from '../../../hooks/useNavigateWithQuery';
-import { Movie } from '../../../models/Movie';
+'use client'
+import { useNavigateWithQuery } from '@hooks/useNavigateWithQuery';
+import { Movie } from '@models/Movie';
+import { useState } from 'react';
 import ContextMenu from '../../common/ContextMenu/ContextMenu';
 import DeleteMovieDialog from '../DeleteMovieDialog/DeleteMovieDialog';
 import { LinkWithQuery } from '../../common/LinkWithQuery/LinkWithQuery';
@@ -8,10 +9,9 @@ import styles from './MovieTile.module.scss';
 
 interface MovieTileProps {
   movie: Movie;
-  onDelete: (id: string) => void;
 }
 
-function MovieTile({movie, onDelete}: MovieTileProps) {
+function MovieTile({movie}: MovieTileProps) {
   const [openDeleteMovieDialog, setOpenDeleteMovieDialog] = useState(false);
   const {navigateWithQuery} = useNavigateWithQuery();
   const menuOptions = ['Edit', 'Delete'];
@@ -44,7 +44,7 @@ function MovieTile({movie, onDelete}: MovieTileProps) {
         <div className={styles.movieTile__menu}>
           <ContextMenu options={menuOptions} onSelect={handleMenuOptionClick}/>
         </div>
-        <DeleteMovieDialog movieId={movie.id} onDelete={onDelete} open={openDeleteMovieDialog} onClose={setOpenDeleteMovieDialog.bind(null, false)}/>
+        <DeleteMovieDialog movieId={movie.id} open={openDeleteMovieDialog} onClose={setOpenDeleteMovieDialog.bind(null, false)}/>
     </div>
   );
 }

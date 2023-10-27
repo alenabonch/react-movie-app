@@ -1,3 +1,6 @@
+'use client';
+import CrossIcon from '@components/icons/CrossIcon/CrossIcon';
+import { useHasMounted } from '@hooks/useHasMounted';
 import FocusTrap from 'focus-trap-react';
 import React from 'react';
 import { Portal } from 'react-portal';
@@ -11,6 +14,7 @@ export interface DialogProps {
 }
 
 function Dialog({children, title, open, onClose}: DialogProps) {
+  const hasMounted = useHasMounted();
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     onClose();
@@ -19,14 +23,15 @@ function Dialog({children, title, open, onClose}: DialogProps) {
   if (!open) return null;
 
   return (
-      <Portal>
+      hasMounted &&
+      <Portal node={document.body}>
         <FocusTrap>
           <div className={style.dialog} tabIndex={-1} role="dialog" onClick={handleBackdropClick} data-testid="dialog-overlay">
             <div className={style.dialog__content} onClick={e => e.stopPropagation()} data-testid="dialog-content">
               <div className={style.dialog__header}>
                 <h3 className={style.dialog__title}>{title}</h3>
                 <button className={style.dialog__close} onClick={onClose} aria-label="Close Dialog">
-                  <i className="fa-solid fa-xmark"></i>
+                  <CrossIcon/>
                 </button>
               </div>
               <div className="dialog__body">
@@ -36,7 +41,7 @@ function Dialog({children, title, open, onClose}: DialogProps) {
           </div>
         </FocusTrap>
       </Portal>
-  );
+  )
 }
 
 export default Dialog;

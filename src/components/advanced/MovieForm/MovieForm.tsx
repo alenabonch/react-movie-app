@@ -1,6 +1,6 @@
-import React from 'react';
-import { CreateMovieServerError, IMovieForm, Movie } from '../../../models/Movie';
-import { convertFormDataToMovie, convertMovieToFormData } from '../../../utils/MovieFormUtils';
+'use client'
+import { CreateMovieServerError, IMovieForm, Movie } from '@models/Movie';
+import { convertFormDataToMovie, convertMovieToFormData } from '@utils/MovieFormUtils';
 import Datepicker from '../../forms/Datepicker/Datepicker';
 import Form from '../../forms/Form/Form';
 import Input from '../../forms/Input/Input';
@@ -27,7 +27,7 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
 
   return (
       <div className={styles.movieForm}>
-        <Form onSubmit={onFormSubmit} defaultValues={defaultValues} loading={loading} serverError={error?.response.data.messages}>
+        <Form onSubmit={onFormSubmit} defaultValues={defaultValues} loading={loading} serverErrors={error?.response.data.messages}>
           <div className="row mb-3">
             <div className="col-7">
               <Input name="title" label="Title" rules={{required: "Title is required"}} data-testid="title-input"/>

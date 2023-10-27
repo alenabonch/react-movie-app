@@ -1,6 +1,7 @@
-import React from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { SortBy, SortOrder } from '../../../models/Movie';
+'use client'
+import { updateUrlSearchParams } from '@utils/RouterUtils';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { SortBy, SortOrder } from '@models/Movie';
 import GenreSelect from '../GenreSelect/GenreSelect';
 import SortControl from '../SortControl/SortControl';
 import SortOrderControl from '../SortOrder/SortOrderControl';
@@ -10,25 +11,26 @@ interface MovieFiltersProps {
 }
 
 function MovieFilters({genres} : MovieFiltersProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const sortBy = searchParams.get('sortBy') as SortBy || 'release_date';
   const sortOrder = searchParams.get('sortOrder') as SortOrder || 'desc';
   const selectedGenre = searchParams.get('genre') || genres[0];
 
   const handleSort = (sortBy: SortBy) => {
-    searchParams.set('sortBy', sortBy);
-    setSearchParams(searchParams);
+    const url = updateUrlSearchParams('sortBy', sortBy);
+    router.push(url.toString());
   }
 
   const handleSortOrder = (sortOrder: SortOrder) => {
-    searchParams.set('sortOrder', sortOrder);
-    setSearchParams(searchParams);
+    const url = updateUrlSearchParams('sortOrder', sortOrder);
+    router.push(url.toString());
   }
 
   const handleGenreSelect = (genre: string) => {
-    searchParams.set('genre', genre);
-    setSearchParams(searchParams);
+    const url = updateUrlSearchParams('genre', genre);
+    router.push(url.toString());
   }
 
   return (

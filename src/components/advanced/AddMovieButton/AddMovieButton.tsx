@@ -1,6 +1,7 @@
+'use client'
+import { Button } from '@components/common/Button/Button';
+import { LinkWithQuery } from '@components/common/LinkWithQuery/LinkWithQuery';
 import React from 'react';
-import { LinkWithQuery } from 'components/common/LinkWithQuery/LinkWithQuery';
-import { Button } from '../../common/Button/Button';
 
 export default function AddMovieButton() {
   return (

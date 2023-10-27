@@ -1,28 +1,27 @@
-import React, { useRef } from 'react';
+'use client'
+import { Movie } from '@models/Movie';
+import { updateUrlSearchParams } from '@utils/RouterUtils';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import ReactPaginate from 'react-paginate';
 import MovieTile from '../MovieTile/MovieTile';
-import { useObserver } from '../../../hooks/useObserver';
-import { Movie } from '../../../models/Movie';
-import Spinner from '../../common/Spinner/Spinner';
 import styles from './MovieList.module.scss';
 
 interface MovieListProps {
   movies: Movie[];
-  loading: boolean;
   error: boolean;
   page: number;
   totalPages: number;
   totalAmount: number;
-  onPageChange: (page: number) => void;
-  onDelete: (id: string) => void;
 }
 
-function MovieList({movies, loading, error, page, totalPages, totalAmount, onDelete, onPageChange} : MovieListProps) {
-  const lastElement = useRef<HTMLDivElement>(null);
-  const canLoad = (page < totalPages) && !error;
+function MovieList({movies, error, totalPages, page, totalAmount} : MovieListProps) {
+  const router = useRouter();
 
-  useObserver(lastElement, canLoad, loading, () => {
-    onPageChange(page + 1);
-  });
+  const handlePageClick = (event: any) => {
+    const url = updateUrlSearchParams('page', (event.selected + 1).toString());
+    router.push(url.toString());
+  };
 
   return (
       <div className={styles.movieList}>
@@ -31,22 +30,26 @@ function MovieList({movies, loading, error, page, totalPages, totalAmount, onDel
           error &&
             <div className={styles.movieList__error}>
               <div className="p-5">
-                <i className="fa-solid fa-triangle-exclamation m-1"></i>Something went wrong...
+                Something went wrong...
               </div>
             </div>
         }
         <div className="d-flex justify-content-around flex-wrap py-3">
           {movies.map((movie) => (
-              <MovieTile movie={movie} key={movie.id} onDelete={onDelete}/>
+              <MovieTile movie={movie} key={movie.id}/>
           ))}
         </div>
-        {
-            loading &&
-            <div className="d-flex justify-content-center align-items-center mt-4">
-              <Spinner size="large"/>
-            </div>
-        }
-        <div ref={lastElement} className={styles.movieList__lastElement}></div>
+        <div className={styles.movieList__pagination}>
+          <ReactPaginate
+              breakLabel="..."
+              nextLabel="next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={5}
+              pageCount={totalPages}
+              previousLabel="< previous"
+              renderOnZeroPageCount={null}
+          />
+        </div>
       </div>
   );
 }

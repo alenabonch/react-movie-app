@@ -1,11 +1,13 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export function useNavigateWithQuery() {
-  const navigate = useNavigate();
-  const {search} = useLocation();
+  const search = useSearchParams();
+  const router = useRouter();
 
   const navigateWithQuery = (pathname: string) => {
-    navigate({pathname, search});
+    let updatedPath = search.size > 0 ? `${pathname}?${search}` : pathname;
+    router.push(updatedPath);
   }
 
   return {navigateWithQuery}

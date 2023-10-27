@@ -1,3 +1,5 @@
+'use client';
+import OptionIcon from '@components/icons/OptionIcon/OptionIcon';
 import React, { useState } from 'react';
 import styles from './ContextMenu.module.scss';
 
@@ -23,7 +25,7 @@ function ContextMenu({options, onSelect}: ContextMenuProps) {
   return (
       <div className="position-relative">
         <button aria-label="Options" data-testid="context-menu-button" className={styles.contextMenu__button} onClick={handleToggleMenuVisibility}>
-          <i className="fa-solid fa-ellipsis-vertical"></i>
+          <OptionIcon/>
         </button>
         {menuOpened &&
             <div role="menu" className={styles.contextMenu__menu}>

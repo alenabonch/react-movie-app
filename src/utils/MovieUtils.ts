@@ -1,4 +1,4 @@
-import { MoviesRequest, SortBy, SortOrder } from '../models/Movie';
+import { MoviesRequest, SortBy, SortOrder } from '@models/Movie';
 
 export function prepareRequestParams(search: string, sortBy: SortBy, sortOrder: SortOrder, limit: number, page: number, genre: string): MoviesRequest {
   return {

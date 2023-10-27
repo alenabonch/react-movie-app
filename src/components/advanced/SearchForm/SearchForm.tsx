@@ -1,11 +1,15 @@
+'use client'
+import { Button } from '@components/common/Button/Button';
+import CrossIcon from '@components/icons/CrossIcon/CrossIcon';
+import { updateUrlSearchParams } from '@utils/RouterUtils';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { ChangeEvent, useState } from 'react';
-import { Outlet, useOutletContext, useSearchParams } from 'react-router-dom';
-import { Button } from '../../common/Button/Button';
 import styles from './SearchForm.module.scss';
 
 function SearchForm() {
-  const contextData = useOutletContext();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   const [query, setQuery] = useState(searchParams.get('query') || '');
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -13,8 +17,8 @@ function SearchForm() {
   }
 
   const onSearch = (query: string) => {
-    searchParams.set('query', query);
-    setSearchParams(searchParams);
+    const url = updateUrlSearchParams('query', query);
+    router.push(url.toString());
   }
 
   const handleSearchClear = () => {
@@ -51,7 +55,7 @@ function SearchForm() {
             {
               query &&
                 <button onClick={handleSearchClear} className={styles.searchForm__clear} aria-label="Clear Search">
-                  <i className="fa-solid fa-xmark"></i>
+                  <CrossIcon/>
                 </button>
             }
           </div>
@@ -63,7 +67,6 @@ function SearchForm() {
             Search
           </Button>
         </div>
-        <Outlet context={contextData}/>
       </div>
   );
 }

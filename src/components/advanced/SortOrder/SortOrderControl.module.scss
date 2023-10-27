@@ -7,12 +7,17 @@
   justify-content: center;
 
   &__button {
-    color: $white;
     background: transparent;
     border: none;
 
+    svg {
+      fill: $white;
+    }
+
     &.active {
-      color: $red;
+      svg {
+        fill: $red;
+      }
     }
   }
 }

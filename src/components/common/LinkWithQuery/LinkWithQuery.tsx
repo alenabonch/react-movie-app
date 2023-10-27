@@ -1,4 +1,6 @@
-import { Link, useLocation } from 'react-router-dom';
+'use client'
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 interface LinkWithQueryProps {
   to: string;
@@ -6,10 +8,10 @@ interface LinkWithQueryProps {
 }
 
 export const LinkWithQuery = ({children, to, ...props}: LinkWithQueryProps) => {
-  const {search} = useLocation();
+  const search = useSearchParams();
 
   return (
-      <Link to={to + search} {...props}>
+      <Link href={`${to}?${search.toString()}`} {...props}>
         {children}
       </Link>
   );
