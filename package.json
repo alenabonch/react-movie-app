@@ -113,7 +113,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.ts{,x}": [
+    "src/**/*.ts{,?}": [
       "eslint --ext .tsx,.ts src/"
     ]
   }
