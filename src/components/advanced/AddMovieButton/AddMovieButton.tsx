@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkWithQuery } from 'components/common/LinkWithQuery/LinkWithQuery';
+import { LinkWithQuery } from '../../common/LinkWithQuery/LinkWithQuery';
 import { Button } from '../../common/Button/Button';
 
 export default function AddMovieButton() {

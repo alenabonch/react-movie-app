@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { genresMock } from '../../../data/mocks/Genre';
 import { movieMock } from '../../../data/mocks/Movie';
 
 import MovieTile from './MovieTile';

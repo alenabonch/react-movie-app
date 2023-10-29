@@ -47,6 +47,7 @@ function MovieListPage() {
     } else {
       void fetchMovies();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, sortBy, sortOrder, query, genre]);
 
   const handlePageChange = (page: number) => {

@@ -28,6 +28,7 @@ function AddMovieDialog() {
         onAdd(createdMovie);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieDraft]);
 
   const handleAddMovieSubmit = async (movie: MovieDraft) => {

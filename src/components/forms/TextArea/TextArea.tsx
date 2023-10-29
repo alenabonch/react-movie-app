@@ -1,5 +1,5 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { FormContext } from 'components/forms/Form/Form';
+import { FormContext } from '../Form/Form';
 import React, { useContext } from 'react';
 import styles from './TextArea.module.scss';
 

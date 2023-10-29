@@ -16,7 +16,7 @@ export const FormContext = createContext<UseFormReturn>({} as UseFormReturn);
 
 function Form({defaultValues, children, serverErrors, loading, onSubmit}: FormProps) {
   const methods = useForm({defaultValues})
-  const {handleSubmit, reset, formState: {errors}} = methods
+  const {handleSubmit, reset} = methods
 
   return (
       <form onSubmit={handleSubmit(onSubmit)}>

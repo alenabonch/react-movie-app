@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from 'react';
 
-export const useObserver = (observerTarget: RefObject<any>, canLoad: boolean, loading: boolean, callback: () => void) => {
+export const useObserver = (observerTarget: RefObject<Element>, canLoad: boolean, loading: boolean, callback: () => void) => {
   useEffect(() => {
     if (loading) return;
 
@@ -11,10 +11,10 @@ export const useObserver = (observerTarget: RefObject<any>, canLoad: boolean, lo
     }
 
     const observer = new IntersectionObserver(cb);
-    observer.observe(observerTarget.current);
+    observer.observe(observerTarget.current as Element);
 
     return () => {
       observer.disconnect();
     };
-  }, [loading]);
+  }, [loading, observerTarget, canLoad, callback]);
 }

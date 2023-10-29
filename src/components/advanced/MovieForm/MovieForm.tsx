@@ -30,13 +30,13 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
         <Form onSubmit={onFormSubmit} defaultValues={defaultValues} loading={loading} serverError={error?.response.data.messages}>
           <div className="row mb-3">
             <div className="col-7">
-              <Input name="title" label="Title" rules={{required: "Title is required"}} data-testid="title-input"/>
+              <Input name="title" label="Title" rules={{required: 'Title is required'}} data-testid="title-input"/>
             </div>
 
             <div className="col">
               <Datepicker name="releaseDate"
                           label="Release Date"
-                          rules={{required: "Release Date is required"}}
+                          rules={{required: 'Release Date is required'}}
                           placeholder="Select Date"/>
             </div>
           </div>
@@ -46,8 +46,8 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
               <Input name="posterUrl"
                      label="Movie Url"
                      rules={{
-                       required: "Movie URL is required",
-                       pattern: {value: URL_PATTERN, message: "Entered value does not match URL format"}
+                       required: 'Movie URL is required',
+                       pattern: {value: URL_PATTERN, message: 'Entered value does not match URL format'}
                      }}
                      placeholder="https://"
                      data-testid="url-input"/>
@@ -66,7 +66,7 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
             <div className="col-7">
               <MultiSelect name="genres"
                            label="Genre"
-                           rules={{required: "At least one genre should be selected"}}
+                           rules={{required: 'At least one genre should be selected'}}
                            options={genres}
                            placeholder="Select Genre"/>
             </div>
@@ -85,7 +85,7 @@ function MovieForm({movie, genres, loading, error, onSubmit}: MovieFormProps) {
             <div className="col">
               <TextArea name="overview"
                         label="Overview"
-                        rules={{required: "Overview is required"}}
+                        rules={{required: 'Overview is required'}}
                         rows={4}
                         placeholder="Movie Description"
                         data-testid="overview-input"/>

@@ -29,6 +29,7 @@ function EditMovieDialog() {
         onEdit(updatedMovie);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieToUpdate]);
 
   const handleEditMovieSubmit = async (movie: Movie) => {

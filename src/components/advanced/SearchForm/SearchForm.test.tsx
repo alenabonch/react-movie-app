@@ -11,10 +11,6 @@ const routes = [
   },
 ];
 
-const router = createMemoryRouter(routes, {
-  initialEntries: ['/test?query=hi'],
-});
-
 describe(SearchForm, () => {
   const user = userEvent.setup();
 

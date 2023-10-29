@@ -24,7 +24,7 @@ export const Empty: Story = {
   },
 };
 
-export const filled: Story = {
+export const Filled: Story = {
   args: {
     movie: movieMock,
     genres: genresMock,
