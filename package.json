@@ -14,7 +14,8 @@
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "lint": "eslint --ext .tsx,.ts src/"
+    "lint": "eslint --ext .tsx,.ts src/",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.1",
@@ -70,7 +71,9 @@
     "eslint-plugin-storybook": "^0.6.13",
     "eslint-webpack-plugin": "^4.0.1",
     "html-webpack-plugin": "^5.5.3",
+    "husky": "^8.0.0",
     "interpolate-html-plugin": "^4.0.0",
+    "lint-staged": "^15.0.2",
     "mini-css-extract-plugin": "^2.7.6",
     "postcss-loader": "^7.3.3",
     "prop-types": "^15.8.1",
@@ -108,5 +111,10 @@
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs"
     }
+  },
+  "lint-staged": {
+    "src/**/*.ts{,x}": [
+      "eslint --ext .tsx,.ts src/"
+    ]
   }
 }
