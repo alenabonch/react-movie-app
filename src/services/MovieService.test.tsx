@@ -55,6 +55,7 @@ describe(MovieService, () => {
         limit: 10,
         offset: 5,
         totalAmount: 100,
+        totalPages: 10,
       }
 
       jest.spyOn(mockedAxios, 'get').mockResolvedValue({data: moviesResponseDto});

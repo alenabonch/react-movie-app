@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
-import MovieTile from '../MovieTile/MovieTile';
-import { useObserver } from '../../../hooks/useObserver';
+import React from 'react';
+import ReactPaginate from 'react-paginate';
+import { useSearchParams } from 'react-router-dom';
 import { Movie } from '../../../models/Movie';
 import Spinner from '../../common/Spinner/Spinner';
+import MovieTile from '../MovieTile/MovieTile';
 import styles from './MovieList.module.scss';
 
 interface MovieListProps {
@@ -12,17 +13,16 @@ interface MovieListProps {
   page: number;
   totalPages: number;
   totalAmount: number;
-  onPageChange: (page: number) => void;
   onDelete: (id: string) => void;
 }
 
-function MovieList({movies, loading, error, page, totalPages, totalAmount, onDelete, onPageChange} : MovieListProps) {
-  const lastElement = useRef<HTMLDivElement>(null);
-  const canLoad = (page < totalPages) && !error;
+function MovieList({movies, page, loading, totalPages, error, totalAmount, onDelete} : MovieListProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  useObserver(lastElement, canLoad, loading, () => {
-    onPageChange(page + 1);
-  });
+  const handlePageClick = (event: any) => {
+    searchParams.set('page', (event.selected + 1).toString());
+    setSearchParams(searchParams);
+  }
 
   return (
       <div className={styles.movieList}>
@@ -35,18 +35,30 @@ function MovieList({movies, loading, error, page, totalPages, totalAmount, onDel
               </div>
             </div>
         }
-        <div className="d-flex justify-content-around flex-wrap py-3">
-          {movies.map((movie) => (
-              <MovieTile movie={movie} key={movie.id} onDelete={onDelete}/>
-          ))}
-        </div>
         {
             loading &&
             <div className="d-flex justify-content-center align-items-center mt-4">
               <Spinner size="large"/>
             </div>
         }
-        <div ref={lastElement} className={styles.movieList__lastElement}></div>
+        <div className="d-flex justify-content-around flex-wrap py-3">
+          {movies.map((movie) => (
+              <MovieTile movie={movie} key={movie.id} onDelete={onDelete}/>
+          ))}
+        </div>
+        <div className={styles.movieList__pagination}>
+          <ReactPaginate
+              breakLabel="..."
+              nextLabel="next >"
+              initialPage={page - 1}
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={5}
+              pageCount={totalPages}
+              previousLabel="< previous"
+              className="movies-pagination"
+              renderOnZeroPageCount={null}
+          />
+        </div>
       </div>
   );
 }

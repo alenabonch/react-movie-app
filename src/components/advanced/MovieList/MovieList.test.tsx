@@ -5,7 +5,6 @@ import '../../../__mocks__/intersectionObserver';
 import { movieMock, movieMock2 } from '../../../data/mocks/Movie';
 import MovieList from './MovieList';
 
-const mockOnPageChange = jest.fn();
 const mockOnDelete = jest.fn();
 
 describe(MovieList, () => {
@@ -19,7 +18,6 @@ describe(MovieList, () => {
                             page={0}
                             totalPages={10}
                             totalAmount={100}
-                            onPageChange={mockOnPageChange}
                             onDelete={mockOnDelete}/>
       }
     ];
@@ -45,7 +43,6 @@ describe(MovieList, () => {
                             page={0}
                             totalPages={10}
                             totalAmount={100}
-                            onPageChange={mockOnPageChange}
                             onDelete={mockOnDelete}/>
       }
     ];

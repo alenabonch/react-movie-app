@@ -1,5 +1,6 @@
 import axios, { CancelToken } from 'axios';
 import { Movie, MovieDraft, MovieDraftDto, MovieDto, MoviesRequest, MoviesResponse, MoviesResponseDto } from '../models/Movie';
+import { getPageCount } from '../utils/PageUtils';
 
 class MovieService {
   private static readonly MOVIES_URL = 'http://localhost:4000/movies';
@@ -7,7 +8,7 @@ class MovieService {
   public static async getMovies(params: MoviesRequest, cancelToken?: CancelToken): Promise<MoviesResponse> {
     const response = await axios.get<MoviesResponseDto>(this.MOVIES_URL, {params, cancelToken});
     const data: Movie[] = response.data.data.map(MovieService.transformDtoToMovie);
-    return {...response.data, data}
+    return {...response.data, data, totalPages: getPageCount(response.data.totalAmount, response.data.limit)}
   }
 
   public static async getMovie(movieId: string, cancelToken?: CancelToken): Promise<Movie> {

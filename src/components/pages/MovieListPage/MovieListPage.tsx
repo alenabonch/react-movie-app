@@ -5,11 +5,9 @@ import MovieFilters from '../../advanced/MovieFilters/MovieFilters';
 import MovieList from '../../advanced/MovieList/MovieList';
 import { GENRES } from '../../../data/Genre';
 import { useFetch } from '../../../hooks/useFetch';
-import { usePrevious } from '../../../hooks/usePrevious';
 import { Movie, SortBy, SortOrder } from '../../../models/Movie';
 import MovieService from '../../../services/MovieService';
 import { prepareRequestParams } from '../../../utils/MovieUtils';
-import { getPageCount } from '../../../utils/PageUtils';
 import styles from './MovieListPage.module.scss';
 
 
@@ -20,39 +18,26 @@ function MovieListPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [page, setPage] = useState(1);
-  const prevPage = usePrevious(page) ?? 0;
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query') || '';
   const sortBy = searchParams.get('sortBy') as SortBy || 'release_date';
   const sortOrder = searchParams.get('sortOrder') as SortOrder || 'desc';
   const genre = searchParams.get('genre') || genres[0];
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
   const [fetchMovies, moviesLoading, moviesError] = useFetch(async (cancelToken) => {
-    const loadMore = page > prevPage;
     const params = prepareRequestParams(query, sortBy, sortOrder, limit, page, genre);
     const response = await MovieService.getMovies(params, cancelToken);
-    const updatedMovies = loadMore ? [...movies, ...response.data] : response.data;
-    setMovies(updatedMovies);
+    const movies = response.data;
+    setMovies(movies);
     setTotalAmount(response.totalAmount);
-    setTotalPages(getPageCount(response.totalAmount, limit));
+    setTotalPages(response.totalPages);
   })
 
   useEffect(() => {
-    const filterChanged = page === prevPage;
-    const resetPage = (page !== 1) && filterChanged;
-    if (resetPage) {
-      setPage(1);
-    } else {
-      void fetchMovies();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    void fetchMovies();
   }, [page, sortBy, sortOrder, query, genre]);
-
-  const handlePageChange = (page: number) => {
-    setPage(page);
-  }
 
   const handleAddMovie = () => {
     void fetchMovies();
@@ -81,7 +66,6 @@ function MovieListPage() {
                      page={page}
                      totalPages={totalPages}
                      totalAmount={totalAmount}
-                     onPageChange={handlePageChange}
                      onDelete={handleDeleteMovie}
           />
         </div>

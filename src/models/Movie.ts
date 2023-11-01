@@ -40,6 +40,7 @@ export interface MoviesResponse {
   limit: number;
   offset: number;
   totalAmount: number;
+  totalPages: number;
 }
 
 export type SortBy = 'title' | 'release_date';

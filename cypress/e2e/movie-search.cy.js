@@ -2,7 +2,6 @@ describe('MovieSearch', () => {
   beforeEach(() => {
     cy.intercept('GET', '/movies**', { fixture: 'movies-all.json' }).as('allMovies')
     cy.intercept('GET', '/movies?search=bambi**', { fixture: 'movies-search-bambi.json' }).as('searchMovie')
-    cy.intercept('GET', '/movies?*offset=6**', { fixture: 'movies-more.json' }).as('moreMovies')
 
     cy.visit(Cypress.env('baseUrl'))
     cy.wait('@allMovies')
@@ -33,20 +32,6 @@ describe('MovieSearch', () => {
     .should('have.length', 1)
     .first()
     .should('contain.text', 'Bambi')
-  })
-
-  it('loads more elements with infinite scroll', () => {
-    cy.getByTestId('movie-tile')
-    .should('have.length', 6)
-    .last()
-    .should('contain.text', 'Journey 3: From the Earth to the Moon')
-    .scrollIntoView()
-    cy.wait('@moreMovies')
-
-    cy.getByTestId('movie-tile')
-    .should('have.length', 12)
-    .last()
-    .should('contain.text', 'Avengers: Infinity War')
   })
 
   it('searches by query and displays the searched result after page refresh', () => {
