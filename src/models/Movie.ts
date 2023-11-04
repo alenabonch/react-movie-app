@@ -57,11 +57,9 @@ export interface MoviesRequest {
   limit?: string;
 }
 
-export interface CreateMovieServerError {
-  response: {
-    data: {
-      messages: string[];
-    }
+export interface AddOrUpdateMovieServerError {
+  data: {
+    messages: string[];
   }
 }
 

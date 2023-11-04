@@ -13,10 +13,9 @@ interface MovieListProps {
   page: number;
   totalPages: number;
   totalAmount: number;
-  onDelete: (id: string) => void;
 }
 
-function MovieList({movies, page, loading, totalPages, error, totalAmount, onDelete} : MovieListProps) {
+function MovieList({movies, page, loading, totalPages, error, totalAmount} : MovieListProps) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handlePageClick = (event: any) => {
@@ -43,7 +42,7 @@ function MovieList({movies, page, loading, totalPages, error, totalAmount, onDel
         }
         <div className="d-flex justify-content-around flex-wrap py-3">
           {movies.map((movie) => (
-              <MovieTile movie={movie} key={movie.id} onDelete={onDelete}/>
+              <MovieTile movie={movie} key={movie.id}/>
           ))}
         </div>
         <div className={styles.movieList__pagination}>

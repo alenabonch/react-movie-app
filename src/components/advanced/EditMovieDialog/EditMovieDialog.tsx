@@ -1,39 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useLoaderData, useOutletContext } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
 import { GENRES } from '../../../data/Genre';
-import { useFetch } from '../../../hooks/useFetch';
 import { useNavigateWithQuery } from '../../../hooks/useNavigateWithQuery';
-import { Movie } from '../../../models/Movie';
-import MovieService from '../../../services/MovieService';
+import { AddOrUpdateMovieServerError, Movie } from '../../../models/Movie';
+import { useUpdateMovieMutation } from '../../../services/MovieApi';
+import { isAddOrUpdateMovieError } from '../../../utils/MovieUtils';
 import Dialog from '../../common/Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
 
-interface EditMovieDialogProps {
-  onEdit: (movie: Movie) => void;
-}
 
 function EditMovieDialog() {
-  const {onEdit} = useOutletContext<EditMovieDialogProps>();
-  const {navigateWithQuery} = useNavigateWithQuery()
   const movie = useLoaderData() as Movie;
-  const [movieToUpdate, setMovieToUpdate] = useState<Movie>();
-
-  const [updateMovie, loading, error] = useFetch(async (cancelToken) => {
-    return MovieService.updateMovie(movieToUpdate as Movie, cancelToken);
-  })
-
-  useEffect(() => {
-    if (movieToUpdate) {
-      updateMovie().then((updatedMovie) => {
-        navigateWithQuery(`/${updatedMovie.id}`);
-        onEdit(updatedMovie);
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [movieToUpdate]);
+  const [updateMovie, {isLoading}] = useUpdateMovieMutation();
+  const [serverError, setServerError] = useState<AddOrUpdateMovieServerError | null>(null);
+  const {navigateWithQuery} = useNavigateWithQuery();
 
   const handleEditMovieSubmit = async (movie: Movie) => {
-    setMovieToUpdate(movie);
+    try {
+      const updatedMovie = await updateMovie(movie).unwrap()
+      navigateWithQuery(`/${updatedMovie.id}`);
+    } catch (err) {
+      if (isAddOrUpdateMovieError(err)) {
+        setServerError(err)
+      }
+    }
   }
 
   const handleDialogClose = () => {
@@ -42,7 +32,7 @@ function EditMovieDialog() {
 
   return (
       <Dialog title="Edit Movie" open={true} onClose={handleDialogClose}>
-        <MovieForm movie={movie} loading={loading} error={error} genres={GENRES} onSubmit={handleEditMovieSubmit}/>
+        <MovieForm movie={movie} loading={isLoading} error={serverError} genres={GENRES} onSubmit={handleEditMovieSubmit}/>
       </Dialog>
   );
 }
