@@ -1,16 +1,13 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
+import { renderWithProviders } from '../../../mocks/test-utils';
 import DeleteMovieDialog from './DeleteMovieDialog';
 
-const mockedFetch = jest.fn();
-jest.mock('../../../hooks/useFetch', () => ({
-  useFetch: () => ([mockedFetch, null, null]),
-}));
-
-jest.mock('../../../services/MovieService', () => ({
-  deleteMovie: jest.fn().mockResolvedValue({}),
+const mockedUseNavigateWithQuery = jest.fn();
+jest.mock('../../../hooks/useNavigateWithQuery', () => ({
+  useNavigateWithQuery: () => ({navigateWithQuery: mockedUseNavigateWithQuery}),
 }));
 
 const routes = [
@@ -20,7 +17,7 @@ const routes = [
   },
   {
     path: '/test',
-    element: <DeleteMovieDialog onDelete={jest.fn()} movieId={'123'} onClose={jest.fn()} open={true}/>,
+    element: <DeleteMovieDialog movieId={'1'} onClose={jest.fn()} open={true}/>,
   },
 ];
 
@@ -29,12 +26,12 @@ describe(DeleteMovieDialog, () => {
 
   it('should render delete movie form', async () => {
     const router = createMemoryRouter(routes, {initialEntries: ['/test']});
-    render(<RouterProvider router={router} />);
+    renderWithProviders(<RouterProvider router={router} />);
     expect(screen.getByText('Delete Movie')).toBeInTheDocument();
     expect(screen.getByText('Are you sure you want to delete this movie?')).toBeInTheDocument();
     const confirmButton = (screen.getByText('Confirm'));
     expect(confirmButton).toBeInTheDocument();
     await user.click(confirmButton);
-    expect(mockedFetch).toHaveBeenCalled();
+    await expect(mockedUseNavigateWithQuery).toHaveBeenCalledWith('/')
   });
 });
