@@ -6,7 +6,6 @@ import Spinner from '../../common/Spinner/Spinner';
 export interface FormProps {
   defaultValues: any
   children: any;
-  serverError: any;
   onSubmit: (data: any) => void;
   loading: boolean;
   serverErrors?: string[];

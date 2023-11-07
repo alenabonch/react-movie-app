@@ -1,38 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import React, { useState } from 'react';
 import { GENRES } from '../../../data/Genre';
-import { useFetch } from '../../../hooks/useFetch';
 import { useNavigateWithQuery } from '../../../hooks/useNavigateWithQuery';
-import { MovieDraft } from '../../../models/Movie';
-import MovieService from '../../../services/MovieService';
+import { AddOrUpdateMovieServerError, MovieDraft } from '../../../models/Movie';
+import { useAddMovieMutation } from '../../../services/MovieApi';
+import { isAddOrUpdateMovieError } from '../../../utils/MovieUtils';
 import Dialog from '../../common/Dialog/Dialog';
 import MovieForm from '../MovieForm/MovieForm';
 
-interface AddMovieDialogProps {
-  onAdd: (movie: MovieDraft) => void;
-}
 
 function AddMovieDialog() {
-  const {onAdd} = useOutletContext<AddMovieDialogProps>();
-  const {navigateWithQuery} = useNavigateWithQuery()
-  const [movieDraft, setMovieDraft] = useState<MovieDraft>();
-
-  const [createMovie, loading, error] = useFetch(async (cancelToken) => {
-    return MovieService.createMovie(movieDraft as MovieDraft, cancelToken);
-  });
-
-  useEffect(() => {
-    if (movieDraft) {
-      createMovie().then((createdMovie) => {
-        navigateWithQuery(`/${createdMovie.id}`);
-        onAdd(createdMovie);
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [movieDraft]);
+  const [addMovie, {isLoading}] = useAddMovieMutation();
+  const [serverError, setServerError] = useState<AddOrUpdateMovieServerError | null>(null);
+  const {navigateWithQuery} = useNavigateWithQuery();
 
   const handleAddMovieSubmit = async (movie: MovieDraft) => {
-    setMovieDraft(movie);
+    try {
+      const addedMovie = await addMovie(movie).unwrap()
+      navigateWithQuery(`/${addedMovie.id}`);
+    } catch (err) {
+      if (isAddOrUpdateMovieError(err)) {
+        setServerError(err)
+      }
+    }
   }
 
   const handleDialogClose = () => {
@@ -41,7 +30,7 @@ function AddMovieDialog() {
 
   return (
       <Dialog title="Add Movie" open={true} onClose={handleDialogClose}>
-        <MovieForm movie={null} loading={loading} error={error} genres={GENRES} onSubmit={handleAddMovieSubmit}/>
+        <MovieForm movie={null} loading={isLoading} error={serverError} genres={GENRES} onSubmit={handleAddMovieSubmit}/>
       </Dialog>
   );
 }

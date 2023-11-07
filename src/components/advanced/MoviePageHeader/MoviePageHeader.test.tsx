@@ -6,11 +6,11 @@ import MoviePageHeader from './MoviePageHeader';
 const routes = [
   {
     path: '/',
-    element: <MoviePageHeader onAdd={jest.fn()} onEdit={jest.fn()}/>,
+    element: <MoviePageHeader/>,
   },
   {
     path: '/:movieId',
-    element: <MoviePageHeader onAdd={jest.fn()} onEdit={jest.fn()}/>,
+    element: <MoviePageHeader/>,
   },
 ];
 

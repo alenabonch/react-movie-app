@@ -1,8 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { createMemoryRouter, Outlet, RouterProvider } from 'react-router-dom';
-import { movieMock } from '../../../data/mocks/Movie';
+import { renderWithProviders } from '../../../mocks/test-utils';
 import AddMovieDialog from './AddMovieDialog';
 
 const mockedUseNavigateWithQuery = jest.fn();
@@ -10,16 +10,10 @@ jest.mock('../../../hooks/useNavigateWithQuery', () => ({
   useNavigateWithQuery: () => ({navigateWithQuery: mockedUseNavigateWithQuery}),
 }));
 
-const mockedFetch = jest.fn();
-jest.mock('../../../hooks/useFetch', () => ({
-  useFetch: () => ([mockedFetch, null, null]),
-}));
-
-const mockOnAdd = jest.fn();
 const routes = [
   {
     path: '/',
-    element: <Outlet context={{onAdd: mockOnAdd}}/>,
+    element: <Outlet/>,
     children: [
       {
         path: '/test',
@@ -34,21 +28,20 @@ describe(AddMovieDialog, () => {
 
   it('should render add movie form', async () => {
     const router = createMemoryRouter(routes, {initialEntries: ['/', '/test']});
-    render(<RouterProvider router={router} />);
+    renderWithProviders(<RouterProvider router={router} />);
     await expect(screen.getByText('Add Movie')).toBeInTheDocument();
   });
 
   it('should navigate to home on close', async () => {
     const router = createMemoryRouter(routes, {initialEntries: ['/', '/test']});
-    render(<RouterProvider router={router} />);
+    renderWithProviders(<RouterProvider router={router} />);
     await user.click(screen.getByLabelText('Close Dialog', {selector: 'button'}));
     expect(mockedUseNavigateWithQuery).toHaveBeenCalledWith('/')
   });
 
   it('should call fetch on form submit', async () => {
-    mockedFetch.mockResolvedValue(movieMock);
     const router = createMemoryRouter(routes, {initialEntries: ['/', '/test']});
-    render(<RouterProvider router={router} />);
+    renderWithProviders(<RouterProvider router={router} />);
     await user.type(screen.getByLabelText('Title'), 'Test Movie');
     await user.type(screen.getByLabelText('Release Date'), '2020-12-23');
     await user.type(screen.getByLabelText('Movie Url'), 'https://example.com/movie.jpg');
@@ -60,10 +53,7 @@ describe(AddMovieDialog, () => {
 
     await waitFor(async () => {
       await user.click(screen.getByText('Submit'));
-      expect(mockedFetch).toHaveBeenCalled();
-      expect(mockedFetch).toHaveBeenCalled();
-      expect(mockedUseNavigateWithQuery).toHaveBeenCalledWith('/1')
-      expect(mockOnAdd).toHaveBeenCalledWith(movieMock)
+      await expect(mockedUseNavigateWithQuery).toHaveBeenCalledWith('/2')
     });
   });
 });

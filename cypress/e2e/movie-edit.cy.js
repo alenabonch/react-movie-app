@@ -63,12 +63,14 @@ describe('Edit Movie', () => {
     .type('Cool adventures of Bambi Bumble Bee')
 
     cy.intercept('GET', '/movies/3170**', { fixture: 'movie-get-edited.json' }).as('getEditedMovie')
+    cy.intercept('GET', '/movies?search=bambi**', { fixture: 'movies-search-with-edited.json' }).as('searchMovieWithEdited')
 
     cy.getByTestId('submit-form-button')
     .click()
 
     cy.wait('@editMovie')
     cy.wait('@getEditedMovie')
+    cy.wait('@searchMovieWithEdited')
 
     cy.getByTestId('dialog-content')
     .should('not.exist')

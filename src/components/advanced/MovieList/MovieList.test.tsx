@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import React from 'react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import '../../../__mocks__/intersectionObserver';
 import { movieMock, movieMock2 } from '../../../data/mocks/Movie';
+import { renderWithProviders } from '../../../mocks/test-utils';
 import MovieList from './MovieList';
 
-const mockOnDelete = jest.fn();
 
 describe(MovieList, () => {
   it('should render movie list with total amount', () => {
@@ -15,10 +15,9 @@ describe(MovieList, () => {
         element: <MovieList movies={[movieMock, movieMock2]}
                             loading={false}
                             error={false}
-                            page={0}
+                            page={1}
                             totalPages={10}
-                            totalAmount={100}
-                            onDelete={mockOnDelete}/>
+                            totalAmount={100}/>
       }
     ];
 
@@ -26,7 +25,7 @@ describe(MovieList, () => {
       initialEntries: ['/test'],
     });
 
-    render(<RouterProvider router={router}/>);
+    renderWithProviders(<RouterProvider router={router}/>);
 
     expect(screen.getByTestId('movies-found')).toHaveTextContent('100 movies found');
     expect(screen.getByText(movieMock.title)).toBeInTheDocument();
@@ -40,10 +39,9 @@ describe(MovieList, () => {
         element: <MovieList movies={[movieMock]}
                             loading={true}
                             error={true}
-                            page={0}
+                            page={1}
                             totalPages={10}
-                            totalAmount={100}
-                            onDelete={mockOnDelete}/>
+                            totalAmount={100}/>
       }
     ];
 
@@ -51,7 +49,7 @@ describe(MovieList, () => {
       initialEntries: ['/test'],
     });
 
-    render(<RouterProvider router={router}/>);
+    renderWithProviders(<RouterProvider router={router}/>);
     expect(screen.getByTestId('spinner')).toBeInTheDocument();
     expect(screen.getByText('Something went wrong...')).toBeInTheDocument();
   });

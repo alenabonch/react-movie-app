@@ -1,13 +1,26 @@
+import { Movie } from 'models/Movie';
 import React from 'react';
+import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AddMovieDialog from './components/advanced/AddMovieDialog/AddMovieDialog';
 import EditMovieDialog from './components/advanced/EditMovieDialog/EditMovieDialog';
 import MovieDetailsContainer from './components/advanced/MovieDetailsContainer/MovieDetailsContainer';
 import SearchForm from './components/advanced/SearchForm/SearchForm';
-import { Movie } from './models/Movie';
 import MovieListPage from './components/pages/MovieListPage/MovieListPage';
 import PageNotFound from './components/pages/PageNotFound/PageNotFound';
-import MovieService from './services/MovieService';
+import { movieApi } from './services/MovieApi';
+import { setupStore } from './store/store';
+
+const store = setupStore()
+
+async function loadMovie(id: string): Promise<Movie> {
+  const getMovie = store.dispatch(movieApi.endpoints.getMovie.initiate(id));
+  try {
+    return getMovie.unwrap();
+  } finally {
+    getMovie.unsubscribe()
+  }
+}
 
 const router = createBrowserRouter([
   {
@@ -28,15 +41,15 @@ const router = createBrowserRouter([
       {
         path: ':movieId',
         element: <MovieDetailsContainer/>,
-        loader: async ({params}: any): Promise<Movie> => {
-          return MovieService.getMovie(params.movieId);
+        loader: ({params}: any): Promise<Movie> => {
+          return loadMovie(params.movieId);
         }
       },
       {
         path: ':movieId/edit',
         element: <EditMovieDialog/>,
-        loader: async ({params}: any): Promise<Movie> => {
-          return MovieService.getMovie(params.movieId);
+        loader: ({params}: any): Promise<Movie> => {
+          return loadMovie(params.movieId);
         }
       }
     ],
@@ -49,7 +62,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-      <RouterProvider router={router}/>
+      <Provider store={store}>
+        <RouterProvider router={router}/>
+      </Provider>
   );
 }
 
