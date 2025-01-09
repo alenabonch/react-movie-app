@@ -29,7 +29,7 @@ describe(AddMovieDialog, () => {
   it('should render add movie form', async () => {
     const router = createMemoryRouter(routes, {initialEntries: ['/', '/test']});
     renderWithProviders(<RouterProvider router={router} />);
-    await expect(screen.getByText('Add Movie')).toBeInTheDocument();
+    expect(screen.getByText('Add Movie')).toBeInTheDocument();
   });
 
   it('should navigate to home on close', async () => {
